@@ -4,26 +4,30 @@ import {
   Route,
 } from "react-router-dom/dist";
 import ClientLanding from "../features/client/pages/ClientLanding";
-import AdminLanding from "../features/admin/pages/AdminLanding";
 import ClientLayout from "../features/client/layouts/ClientLayout";
+import AdminLayout from "../features/admin/layouts/AdminLayout";
+import AdminLanding from "../features/admin/pages/AdminLanding/index.jsx";
 
 function getClientRoutes() {
-  return [<Route path="subscriptions" element={<h3>Subscriptions</h3>} />];
+  return [<Route path="/subscriptions" element={<h3>Subscriptions</h3>} />];
 }
 
 function getAdminRoutes() {
-  return [<Route path="restaurants" element={<h3>Restaurants</h3>} />];
+  return [<Route path="/admin/restaurants" element={<h3>Restaurants</h3>} />];
 }
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" errorElement={<ClientLayout />}>
-      <Route index element={<ClientLanding />} />
-      {...getClientRoutes()}
-      <Route path="admin" element={<AdminLanding />}>
+    <>
+      <Route path="/" element={<ClientLayout />}>
+        <Route index element={<ClientLanding />} />
+        {...getClientRoutes()}
+      </Route>
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminLanding />} />
         {...getAdminRoutes()}
       </Route>
-    </Route>
+    </>
   )
 );
 

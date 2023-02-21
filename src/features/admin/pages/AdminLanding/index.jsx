@@ -1,12 +1,7 @@
 import "./index.css";
-import AdminLayout from "../../layouts/AdminLayout";
 
 function AdminLanding() {
-  return (
-    <AdminLayout>
-      <h3>Admin landing</h3>
-    </AdminLayout>
-  );
+  return <h3>Admin landing</h3>;
 }
 
 export default AdminLanding;
