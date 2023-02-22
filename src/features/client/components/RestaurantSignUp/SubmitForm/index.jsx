@@ -138,7 +138,7 @@ function SubmitForm() {
               {errors.email && errors.email.message}
             </FormErrorMessage>
           </FormControl>
-          <Button mt={8} colorScheme="teal" type="submit">
+          <Button mt={8} colorScheme="orange" type="submit">
             Submit information
           </Button>
         </form>
