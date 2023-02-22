@@ -1,9 +1,9 @@
-import React from 'react';
 import { createBrowserRouter } from 'react-router-dom/dist';
 import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
-import AdminLanding from '../features/admin/pages/AdminLanding/index';
+import AdminLanding from '../features/admin/pages/AdminLanding/index.jsx';
+import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 
 function getClientRoutes() {
   return [
@@ -15,6 +15,8 @@ function getClientRoutes() {
       path: '/subscriptions',
       element: <h3>Test</h3>,
     },
+    ,
+    { path: '/restaurantinspect', element: <RestaurantInspect /> },
   ];
 }
 
@@ -31,31 +33,17 @@ function getAdminRoutes() {
   ];
 }
 
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <ClientLayout />,
-      children: getClientRoutes(),
-    },
-    {
-      path: '/admin',
-      element: <AdminLayout />,
-      children: getAdminRoutes(),
-    },
-  ]
-  // createRoutesFromElements(
-  //   <>
-  //     <Route path="/" element={<ClientLayout />}>
-  //       <Route index element={<ClientLanding />} />
-  //       {...getClientRoutes()}
-  //     </Route>
-  //     <Route path="/admin" element={<AdminLayout />}>
-  //       <Route index element={<AdminLanding />} />
-  //       {...getAdminRoutes()}
-  //     </Route>
-  //   </>
-  // )
-);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <ClientLayout />,
+    children: getClientRoutes(),
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: getAdminRoutes(),
+  },
+]);
 
 export default router;
