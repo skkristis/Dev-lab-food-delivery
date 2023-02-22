@@ -1,11 +1,11 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { edit } from "../../../../store/reducers/ordersReducer";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { edit } from '../../../../store/reducers/ordersReducer';
 
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Button, ButtonGroup } from '@chakra-ui/react';
 
-import mapImage from "/public/couriers-map.jpg";
-import "./CouriersOrder.scss";
+import mapImage from '../../assets/couriers-map.jpg';
+import './CouriersOrder.scss';
 
 function CouriersOrder({ order, setActive }) {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function CouriersOrder({ order, setActive }) {
             variant="outline"
             colorScheme="red"
             size="lg"
-            onClick={() => changeOrderStatus("pending")}
+            onClick={() => changeOrderStatus('pending')}
           >
             Abort order
           </Button>
@@ -34,7 +34,7 @@ function CouriersOrder({ order, setActive }) {
           <Button
             colorScheme="green"
             size="lg"
-            onClick={() => changeOrderStatus("fulfilled")}
+            onClick={() => changeOrderStatus('fulfilled')}
           >
             Finish order
           </Button>
@@ -58,7 +58,7 @@ function CouriersOrder({ order, setActive }) {
           <span>Distance to restaurant:</span> {order.distance} km
         </li>
         <li>
-          <span>Payment:</span> {order.payment.total} EUR by{" "}
+          <span>Payment:</span> {order.payment.total} EUR by{' '}
           {order.payment.method}
         </li>
       </ul>

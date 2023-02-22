@@ -1,60 +1,60 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   list: [
     {
       id: 1,
       restaurant: {
-        name: "Rest name #1",
-        address: "Vilnius, Gedimino pr. 1",
+        name: 'Rest name #1',
+        address: 'Vilnius, Gedimino pr. 1',
       },
       customer: {
-        name: "Customer #1",
-        address: "Vilnius, Ausros Vartu g. 1",
+        name: 'Customer #1',
+        address: 'Vilnius, Ausros Vartu g. 1',
       },
       payment: {
         total: 125,
-        method: "card",
+        method: 'card',
       },
-      status: "pending",
+      status: 'pending',
     },
     {
       id: 2,
       restaurant: {
-        name: "Rest name #2",
-        address: "Vilnius, Gedimino pr. 2",
+        name: 'Rest name #2',
+        address: 'Vilnius, Gedimino pr. 2',
       },
       payment: {
         total: 225,
-        method: "cash",
+        method: 'cash',
       },
       customer: {
-        name: "Customer #2",
-        address: "Vilnius, Ausros Vartu g. 2",
+        name: 'Customer #2',
+        address: 'Vilnius, Ausros Vartu g. 2',
       },
-      status: "pending",
+      status: 'pending',
     },
     {
       id: 3,
       restaurant: {
-        name: "Rest name #3",
-        address: "Vilnius, Gedimino pr. 3",
+        name: 'Rest name #3',
+        address: 'Vilnius, Gedimino pr. 3',
       },
       payment: {
         total: 325,
-        method: "card",
+        method: 'card',
       },
       customer: {
-        name: "Customer #3",
-        address: "Vilnius, Ausros Vartu g. 3",
+        name: 'Customer #3',
+        address: 'Vilnius, Ausros Vartu g. 3',
       },
-      status: "pending",
+      status: 'pending',
     },
   ],
 };
 
 export const ordersSlice = createSlice({
-  name: "orders",
+  name: 'orders',
   initialState,
   reducers: {
     add: (state, action) => {
@@ -69,7 +69,7 @@ export const ordersSlice = createSlice({
       state.list = state.list.filter((order) => order.id !== action.payload);
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: () => {},
 });
 
 export const { add, edit, remove } = ordersSlice.actions;

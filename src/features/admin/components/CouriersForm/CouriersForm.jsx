@@ -1,6 +1,5 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useForm } from 'react-hook-form';
 
 import {
   FormErrorMessage,
@@ -8,19 +7,17 @@ import {
   FormControl,
   Input,
   Button,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import "./CouriersForm.scss";
+import './CouriersForm.scss';
 
 const user = {
-  firstName: "John",
-  lastName: "Doe",
-  driverLicense: "12345qwe",
+  firstName: 'John',
+  lastName: 'Doe',
+  driverLicense: '12345qwe',
 };
 
 function CouriersForm() {
-  //const orders = useSelector((state) => state.orders.list);
-
   const {
     handleSubmit,
     register,
@@ -29,7 +26,7 @@ function CouriersForm() {
     defaultValues: { ...user },
   });
 
-  function onSubmit(values) {}
+  function onSubmit() {}
 
   return (
     <div className="couriers-form">
@@ -42,8 +39,8 @@ function CouriersForm() {
           <Input
             id="first-name"
             placeholder="First name"
-            {...register("firstName", {
-              required: "This field is required.",
+            {...register('firstName', {
+              required: 'This field is required.',
             })}
           />
           <FormErrorMessage>
@@ -59,8 +56,8 @@ function CouriersForm() {
           <Input
             id="last-name"
             placeholder="Last name"
-            {...register("lastName", {
-              required: "This field is required.",
+            {...register('lastName', {
+              required: 'This field is required.',
             })}
           />
           <FormErrorMessage>
@@ -76,7 +73,7 @@ function CouriersForm() {
           <Input
             id="driver-license"
             placeholder="Driver license"
-            {...register("driverLicense", {})}
+            {...register('driverLicense', {})}
           />
           <FormErrorMessage>
             {errors.driverLicense && errors.driverLicense.message}
@@ -90,7 +87,7 @@ function CouriersForm() {
           size="lg"
           isLoading={isSubmitting}
         >
-          Save
+          Update
         </Button>
       </form>
     </div>
