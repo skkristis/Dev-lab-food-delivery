@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { edit } from '../../../../store/reducers/ordersReducer';
 
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 
 import mapImage from '../../assets/couriers-map.jpg';
 import './CouriersOrder.scss';
@@ -21,7 +21,7 @@ function CouriersOrder({ order, setActive }) {
       <div className="couriers-order__head">
         <p className="couriers-order__title">Order #{order.id}</p>
 
-        <ButtonGroup gap="2">
+        <div className="couriers-order__nav">
           <Button
             variant="outline"
             colorScheme="red"
@@ -38,7 +38,7 @@ function CouriersOrder({ order, setActive }) {
           >
             Finish order
           </Button>
-        </ButtonGroup>
+        </div>
       </div>
 
       <ul className="couriers-order__info info-list">
