@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link } from 'react-router-dom';
+import React from 'react';
 
-import "./index.css";
+import './index.css';
 
 function Header() {
   return (
@@ -18,7 +18,7 @@ function Header() {
             Add new recipe
           </Link>
           <Link className="Header--interactive" to="/search">
-            Let's find some recipes!
+            Let&apos;s find some recipes!
           </Link>
         </nav>
       </div>
