@@ -8,6 +8,12 @@
     margin-bottom: 20px;
   }
 
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
   &__title {
     font-weight: 700;
     font-size: 32px;

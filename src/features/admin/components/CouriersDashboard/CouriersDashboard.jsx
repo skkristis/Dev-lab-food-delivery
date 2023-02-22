@@ -29,15 +29,20 @@ function CouriersDashboard() {
 
   return (
     <div className="couriers-dashboard">
-      <Tabs size="lg" isFitted variant="enclosed" colorScheme="green">
-        <TabList>
+      <Tabs
+        size={{ base: 'md', md: 'lg' }}
+        isFitted
+        variant="enclosed"
+        colorScheme="green"
+      >
+        <TabList className="couriers-dashboard__tablist">
           <Tab>Orders</Tab>
           <Tab>Personal Stats</Tab>
           <Tab>Personal Info</Tab>
         </TabList>
 
-        <TabPanels>
-          <TabPanel>
+        <TabPanels className="couriers-dashboard__tabpanels">
+          <TabPanel p={0}>
             {activeOrder && (
               <CouriersOrder order={activeOrder} setActive={setActiveOrder} />
             )}
@@ -53,11 +58,11 @@ function CouriersDashboard() {
               ))}
           </TabPanel>
 
-          <TabPanel>
+          <TabPanel p={0}>
             <CouriersStats />
           </TabPanel>
 
-          <TabPanel>
+          <TabPanel p={0}>
             <CouriersForm />
           </TabPanel>
         </TabPanels>
