@@ -11,11 +11,7 @@ import {
 
 import './CouriersForm.scss';
 
-const user = {
-  firstName: 'John',
-  lastName: 'Doe',
-  driverLicense: '12345qwe',
-};
+import user from '../../mocks/user';
 
 function CouriersForm() {
   const {

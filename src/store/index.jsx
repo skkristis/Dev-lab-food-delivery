@@ -1,11 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
-import sampleReducer from './reducers/sampleReducer';
 import ordersReducer from './reducers/ordersReducer';
 
 const rootReducer = combineReducers({
-  sample: sampleReducer,
   orders: ordersReducer,
 });
 

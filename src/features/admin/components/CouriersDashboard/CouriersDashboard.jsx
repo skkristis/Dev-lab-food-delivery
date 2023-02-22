@@ -11,15 +11,13 @@ import './CouriersDashboard.scss';
 
 function CouriersDashboard() {
   function getPendingOrders(orders) {
-    let pendingOrders = orders.filter((order) => order.status === 'pending');
-
-    pendingOrders = pendingOrders.map((order) => {
-      const distance = Math.floor(Math.random() * 25 + 0.5);
-      return { ...order, distance };
-    });
-
-    pendingOrders = pendingOrders.sort((a, b) => a.distance - b.distance);
-    return pendingOrders;
+    return orders
+      .filter((order) => order.status === 'pending')
+      .map((order) => {
+        const distance = Math.floor(Math.random() * 25 + 0.5);
+        return { ...order, distance };
+      })
+      .sort((a, b) => a.distance - b.distance);
   }
 
   const orders = useSelector((state) => state.orders.list);

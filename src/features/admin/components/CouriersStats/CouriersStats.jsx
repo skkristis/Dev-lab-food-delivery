@@ -10,7 +10,20 @@ import {
 
 import './CouriersStats.scss';
 
+import user from '../../mocks/user';
+
 function CouriersStats() {
+  const partnerDate = new Date(user.registrationDate).toLocaleString(
+    'default',
+    {
+      dateStyle: 'medium',
+    }
+  );
+
+  let currentMonth = new Date(Date.now()).toLocaleString('default', {
+    month: 'long',
+  });
+
   return (
     <div className="couriers-stats">
       <Stat
@@ -19,8 +32,8 @@ function CouriersStats() {
         borderRadius="lg"
       >
         <StatLabel>Total orders delivered</StatLabel>
-        <StatNumber>2023</StatNumber>
-        <StatHelpText>Partner since Feb 2018</StatHelpText>
+        <StatNumber>{user.stats.orders.total}</StatNumber>
+        <StatHelpText>Partner since {partnerDate}</StatHelpText>
       </Stat>
 
       <Stat
@@ -28,11 +41,13 @@ function CouriersStats() {
         borderWidth="1px"
         borderRadius="lg"
       >
-        <StatLabel>Delivered in February</StatLabel>
-        <StatNumber>450</StatNumber>
+        <StatLabel>Delivered in {currentMonth}</StatLabel>
+        <StatNumber>{user.stats.orders.month}</StatNumber>
         <StatHelpText>
-          <StatArrow type="increase" />
-          9.05%
+          <StatArrow
+            type={user.stats.orders.monthIncrease > 0 ? 'increase' : 'decrease'}
+          />
+          {user.stats.orders.monthIncrease}%
         </StatHelpText>
       </Stat>
 
@@ -42,8 +57,8 @@ function CouriersStats() {
         borderRadius="lg"
       >
         <StatLabel>Total revenue</StatLabel>
-        <StatNumber>8123 EUR</StatNumber>
-        <StatHelpText>Partner since Feb 2018</StatHelpText>
+        <StatNumber>{user.stats.revenue.total} EUR</StatNumber>
+        <StatHelpText>Partner since {partnerDate}</StatHelpText>
       </Stat>
 
       <Stat
@@ -51,11 +66,15 @@ function CouriersStats() {
         borderWidth="1px"
         borderRadius="lg"
       >
-        <StatLabel>Revenue in February</StatLabel>
-        <StatNumber>1450 EUR</StatNumber>
+        <StatLabel>Revenue in {currentMonth}</StatLabel>
+        <StatNumber>{user.stats.revenue.month} EUR</StatNumber>
         <StatHelpText>
-          <StatArrow type="increase" />
-          12%
+          <StatArrow
+            type={
+              user.stats.revenue.monthIncrease > 0 ? 'increase' : 'decrease'
+            }
+          />
+          {user.stats.revenue.monthIncrease}%
         </StatHelpText>
       </Stat>
     </div>
