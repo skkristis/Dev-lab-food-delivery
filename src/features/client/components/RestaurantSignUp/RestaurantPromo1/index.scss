@@ -1,0 +1,38 @@
+.Layout__main {
+  max-width: unset;
+  padding: 0;
+}
+.promo1 {
+  &__section {
+    height: 300px;
+    background-image: url(https://www.lekste.lt/dist/img/static/marketing/hero-bg.png);
+    background-repeat: no-repeat;
+    background-position: 80%;
+    background-size: cover;
+    padding: 50px 0;
+    color: #fff;
+  }
+  &__wrapper {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  &__description {
+    font-size: 24px;
+  }
+  &__list {
+    list-style: none;
+    padding: 0;
+    &-item {
+      font-size: 30px;
+      span {
+        color: #ec6531;
+      }
+      &::before {
+        content: "• ";
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+table {
+  width: 1000px;
+  margin: 40px auto 0 auto;
+  margin-top: 40px;
+  border: 2px solid grey;
+  font-size: 20px;
+}
+
+th {
+  border-bottom: 1px solid black;
+  padding: 20px;
+  &:first-child {
+    width: 300px;
+  }
+}
+
+td {
+  padding: 5px;
+  text-align: center;
+  border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+}
+
+span {
+  font-weight: 700;
+}
+
+.table {
+  &__header {
+    font-size: 20px;
+    span {
+      color: #ec6531;
+      font-weight: normal;
+    }
+  }
+}
