@@ -1,0 +1,13 @@
+.couriers-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  &__block {
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 450px) {
+    grid-template-columns: 1fr;
+  }
+}

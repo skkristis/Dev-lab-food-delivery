@@ -4,7 +4,8 @@ import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
-import { BiRestaurant, FiHome } from 'react-icons/all.js';
+import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
+import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
 
 function getClientRoutes() {
   return [
@@ -32,6 +33,12 @@ export function getAdminRoutes() {
       element: <h3>Restaurants</h3>,
       navItemName: 'Restaurants',
       navItemIcon: BiRestaurant,
+    },
+    {
+      path: '/admin/couriers',
+      element: <CouriersDashboard />,
+      navItemName: 'Couriers',
+      navItemIcon: BiCar,
     },
   ];
 }
