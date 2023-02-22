@@ -1,13 +1,12 @@
 .couriers-dashboard {
   padding: 40px;
+  background-color: #fff;
 
   @media screen and (max-width: 768px) {
     padding: 20px;
   }
 
   &__tablist {
-    margin-bottom: 20px;
-
     @media screen and (max-width: 450px) {
       flex-direction: column !important;
       border-bottom: none !important;
@@ -30,7 +29,7 @@
   }
 
   &__tabpanels {
-    padding-top: 20px;
+    padding-top: 40px;
   }
 
   &__empty {
