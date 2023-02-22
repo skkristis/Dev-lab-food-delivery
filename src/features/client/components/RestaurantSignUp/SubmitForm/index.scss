@@ -1,0 +1,29 @@
+.signup {
+  &__wrapper {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 40px;
+  }
+  &__header {
+    font-size: 38px;
+    font-weight: 600;
+    color: #4e4e4e;
+  }
+  &__message {
+    flex: 2;
+  }
+}
+
+.form {
+  background-color: #f7f7f7;
+  padding: 30px 20px;
+  flex: 3;
+  border: 1px solid grey;
+  &__wrapper {
+    display: flex;
+  }
+  &__label {
+    margin-top: 15px;
+  }
+}

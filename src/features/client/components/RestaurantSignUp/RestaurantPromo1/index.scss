@@ -4,7 +4,6 @@
 }
 .promo1 {
   &__section {
-    height: 300px;
     background-image: url(https://www.lekste.lt/dist/img/static/marketing/hero-bg.png);
     background-repeat: no-repeat;
     background-position: 80%;
@@ -13,11 +12,15 @@
     color: #fff;
   }
   &__wrapper {
-    height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     gap: 20px;
+  }
+  &__title {
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 50px;
   }
   &__description {
     font-size: 24px;
@@ -31,8 +34,12 @@
         color: #ec6531;
       }
       &::before {
-        content: "• ";
+        content: '• ';
       }
     }
+  }
+  &__btns {
+    display: flex;
+    gap: 15px;
   }
 }

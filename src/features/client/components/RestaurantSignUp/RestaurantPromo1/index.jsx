@@ -1,3 +1,5 @@
+import React from "react";
+import Button from "../Button";
 import "./index.scss";
 
 function RestaurantPromo1() {
@@ -20,10 +22,8 @@ function RestaurantPromo1() {
             </h4>
           </ul>
           <div className="promo1__btns">
-            <button className="promo1__button">Sign up for bfd.lt</button>
-            <button className="restaurant-signup__button">
-              Sign up for a free workshop
-            </button>
+            <Button content='Sign up for bfd.lt' isSubmit={false}/>
+            <Button content='Sign up for a free workshop' isSubmit={false}/>
           </div>
         </div>
       </div>
