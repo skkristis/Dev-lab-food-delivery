@@ -1,0 +1,16 @@
+.couriers-dashboard {
+  .chakra-tabs__tablist {
+    margin-bottom: 20px;
+
+    button {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  &__empty {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
