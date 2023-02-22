@@ -1,29 +1,26 @@
-import { Button, CardFooter } from '@chakra-ui/react';
 import React from 'react';
 import './index.css';
 import {
+  Box,
+  Button,
   Card,
   CardBody,
-  Stack,
-  Heading,
-  Image,
+  CardFooter,
   ChakraProvider,
+  Heading,
   Flex,
+  Image,
   List,
-  ListItem,
   ListIcon,
+  ListItem,
+  Stack,
   Text,
-  Box,
 } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
-import ExtendedComponent from './extendedComponent';
+import ExtendedComponent from './ExtendedComponent';
+import { Link } from 'react-router-dom';
 
 function CourierRegisterLanding() {
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log('button clicked');
-  };
-
   return (
     <React.Fragment>
       <ChakraProvider>
@@ -32,8 +29,8 @@ function CourierRegisterLanding() {
             <Text as="b" fontSize="5xl">
               Become A Courier!
             </Text>
-            <Button onClick={handleClick} width="150px">
-              Submit A Form
+            <Button width="150px">
+              <Link to="/apply-as-courier">Submit A Form</Link>
             </Button>
           </Flex>
         </Box>
@@ -164,7 +161,9 @@ function CourierRegisterLanding() {
                 <Text>Deliver & Earn</Text>
               </Box>
             </Flex>
-            <Button onClick={handleClick}>Submit A Form</Button>
+            <Button>
+              <Link to="/apply-as-courier">Submit A Form</Link>
+            </Button>
           </Flex>
         </Box>
         <Box m={10}>
@@ -196,7 +195,9 @@ function CourierRegisterLanding() {
                 </List>
               </CardBody>
               <CardFooter>
-                <Button onClick={handleClick}>Submit A Form</Button>
+                <Button>
+                  <Link to="/apply-as-courier">Submit A Form</Link>
+                </Button>
               </CardFooter>
             </Stack>
             <Image
@@ -264,8 +265,8 @@ function CourierRegisterLanding() {
             <Text as="b" fontSize="4xl">
               Sign up today and you&apos;ll hit the road in no time!
             </Text>
-            <Button onClick={handleClick} width="150px" m={5}>
-              Submit A Form
+            <Button width="150px" m={5}>
+              <Link to="/apply-as-courier">Submit A Form</Link>
             </Button>
           </Flex>
         </Box>
