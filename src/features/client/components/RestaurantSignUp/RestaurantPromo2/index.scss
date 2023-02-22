@@ -1,12 +1,23 @@
 .promo2 {
   &__section {
-    // height: 300px;
     padding: 50px 0;
   }
   &__wrapper {
     width: 100%;
     display: flex;
-    gap: 40px;
+    gap: 60px;
+    p {
+      margin-top: 15px;
+    }
+    button {
+      margin-top: 25px;
+    }
+  }
+  &__title {
+    font-size: 38px;
+    line-height: 50px;
+    font-weight: 600;
+    color: #4e4e4e;
   }
   &__img {
     width: 100%;
@@ -16,6 +27,8 @@
     background-position: center;
   }
   &__main {
+    display: flex;
+    flex-direction: column;
     span {
       font-weight: 700;
     }
