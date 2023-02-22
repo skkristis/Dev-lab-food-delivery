@@ -7,6 +7,7 @@ import AdminLanding from '../features/admin/pages/AdminLanding/index';
 import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
 import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
+import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 
 function getClientRoutes() {
@@ -30,6 +31,10 @@ function getClientRoutes() {
     {
       path: '*',
       element: <ClientLanding />,
+    },
+    {
+      path: '/courier',
+      element: <CourierRegisterLanding />,
     },
   ];
 }
