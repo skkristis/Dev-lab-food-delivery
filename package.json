@@ -6,25 +6,33 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "prettier --write 'src/**/**.jsx' && eslint --fix 'src/**/**.jsx'"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "@reduxjs/toolkit": "^1.9.3",
+    "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@reduxjs/toolkit": "^1.9.3",
     "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "framer-motion": "^9.0.7",
     "prettier": "2.8.4",
     "react-hook-form": "^7.43.1",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.8.1",
     "sass": "^1.58.3",
     "vite": "^4.1.0"
   }

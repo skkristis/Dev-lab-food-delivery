@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import Header from "../../components/Header/index.jsx";
-import Footer from "../../components/Footer/index.jsx";
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import Header from '../../components/Header/index';
+import Footer from '../../components/Footer/index';
 
-import "./index.css";
+import './index.css';
 
-function Layout({ children }) {
+function Layout() {
   return (
     <div className="Layout">
       <Header />

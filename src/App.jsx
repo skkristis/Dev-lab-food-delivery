@@ -1,9 +1,10 @@
-import { RouterProvider } from "react-router-dom/dist";
-import router from "./router/index.jsx";
-import "./App.css";
-import { Provider } from "react-redux";
-import { persistor, store } from "./store/index.jsx";
-import { PersistGate } from "redux-persist/integration/react";
+import React from 'react';
+import { RouterProvider } from 'react-router-dom/dist';
+import { PersistGate } from 'redux-persist/integration/react';
+import './App.css';
+import { Provider } from 'react-redux';
+import router from './router/index';
+import { persistor, store } from './store/index';
 
 export default function App() {
   return (
