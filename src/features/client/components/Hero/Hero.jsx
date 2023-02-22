@@ -1,20 +1,29 @@
-import { Box, Heading, Image, Input } from "@chakra-ui/react";
+import { Box, Heading, Image, Input } from '@chakra-ui/react';
 
-import imageUrl from "../../../../assets/client-landing-hero.jpg";
+import imageUrl from '../../../../assets/client-landing-hero.jpg';
 
 function Hero() {
   return (
     <Box position="relative" className="container" marginTop="50px">
-      <Image src={imageUrl} zIndex="-1" />
+      <Image
+        display={{ base: 'none', sm: 'block' }}
+        src={imageUrl}
+        zIndex="-1"
+      />
       <Box
-        position="absolute"
+        position={{ base: 'block', sm: 'absolute' }}
         top="50%"
-        left="20%"
-        width="50%"
+        left="12.5%"
+        width={{ base: '100%', sm: '75%' }}
         backdropFilter="auto"
-        backdropBlur="2px"
+        backdropBlur="1.5px"
       >
-        <Heading color="white">Let's find some food!</Heading>
+        <Heading
+          color={{ base: 'black', sm: 'white' }}
+          marginBlock={{ base: '30px', sm: '0' }}
+        >
+          Let's find some food!
+        </Heading>
         <Input color="white" bg="lightgray" placeholder="Search" />
       </Box>
     </Box>

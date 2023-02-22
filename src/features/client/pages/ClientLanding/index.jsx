@@ -4,7 +4,7 @@ import './index.css';
 
 import Hero from '../../components/Hero/Hero';
 import Categories from '../../components/Categories/Categories';
-import RestaurantList from '../../components/RestaurantList/RestaurantList';
+import RestaurantList from '../../components/RestaurantList';
 
 function ClientLanding() {
   return (

@@ -37,7 +37,8 @@ function Header() {
         right="0"
         top="0"
         zIndex="5"
-        bg="lightcoral"
+        borderBottom="1px solid lightgray"
+        bg="white"
       >
         <Box
           className="container"
