@@ -1,6 +1,4 @@
-import React from 'react';
 import { RouterProvider } from 'react-router-dom/dist';
-import { PersistGate } from 'redux-persist/integration/react';
 import './App.css';
 import { Provider } from 'react-redux';
 import router from './router/index';
