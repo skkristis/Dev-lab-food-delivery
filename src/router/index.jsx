@@ -4,6 +4,7 @@ import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
+import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 
 function getClientRoutes() {
   return [
@@ -14,6 +15,10 @@ function getClientRoutes() {
     {
       path: '/subscriptions',
       element: <h3>Test</h3>,
+    },
+    {
+      path: '/courier',
+      element: <CourierRegisterLanding />,
     },
   ];
 }
