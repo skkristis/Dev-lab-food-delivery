@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import CouriersOrderCard from "../CouriersOrderCard/CouriersOrderCard";
+import CouriersOrderCard from '../CouriersOrderCard/CouriersOrderCard';
 
-import "./CouriersOrders.scss";
+import './CouriersOrders.scss';
 
 function CouriersOrders({ orders, setActive }) {
   return (

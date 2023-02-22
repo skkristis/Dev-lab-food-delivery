@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import { Button } from "@chakra-ui/react";
+import { Button } from '@chakra-ui/react';
 
-import "./CouriersOrderCard.scss";
+import './CouriersOrderCard.scss';
 
 function CouriersOrderCard({ order, setActive }) {
   const handleClick = () => {
-    setActive({ ...order, status: "active" });
+    setActive({ ...order, status: 'active' });
   };
 
   return (
@@ -16,11 +16,11 @@ function CouriersOrderCard({ order, setActive }) {
 
         <ul className="order-card__list">
           <li>
-            Restaurant: <strong>{order.restaurant.name}</strong>,{" "}
+            Restaurant: <strong>{order.restaurant.name}</strong>,{' '}
             {order.restaurant.address}
           </li>
           <li>
-            Customer: <strong>{order.customer.name}</strong>,{" "}
+            Customer: <strong>{order.customer.name}</strong>,{' '}
             {order.customer.address}
           </li>
           <li>Distance to restaurant: {order.distance} km</li>
