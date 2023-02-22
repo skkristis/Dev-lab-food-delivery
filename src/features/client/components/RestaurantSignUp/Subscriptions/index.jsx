@@ -21,7 +21,7 @@ function Subscriptions() {
   return (
     <div className="restaurant-signup__container">
       <TableContainer width="1040px" m="0 auto">
-        <Table variant="simple" colorScheme="teal">
+        <Table variant="simple" colorScheme="purple">
           <TableCaption>Subscription plans</TableCaption>
           <Thead>
             <Tr>
