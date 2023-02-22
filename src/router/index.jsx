@@ -4,6 +4,7 @@ import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
+import { BiRestaurant, FiHome } from 'react-icons/all.js';
 
 function getClientRoutes() {
   return [
@@ -18,44 +19,34 @@ function getClientRoutes() {
   ];
 }
 
-function getAdminRoutes() {
+export function getAdminRoutes() {
   return [
     {
       element: <AdminLanding />,
       index: true,
+      navItemName: 'Dashboard',
+      navItemIcon: FiHome,
     },
     {
       path: '/admin/restaurants',
       element: <h3>Restaurants</h3>,
+      navItemName: 'Restaurants',
+      navItemIcon: BiRestaurant,
     },
   ];
 }
 
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <ClientLayout />,
-      children: getClientRoutes(),
-    },
-    {
-      path: '/admin',
-      element: <AdminLayout />,
-      children: getAdminRoutes(),
-    },
-  ]
-  // createRoutesFromElements(
-  //   <>
-  //     <Route path="/" element={<ClientLayout />}>
-  //       <Route index element={<ClientLanding />} />
-  //       {...getClientRoutes()}
-  //     </Route>
-  //     <Route path="/admin" element={<AdminLayout />}>
-  //       <Route index element={<AdminLanding />} />
-  //       {...getAdminRoutes()}
-  //     </Route>
-  //   </>
-  // )
-);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <ClientLayout />,
+    children: getClientRoutes(),
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: getAdminRoutes(),
+  },
+]);
 
 export default router;
