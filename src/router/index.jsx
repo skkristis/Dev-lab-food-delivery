@@ -5,6 +5,7 @@ import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
+import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
 
 function getClientRoutes() {
   return [
@@ -19,6 +20,10 @@ function getClientRoutes() {
     {
       path: '/courier',
       element: <CourierRegisterLanding />,
+    },
+    {
+      path: '/apply-as-courier',
+      element: <CourierRegisterForm />,
     },
   ];
 }
