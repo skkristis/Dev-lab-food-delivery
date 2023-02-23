@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import { Text, Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import UserForm from './UserForm';
+import UserForm from '../../components/UserForm/UserForm';
 
 function CourierRegisterForm() {
   return (
@@ -29,7 +29,7 @@ function CourierRegisterForm() {
           </Text>
           <Text>We&apos;ll ask a few basic things about you</Text>
         </Box>
-        <UserForm></UserForm>
+        <UserForm />
       </Box>
     </>
   );

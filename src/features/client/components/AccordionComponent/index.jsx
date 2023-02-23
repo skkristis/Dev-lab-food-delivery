@@ -9,9 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-function AccordionComponent(props) {
-  const { title, body } = props;
-
+function AccordionComponent({ title, body }) {
   return (
     <Accordion allowToggle m={5}>
       <AccordionItem>

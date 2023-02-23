@@ -11,9 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 
-function CardImageTop(props) {
-  const { heading, list, imageSrc, imageAlt } = props;
-
+function CardImageTop({ heading, list, imageSrc, imageAlt }) {
   return (
     <Card maxW="sm">
       <CardBody>

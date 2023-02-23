@@ -15,9 +15,14 @@ import {
 } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 
-function CardWithImage(props) {
-  const { heading, text, list, buttonText, imageSrc, imageAlt } = props;
-
+function CardWithImage({
+  heading,
+  text,
+  list,
+  buttonText,
+  imageSrc,
+  imageAlt,
+}) {
   return (
     <Box m={10}>
       <Card

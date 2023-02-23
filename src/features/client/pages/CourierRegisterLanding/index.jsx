@@ -10,10 +10,8 @@ import Circle from '../../components/Circle';
 
 function CourierRegisterLanding() {
   const [smallerScreen] = useMediaQuery('(max-width: 750px)');
-
-  console.log(smallerScreen);
   return (
-    <React.Fragment>
+    <>
       <Box>
         <Flex flexDirection="column" alignItems="center">
           <Text as="b" fontSize="5xl" textAlign="center">
@@ -168,7 +166,7 @@ function CourierRegisterLanding() {
           <Text>About delivery app text awesome</Text>
         </Flex>
       </Box>
-    </React.Fragment>
+    </>
   );
 }
 
