@@ -26,7 +26,7 @@ const UserForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <React.Fragment>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex flexDirection="column" alignItems="center">
           <Box>
@@ -82,7 +82,7 @@ const UserForm = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </React.Fragment>
+    </>
   );
 };
 
