@@ -22,7 +22,7 @@ function getClientRoutes() {
 
     {
       path: '/restaurants/:id',
-      loader: async ({ params }) => {
+      loader: async () => {
         return restaurantInspectMock;
       },
       element: <RestaurantInspect />,
