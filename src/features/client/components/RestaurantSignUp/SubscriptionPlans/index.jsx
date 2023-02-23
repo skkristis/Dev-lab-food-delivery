@@ -11,7 +11,6 @@ import {
   useMediaQuery,
 } from '@chakra-ui/react';
 import './index.scss';
-// import Button from '../Button';
 import { Button } from '@chakra-ui/react';
 
 function SubscriptionPlans() {
