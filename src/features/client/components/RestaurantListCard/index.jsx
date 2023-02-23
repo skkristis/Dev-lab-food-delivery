@@ -24,7 +24,7 @@ function RestaurantListCard({ restaurant }) {
       display="flex"
       flexDir="column"
       gap="2"
-      to="/restaurantinspect"
+      to={`/restaurants/${restaurant.id}`}
       bg="white"
       _hover={{ transform: 'scale(1.01)' }}
       transition="0.3s"

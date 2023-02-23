@@ -8,7 +8,7 @@ import {
   LinkOverlay,
 } from '@chakra-ui/react';
 
-import { categories } from '../../mocks/categories';
+import { categories } from '../../mocks/categoriesMock';
 
 function Categories() {
   return (

@@ -1,5 +1,5 @@
 import { RouterProvider } from 'react-router-dom/dist';
-import './App.css';
+import './App.scss';
 import { Provider } from 'react-redux';
 import router from './router/index';
 import { PersistGate } from 'redux-persist/integration/react';

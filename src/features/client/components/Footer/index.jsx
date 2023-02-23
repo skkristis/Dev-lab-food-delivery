@@ -11,7 +11,7 @@ import React from 'react';
 
 import appleStoreUrl from '../../../../assets/get-on-apple-store.svg';
 import googleStoreUrl from '../../../../assets/get-on-google-store.png';
-import { footerArticles } from '../../mocks/footerArticles';
+import { footerArticles } from '../../mocks/footerArticlesMock';
 import FooterArticle from '../FooterArticle';
 
 function Footer() {

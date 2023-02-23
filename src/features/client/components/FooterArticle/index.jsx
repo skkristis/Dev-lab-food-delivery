@@ -1,4 +1,5 @@
 import { Heading, ListItem, UnorderedList, Box, Link } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 
 function FooterArticle({ article }) {
   return (
@@ -22,7 +23,9 @@ function FooterArticle({ article }) {
         {article.footerArticleListItems.map((listItem, i) => {
           return (
             <ListItem key={i}>
-              <Link to={listItem.to || ''}>{listItem.content} </Link>
+              <Link as={RouterLink} to={listItem.to || ''}>
+                {listItem.content}
+              </Link>
             </ListItem>
           );
         })}

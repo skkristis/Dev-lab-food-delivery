@@ -1,6 +1,6 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 
-import { restaurants } from '../../mocks/restaurants';
+import { restaurants } from '../../mocks/restaurantsMock';
 import RestaurantListCard from '../RestaurantListCard';
 
 function RestaurantList() {

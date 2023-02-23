@@ -2,10 +2,10 @@ export const footerArticles = [
   {
     footerArticleHeading: "Let's do this together",
     footerArticleListItems: [
-      { to: '', content: 'Lorem ipsum' },
-      { to: '', content: 'Consectetur' },
-      { to: '', content: 'Integer molestie' },
-      { to: '', content: 'Facilisis in' },
+      { to: '/admin/couriers', content: 'For couriers' },
+      { to: '/admin/restaurants', content: 'For restaurants' },
+      { to: '', content: 'For stores' },
+      { to: '', content: 'For companies' },
     ],
   },
   {
