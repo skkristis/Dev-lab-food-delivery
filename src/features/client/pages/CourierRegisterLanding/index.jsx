@@ -16,10 +16,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
-import ExtendedComponent from './ExtendedComponent';
 import { Link } from 'react-router-dom';
 import CardWithImage from '../../components/CardWithImage';
 import CardText from '../../components/CardText';
+import AccordionComponent from '../../components/AccordionComponent';
 
 function CourierRegisterLanding() {
   return (
@@ -217,23 +217,21 @@ function CourierRegisterLanding() {
             </Text>
           </Box>
           <Box mb={5}>
-            <ExtendedComponent
-              title={'How long does the application process take?'}
-            >
-              Typically, it takes less than 30 minutes to fill out the
-              application. If you&apos;re new to Wolt, you&apos;ll need to
+            <AccordionComponent
+              title="How long does the application process take?"
+              body="Typically, it takes less than 30 minutes to fill out the
+              application. If you're new to Wolt, you'll need to
               create an account, enter in a few basic details, and upload the
-              required documents.
-            </ExtendedComponent>
-            <ExtendedComponent
-              title={'Are there other requirements to deliver?'}
-            >
-              You&apos;ll need to be 18 years or older, and in possession of a
+              required documents."
+            />
+            <AccordionComponent
+              title="Are there other requirements to deliver?"
+              body="          You'll need to be 18 years or older, and in possession of a
               valid work permit. Additional requirements vary depending on
               whether you want to deliver using a scooter, a car, or a bike.
-              You&apos;ll be informed about which documents are required based
-              on your selected contract type.
-            </ExtendedComponent>
+              You'll be informed about which documents are required based
+              on your selected contract type."
+            />
           </Box>
         </Box>
         <Box m={10}>
