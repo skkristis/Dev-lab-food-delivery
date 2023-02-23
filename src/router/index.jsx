@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom/dist';
+import { createHashRouter } from 'react-router-dom/dist';
 import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
@@ -17,7 +17,7 @@ function getClientRoutes() {
       path: '/subscriptions',
       element: <h3>Test</h3>,
     },
-     {
+    {
       path: '*',
       element: <ClientLanding />,
     },
@@ -47,7 +47,7 @@ export function getAdminRoutes() {
   ];
 }
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <ClientLayout />,
