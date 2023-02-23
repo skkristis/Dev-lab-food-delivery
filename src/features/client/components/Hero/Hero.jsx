@@ -22,7 +22,7 @@ function Hero() {
           color={{ base: 'black', sm: 'white' }}
           marginBlock={{ base: '30px', sm: '0' }}
         >
-          Let's find some food!
+          {`Let's find some food!`}
         </Heading>
         <Input color="white" bg="lightgray" placeholder="Search" />
       </Box>

@@ -17,7 +17,6 @@ function getClientRoutes() {
       path: '/subscriptions',
       element: <h3>Test</h3>,
     },
-    ,
     { path: '/restaurantinspect', element: <RestaurantInspect /> },
   ];
 }
