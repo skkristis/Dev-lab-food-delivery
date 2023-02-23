@@ -20,7 +20,7 @@ const UserForm = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    return data;
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
