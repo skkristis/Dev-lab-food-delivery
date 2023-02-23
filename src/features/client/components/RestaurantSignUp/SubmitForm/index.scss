@@ -36,24 +36,4 @@
   &__label {
     margin-top: 15px;
   }
-  &__thanks {
-    width: 450px;
-    height: 600px;
-    position: fixed;
-    padding: 60px;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #f7f7f7;
-    border-radius: 15%;
-    border: 1px solid teal;
-    h2 {
-      color: teal;
-      text-align: center;
-    }
-    @media only screen and (max-width: 768px) {
-      width: 90vw;
-      height: 80vh;
-    }
-  }
 }

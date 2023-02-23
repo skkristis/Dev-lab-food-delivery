@@ -9,8 +9,16 @@ import {
   Button,
   Checkbox,
   Stack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react';
-import Thanks from './Thanks';
 import './index.scss';
 
 function SubmitForm() {
@@ -25,7 +33,15 @@ function SubmitForm() {
     inAppChecked: false,
   });
 
-  const [thanks, setThanks] = useState(false);
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [overlay, setOverlay] = React.useState(<OverlayOne />);
 
   const toggleCheckedState = (checkboxName) => {
     return checkboxName === 'webshop'
@@ -39,16 +55,11 @@ function SubmitForm() {
         });
   };
 
-  const hideThanks = () => {
-    setThanks(false);
-    document.body.style.overflow = 'unset';
-  };
-
   const onSubmit = (data) => {
     if (checkBoxes.webshopChecked || checkBoxes.inAppChecked) {
       console.log(data);
-      setThanks('true');
-      document.body.style.overflow = 'hidden';
+      setOverlay(<OverlayOne />);
+      onOpen();
       return;
     }
     return alert(
@@ -154,7 +165,19 @@ function SubmitForm() {
             Submit information
           </Button>
         </form>
-        {thanks && <Thanks hideThanks={hideThanks} />}
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          {overlay}
+          <ModalContent>
+            <ModalHeader>Application Submitted</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text>We will get back to you within 24 hours!</Text>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </div>
     </div>
   );

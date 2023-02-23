@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@chakra-ui/react';
 import './index.scss';
 
-function RestaurantPromo1() {
+function RestaurantHero() {
   return (
     <div className="promo1__section">
       <div className="restaurant-signup__container">
@@ -22,8 +22,6 @@ function RestaurantPromo1() {
             </h4>
           </ul>
           <div className="promo1__btns">
-            {/* <Button content="Sign up for bfd.lt" isSubmit={false} />
-            <Button content="Sign up for a free workshop" isSubmit={false} /> */}
             <Button mt={8} size="lg" whiteSpace="normal" colorScheme="teal">
               Sign up for bfd.lt
             </Button>
@@ -36,4 +34,4 @@ function RestaurantPromo1() {
     </div>
   );
 }
-export default RestaurantPromo1;
+export default RestaurantHero;

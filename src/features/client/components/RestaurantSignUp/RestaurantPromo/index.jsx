@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@chakra-ui/react';
 import './index.scss';
 
-function RestaurantPromo2() {
+function RestaurantPromo() {
   return (
     <div className="promo2__section">
       <div className="restaurant-signup__container">
@@ -31,4 +31,4 @@ function RestaurantPromo2() {
     </div>
   );
 }
-export default RestaurantPromo2;
+export default RestaurantPromo;
