@@ -4,7 +4,7 @@ import { Card, CardBody, Text, CardFooter, Box } from '@chakra-ui/react';
 function CardText(props) {
   const { textBody, textFooter } = props;
   return (
-    <Card textAlign="center" alignItems="center" width="300px">
+    <Card textAlign="center" alignItems="center" width="300px" m={5}>
       <CardBody>
         <Text>{textBody}</Text>
       </CardBody>

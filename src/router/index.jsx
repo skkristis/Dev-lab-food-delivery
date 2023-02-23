@@ -10,8 +10,6 @@ import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
-import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
-import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
 
 function getClientRoutes() {
   return [

@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, useMediaQuery } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import CardWithImage from '../../components/CardImageRight';
 import CardText from '../../components/CardText';
@@ -9,11 +9,14 @@ import CardImageTop from '../../components/CardImageTop';
 import Circle from '../../components/Circle';
 
 function CourierRegisterLanding() {
+  const [smallerScreen] = useMediaQuery('(max-width: 750px)');
+
+  console.log(smallerScreen);
   return (
     <React.Fragment>
       <Box>
         <Flex flexDirection="column" alignItems="center">
-          <Text as="b" fontSize="5xl">
+          <Text as="b" fontSize="5xl" textAlign="center">
             Become A Courier!
           </Text>
           <Button width="150px">
@@ -26,7 +29,7 @@ function CourierRegisterLanding() {
           <Text as="b" fontSize="4xl">
             Why is it worth becoming a courier?
           </Text>
-          <Text width="500px">
+          <Text width="50%">
             As courier-partners, you can deliver orders to customers from local
             restaurants and shops - in the evening, for a few hours during lunch
             or at any other time you want. It&apos;s easy to join - you
@@ -34,7 +37,12 @@ function CourierRegisterLanding() {
           </Text>
         </Flex>
       </Box>
-      <Flex flexDirection={'row'} gap="10" m={10}>
+      <Flex
+        flexDirection={smallerScreen ? 'column' : 'row'}
+        gap="10"
+        m={10}
+        alignItems="center"
+      >
         <CardImageTop
           heading="Competitive Earnings"
           list={[
@@ -90,7 +98,11 @@ function CourierRegisterLanding() {
         imageAlt="Cafe"
       />
       <Box m={10}>
-        <Flex justifyContent="space-between">
+        <Flex
+          flexDirection={smallerScreen ? 'column' : 'row'}
+          alignItems={smallerScreen ? 'center' : 'normal'}
+          justifyContent="space-between"
+        >
           <CardText
             textBody='"As a student, free schedule gives me the opportunity to
         earn extra income while maintaining the highest level of
@@ -116,7 +128,7 @@ function CourierRegisterLanding() {
       </Box>
       <Box m={10}>
         <Flex flexDirection="column" alignItems="center">
-          <Text as="b" fontSize="4xl">
+          <Text as="b" fontSize="4xl" textAlign="center">
             Sign up today and you&apos;ll hit the road in no time!
           </Text>
           <Button width="150px" m={5}>
