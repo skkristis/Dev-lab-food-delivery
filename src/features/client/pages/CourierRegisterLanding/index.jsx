@@ -5,7 +5,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   ChakraProvider,
   Heading,
   Flex,
@@ -20,6 +19,7 @@ import { CheckCircleIcon } from '@chakra-ui/icons';
 import ExtendedComponent from './ExtendedComponent';
 import { Link } from 'react-router-dom';
 import CardWithImage from '../../components/CardWithImage';
+import CardText from '../../components/CardText';
 
 function CourierRegisterLanding() {
   return (
@@ -177,54 +177,27 @@ function CourierRegisterLanding() {
         />
         <Box m={10}>
           <Flex justifyContent="space-between">
-            <Card textAlign="center" alignItems="center" width="300px">
-              <CardBody>
-                <Text>
-                  &quot;As a student, free schedule gives me the opportunity to
-                  earn extra income while maintaining the highest level of
-                  education.&quot;
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Box>
-                  <Text>Name</Text>
-                  <Text>City</Text>
-                </Box>
-              </CardFooter>
-            </Card>
-            <Card textAlign="center" alignItems="center" width="300px">
-              <CardBody>
-                <Text>
-                  &quot;Freedom of choice is one of my core values. I get the
+            <CardText
+              textBody='"As a student, free schedule gives me the opportunity to
+        earn extra income while maintaining the highest level of
+        education."'
+              textFooter="Name"
+            />
+            <CardText
+              textBody='"Freedom of choice is one of my core values. I get the
                   opportunity to be my own boss, to work whenever I want and to
                   manage my income easily. I am really happy with this
-                  platform.&quot;
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Box>
-                  <Text>Name</Text>
-                  <Text>City</Text>
-                </Box>
-              </CardFooter>
-            </Card>
-            <Card textAlign="center" alignItems="center" width="300px">
-              <CardBody>
-                <Text>
-                  &quot;Wolt gives me the opportunity to earn extra income in my
-                  spare time. It&apos;s also fun to drive around the city, take
+                  platform."'
+              textFooter="Name"
+            />
+            <CardText
+              textBody="&quot;Wolt gives me the opportunity to earn extra income in my
+                  spare time. It's also fun to drive around the city, take
                   in the sights and meet people. I have been a Wolt Courier
-                  Partner for a year now and I can&apos;t complain about
-                  anything.&quot;
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Box>
-                  <Text>Name</Text>
-                  <Text>City</Text>
-                </Box>
-              </CardFooter>
-            </Card>
+                  Partner for a year now and I can't complain about
+                  anything.&quot;"
+              textFooter="Name"
+            />
           </Flex>
         </Box>
         <Box m={10}>
