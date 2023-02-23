@@ -47,7 +47,7 @@ function CardWithImage(props) {
         {imageSrc ? (
           <Image
             objectFit="cover"
-            maxW={{ base: '100%', sm: '600px' }}
+            maxW={{ base: '100%', sm: '700px' }}
             src={imageSrc}
             alt={imageAlt}
           />

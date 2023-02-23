@@ -1,12 +1,12 @@
 import React from 'react';
 import './index.css';
-import { ChakraProvider, Text, Box } from '@chakra-ui/react';
+import { Text, Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import UserForm from './UserForm';
 
 function CourierRegisterForm() {
   return (
-    <ChakraProvider>
+    <>
       <Box display="flex" flexDirection="column" alignItems="center">
         <Text>
           <Link to={'/courier'}>For couriers</Link> &#x3e; Apply Now
@@ -31,7 +31,7 @@ function CourierRegisterForm() {
         </Box>
         <UserForm></UserForm>
       </Box>
-    </ChakraProvider>
+    </>
   );
 }
 
