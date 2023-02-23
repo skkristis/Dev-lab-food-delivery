@@ -55,9 +55,8 @@ function SubmitForm() {
         });
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     if (checkBoxes.webshopChecked || checkBoxes.inAppChecked) {
-      console.log(data);
       setOverlay(<OverlayOne />);
       onOpen();
       return;
