@@ -19,6 +19,7 @@ import {
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import ExtendedComponent from './ExtendedComponent';
 import { Link } from 'react-router-dom';
+import CardWithImage from '../../components/CardWithImage';
 
 function CourierRegisterLanding() {
   return (
@@ -166,48 +167,14 @@ function CourierRegisterLanding() {
             </Button>
           </Flex>
         </Box>
-        <Box m={10}>
-          <Card
-            direction={{ base: 'column', sm: 'row' }}
-            overflow="hidden"
-            variant="outline"
-          >
-            <Stack>
-              <CardBody>
-                <Heading as="h1" fontSize="4x1">
-                  A few things you&apos;ll need to get started
-                </Heading>
-                <Text py="2">Check our simple application requirements:</Text>
-                <List spacing={3}>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color="green.500" />
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color="green.500" />
-                    Assumenda, quia temporibus eveniet a libero incidunt
-                    suscipit
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={CheckCircleIcon} color="green.500" />
-                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-                  </ListItem>
-                </List>
-              </CardBody>
-              <CardFooter>
-                <Button>
-                  <Link to="/apply-as-courier">Submit A Form</Link>
-                </Button>
-              </CardFooter>
-            </Stack>
-            <Image
-              objectFit="cover"
-              maxW={{ base: '100%', sm: '600px' }}
-              src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-              alt="Caffe Latte"
-            />
-          </Card>
-        </Box>
+        <CardWithImage
+          heading="A few things you'll need to get started"
+          text="Check our simple application requirements:"
+          list={['Item1', 'Item2']}
+          buttonText={<Link to="/apply-as-courier">Submit A Form</Link>}
+          imageSrc="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+          imageAlt="Cafe"
+        />
         <Box m={10}>
           <Flex justifyContent="space-between">
             <Card textAlign="center" alignItems="center" width="300px">
