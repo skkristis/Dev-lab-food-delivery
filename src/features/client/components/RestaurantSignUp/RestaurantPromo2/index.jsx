@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../Button';
+import { Button } from '@chakra-ui/react';
 import './index.scss';
 
 function RestaurantPromo2() {
@@ -22,7 +22,9 @@ function RestaurantPromo2() {
               Please fill out the form below, to start selling takeaway on
               lėkštė.lt or through your own webshop.
             </p>
-            <Button content="Sign up for free today" isSubmit={false} />
+            <Button size="lg" whiteSpace="normal" colorScheme="teal">
+              Sign up for free today
+            </Button>
           </div>
         </div>
       </div>

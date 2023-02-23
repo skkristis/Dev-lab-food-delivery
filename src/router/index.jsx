@@ -4,7 +4,7 @@ import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
-import RestaurantSignUp from '/src/features/client/components/RestaurantSignUp/';
+import Subscriptions from '../features/client/pages/Subscriptions';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
 import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
 
@@ -16,7 +16,7 @@ function getClientRoutes() {
     },
     {
       path: '/subscriptions',
-      element: <RestaurantSignUp />,
+      element: <Subscriptions />,
     },
   ];
 }

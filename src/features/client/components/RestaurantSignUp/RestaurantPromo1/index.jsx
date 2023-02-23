@@ -1,6 +1,6 @@
-import React from "react";
-import Button from "../Button";
-import "./index.scss";
+import React from 'react';
+import { Button } from '@chakra-ui/react';
+import './index.scss';
 
 function RestaurantPromo1() {
   return (
@@ -22,8 +22,14 @@ function RestaurantPromo1() {
             </h4>
           </ul>
           <div className="promo1__btns">
-            <Button content='Sign up for bfd.lt' isSubmit={false}/>
-            <Button content='Sign up for a free workshop' isSubmit={false}/>
+            {/* <Button content="Sign up for bfd.lt" isSubmit={false} />
+            <Button content="Sign up for a free workshop" isSubmit={false} /> */}
+            <Button mt={8} size="lg" whiteSpace="normal" colorScheme="teal">
+              Sign up for bfd.lt
+            </Button>
+            <Button mt={8} size="lg" whiteSpace="normal" colorScheme="teal">
+              Sign up for a free workshop
+            </Button>
           </div>
         </div>
       </div>
