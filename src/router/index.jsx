@@ -4,8 +4,10 @@ import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
+import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
 import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
+import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 
 function getClientRoutes() {
   return [
@@ -16,6 +18,14 @@ function getClientRoutes() {
     {
       path: '/subscriptions',
       element: <h3>Test</h3>,
+    },
+
+    {
+      path: '/restaurants/:id',
+      loader: async () => {
+        return restaurantInspectMock;
+      },
+      element: <RestaurantInspect />,
     },
     {
       path: '*',
