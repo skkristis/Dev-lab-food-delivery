@@ -8,7 +8,9 @@ import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 import Subscriptions from '../features/client/pages/Subscriptions';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
 import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
+import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
+import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
 
 function getClientRoutes() {
   return [
@@ -31,6 +33,14 @@ function getClientRoutes() {
     {
       path: '*',
       element: <ClientLanding />,
+    },
+    {
+      path: '/courier',
+      element: <CourierRegisterLanding />,
+    },
+    {
+      path: '/apply-as-courier',
+      element: <CourierRegisterForm />,
     },
   ];
 }
