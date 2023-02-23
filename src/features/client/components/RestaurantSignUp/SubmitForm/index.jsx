@@ -10,6 +10,7 @@ import {
   Checkbox,
   Stack,
 } from '@chakra-ui/react';
+import Thanks from './Thanks';
 import './index.scss';
 
 function SubmitForm() {
@@ -24,6 +25,8 @@ function SubmitForm() {
     inAppChecked: false,
   });
 
+  const [thanks, setThanks] = useState(false);
+
   const toggleCheckedState = (checkboxName) => {
     return checkboxName === 'webshop'
       ? setCheckBoxes({
@@ -36,12 +39,21 @@ function SubmitForm() {
         });
   };
 
+  const hideThanks = () => {
+    setThanks(false);
+    document.body.style.overflow = 'unset';
+  };
+
   const onSubmit = (data) => {
-    return checkBoxes.webshopChecked || checkBoxes.inAppChecked
-      ? console.log(data)
-      : alert(
-          'Please select whether you are interested in a webshop, in placement on bfd.lt, or both'
-        );
+    if (checkBoxes.webshopChecked || checkBoxes.inAppChecked) {
+      console.log(data);
+      setThanks('true');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+    return alert(
+      'Please select whether you are interested in a webshop, in placement on bfd.lt, or both'
+    );
   };
 
   return (
@@ -138,10 +150,11 @@ function SubmitForm() {
               {errors.email && errors.email.message}
             </FormErrorMessage>
           </FormControl>
-          <Button mt={8} colorScheme="orange" type="submit">
+          <Button mt={8} colorScheme="teal" type="submit">
             Submit information
           </Button>
         </form>
+        {thanks && <Thanks hideThanks={hideThanks} />}
       </div>
     </div>
   );

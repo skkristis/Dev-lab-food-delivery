@@ -3,25 +3,41 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
   TableCaption,
   TableContainer,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import './index.scss';
-import Button from '../Button';
+// import Button from '../Button';
+import { Button } from '@chakra-ui/react';
 
-function Subscriptions() {
+function SubscriptionPlans() {
   const tick =
     'https://www.lekste.lt/dist/img/static/marketing/check-primary.svg?1645630781731v1';
   const dash = <span className="table-item__dash">-</span>;
 
+  const [isSmallerThan1200] = useMediaQuery('(max-width: 1200px)');
+  const [isSmallerThan768] = useMediaQuery('(max-width: 768px)');
+
   return (
     <div className="restaurant-signup__container">
-      <TableContainer width="1040px" m="0 auto">
-        <Table variant="simple" colorScheme="purple">
+      <TableContainer
+        width={
+          isSmallerThan768 ? '100vw' : isSmallerThan1200 ? '720px' : '1040px'
+        }
+        m="0 auto"
+        border="1px"
+        borderColor="gray.200"
+        borderRadius="50"
+      >
+        <Table
+          variant="simple"
+          colorScheme="purple"
+          size={isSmallerThan1200 ? 'sm' : 'md'}
+        >
           <TableCaption>Subscription plans</TableCaption>
           <Thead>
             <Tr>
@@ -143,10 +159,19 @@ function Subscriptions() {
             <Tr>
               <Td></Td>
               <Td className="table-item">
-                <Button isSubmit={false} content="Sign up for bfd.lt" />
+                <Button size="lg" whiteSpace="normal" colorScheme="teal">
+                  Sign up for bfd.lt
+                </Button>
               </Td>
               <Td className="table-item">
-                <Button isSubmit={false} content="Sign up for a webshop demo" />
+                <Button
+                  size="lg"
+                  width="180px"
+                  whiteSpace="normal"
+                  colorScheme="teal"
+                >
+                  Sign up for a webshop demo
+                </Button>
               </Td>
             </Tr>
           </Tbody>
@@ -156,4 +181,4 @@ function Subscriptions() {
   );
 }
 
-export default Subscriptions;
+export default SubscriptionPlans;
