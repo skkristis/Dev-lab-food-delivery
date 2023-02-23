@@ -5,6 +5,7 @@ import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
 import RestaurantInspect from '../features/client/pages/RestaurantInspect';
+import Subscriptions from '../features/client/pages/Subscriptions';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
 import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
@@ -17,7 +18,7 @@ function getClientRoutes() {
     },
     {
       path: '/subscriptions',
-      element: <h3>Test</h3>,
+      element: <Subscriptions />,
     },
 
     {
