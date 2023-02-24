@@ -3,7 +3,7 @@ export const footerArticles = [
     footerArticleHeading: "Let's do this together",
     footerArticleListItems: [
       { to: '/admin/couriers', content: 'For couriers' },
-      { to: '/admin/restaurants', content: 'For restaurants' },
+      { to: '/admin', content: 'For restaurants' },
       { to: '', content: 'For stores' },
       { to: '', content: 'For companies' },
     ],
