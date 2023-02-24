@@ -56,6 +56,7 @@ function BasketModal({ basket }) {
           <ModalCloseButton bg="lightgray" rounded="xl" />
           <ModalBody padding="20px">
             {basket.map((deal, i) => {
+              const itemTotal = +deal.recipePrice * deal.recipeQauntity;
               return (
                 <Flex
                   key={i}
@@ -79,7 +80,7 @@ function BasketModal({ basket }) {
                     <Box>
                       <Heading fontSize="16px">{deal.recipeName}</Heading>
                       <Text fontSize="14px" marginTop="10px" color="blue.400">
-                        €{+deal.recipePrice * deal.recipeQauntity}
+                        €{itemTotal}
                       </Text>
                     </Box>
                   </Flex>

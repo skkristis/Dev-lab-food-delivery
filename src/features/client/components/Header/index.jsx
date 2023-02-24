@@ -40,8 +40,8 @@ function Header() {
           <Link as={ReachLink} to="/">
             <Image boxSize="30px" src={logoUrl} />
           </Link>
-          {!basket && (
-            <ButtonGroup gap="20px">
+          <Box>
+            <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
               <Button onClick={onOpen} variant="ghost">
                 Log In
               </Button>
@@ -49,8 +49,8 @@ function Header() {
                 Sign up
               </Button>
             </ButtonGroup>
-          )}
-          {basket && <BasketModal basket={basket} />}
+            <BasketModal basket={basket} />
+          </Box>
         </Box>
       </Box>
       <LogInModal isOpen={isOpen} onClose={onClose} />

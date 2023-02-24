@@ -17,6 +17,8 @@ import { useState } from 'react';
 
 function RestaurantInspectModal({ isOpen, onClose, deal }) {
   const [dealCount, setDealCount] = useState(1);
+  const itemTotal = (dealCount * deal.recipePrice).toFixed(2);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -84,7 +86,7 @@ function RestaurantInspectModal({ isOpen, onClose, deal }) {
             <Button bg="blue.400" color="white">
               Add to order
               <Box paddingLeft="20px" as="span">
-                {(dealCount * deal.recipePrice).toFixed(2)}
+                {itemTotal}
               </Box>
             </Button>
           </Flex>
