@@ -10,6 +10,7 @@ function ClientLanding() {
   return (
     <Flex as="section" flexDir="column" gap="20px">
       <Hero />
+      <RestaurantList isFeatured={true} />
       <Categories />
       <RestaurantList />
     </Flex>

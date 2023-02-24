@@ -1,6 +1,6 @@
 import { Box, Heading, Image, Input } from '@chakra-ui/react';
 
-import imageUrl from '../../../../assets/client-landing-hero.jpg';
+import imageUrl from '../../../../assets/kfc-hero.jpg';
 import './hero.scss';
 
 function Hero() {
