@@ -1,11 +1,16 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom/dist';
+import { createHashRouter } from 'react-router-dom/dist';
 import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import AdminLanding from '../features/admin/pages/AdminLanding/index';
+import RestaurantInspect from '../features/client/pages/RestaurantInspect';
+import Subscriptions from '../features/client/pages/Subscriptions';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
 import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
+import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
+import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
+import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
 
 function getClientRoutes() {
   return [
@@ -15,7 +20,27 @@ function getClientRoutes() {
     },
     {
       path: '/subscriptions',
-      element: <h3>Test</h3>,
+      element: <Subscriptions />,
+    },
+
+    {
+      path: '/restaurants/:id',
+      loader: async () => {
+        return restaurantInspectMock;
+      },
+      element: <RestaurantInspect />,
+    },
+    {
+      path: '*',
+      element: <ClientLanding />,
+    },
+    {
+      path: '/courier',
+      element: <CourierRegisterLanding />,
+    },
+    {
+      path: '/apply-as-courier',
+      element: <CourierRegisterForm />,
     },
   ];
 }
@@ -43,7 +68,7 @@ export function getAdminRoutes() {
   ];
 }
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <ClientLayout />,

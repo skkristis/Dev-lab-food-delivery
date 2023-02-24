@@ -5,16 +5,19 @@ import Header from '../../components/Header/index';
 import Footer from '../../components/Footer/index';
 
 import './index.css';
+import { ChakraProvider } from '@chakra-ui/react';
 
 function Layout() {
   return (
-    <div className="Layout">
-      <Header />
-      <main className="Layout__main">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+    <ChakraProvider>
+      <div className="Layout">
+        <Header />
+        <main className="Layout__main">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </ChakraProvider>
   );
 }
 
