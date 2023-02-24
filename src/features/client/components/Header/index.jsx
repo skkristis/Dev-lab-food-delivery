@@ -9,8 +9,10 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
+import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
 import LogInModal from '../LogInModal';
+import BasketModal from '../BasketModal';
 
 function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,14 +40,17 @@ function Header() {
           <Link as={ReachLink} to="/">
             <Image boxSize="30px" src={logoUrl} />
           </Link>
-          <ButtonGroup gap="20px">
-            <Button onClick={onOpen} variant="ghost">
-              Log In
-            </Button>
-            <Button onClick={onOpen} colorScheme="blue" color="white">
-              Sign up
-            </Button>
-          </ButtonGroup>
+          {!basket && (
+            <ButtonGroup gap="20px">
+              <Button onClick={onOpen} variant="ghost">
+                Log In
+              </Button>
+              <Button onClick={onOpen} colorScheme="blue" color="white">
+                Sign up
+              </Button>
+            </ButtonGroup>
+          )}
+          {basket && <BasketModal basket={basket} />}
         </Box>
       </Box>
       <LogInModal isOpen={isOpen} onClose={onClose} />
