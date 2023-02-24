@@ -2,8 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import ordersReducer from './reducers/ordersReducer';
+import dishesReducer from './reducers/dishesReducer';
+import restaurantsReducer from './reducers/restaurantsReducer';
 
 const rootReducer = combineReducers({
+  dishes: dishesReducer,
+  restaurants: restaurantsReducer,
   orders: ordersReducer,
 });
 
