@@ -21,7 +21,7 @@ function Header() {
     <>
       <Box
         as="header"
-        height="50px"
+        height="110px"
         position="fixed"
         left="0"
         right="0"
@@ -29,6 +29,8 @@ function Header() {
         zIndex="5"
         borderBottom="1px solid lightgray"
         bg="white"
+        display="flex"
+        flexDirection="column"
       >
         <Box
           className="container"
@@ -51,6 +53,60 @@ function Header() {
             </ButtonGroup>
             <BasketModal basket={basket} />
           </Box>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          height="60px"
+          alignItems="center"
+        >
+          <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
+            <Button
+              as={ReachLink}
+              to="/subscriptions"
+              colorScheme="blue"
+              color="white"
+              whiteSpace="normal"
+              flex="1"
+              size="md"
+              textAlign="center"
+              paddingTop="5px"
+              paddingBottom="5px"
+              height="auto"
+            >
+              Restaurant registration
+            </Button>
+            <Button
+              as={ReachLink}
+              to="/courier"
+              colorScheme="blue"
+              color="white"
+              whiteSpace="normal"
+              flex="1"
+              size="md"
+              textAlign="center"
+              paddingTop="5px"
+              paddingBottom="5px"
+              height="auto"
+            >
+              Courier registration
+            </Button>
+            <Button
+              as={ReachLink}
+              to="/admin"
+              colorScheme="blue"
+              color="white"
+              whiteSpace="normal"
+              flex="1"
+              size="md"
+              textAlign="center"
+              paddingTop="5px"
+              paddingBottom="5px"
+              height="auto"
+            >
+              Admin panel
+            </Button>
+          </ButtonGroup>
         </Box>
       </Box>
       <LogInModal isOpen={isOpen} onClose={onClose} />
