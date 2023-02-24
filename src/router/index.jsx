@@ -1,14 +1,13 @@
 import React from 'react';
-import { createHashRouter, redirect } from 'react-router-dom/dist';
+import { createHashRouter } from 'react-router-dom/dist';
 import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
-import AdminLanding from '../features/admin/pages/AdminLanding/index';
 import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 import Subscriptions from '../features/client/pages/Subscriptions';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
 import RestaurantDashboard from '../features/admin/components/RestaurantDashboard/RestaurantDashboard';
-import { BiRestaurant, BiCar, FiHome } from 'react-icons/all.js';
+import { BiRestaurant, BiCar } from 'react-icons/all.js';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
