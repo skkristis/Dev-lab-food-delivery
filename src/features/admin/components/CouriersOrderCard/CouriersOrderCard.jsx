@@ -29,7 +29,8 @@ function CouriersOrderCard({ order, setActive }) {
             Customer: <strong>{order.customer.name}</strong>,{' '}
             {order.customer.address}
           </li>
-          <li>Distance to restaurant: {order.distance} km</li>
+          <li>Distance to restaurant: {order.distanceToRestaurant} km</li>
+          <li>Distance to customer: {order.distanceToCustomer} km</li>
         </ul>
       </div>
 
