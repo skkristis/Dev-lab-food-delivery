@@ -59,7 +59,7 @@ export function getAdminRoutes() {
     // },
     //return after mvp
     {
-      path: '/admin/restaurants',
+      path: '/admin',
       element: <RestaurantDashboard />,
       navItemName: 'Restaurants',
       navItemIcon: BiRestaurant,
