@@ -61,7 +61,10 @@ function CouriersOrder({ order, setActive }) {
           <span>Customer address:</span> {order.customer.address}
         </li>
         <li>
-          <span>Distance to restaurant:</span> {order.distance} km
+          <span>Distance to restaurant:</span> {order.distanceToRestaurant} km
+        </li>
+        <li>
+          <span>Distance to customer:</span> {order.distanceToCustomer} km
         </li>
         <li>
           <span>Payment:</span> {order.payment.total} EUR by{' '}
