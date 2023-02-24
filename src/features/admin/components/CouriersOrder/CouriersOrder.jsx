@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { edit } from '../../../../store/reducers/ordersReducer';
 
 import { Button } from '@chakra-ui/react';
@@ -8,6 +8,12 @@ import mapImage from '../../assets/couriers-map.jpg';
 import './CouriersOrder.scss';
 
 function CouriersOrder({ order, setActive }) {
+  const restaurant = useSelector((state) =>
+    state.restaurants.list.find(
+      (restaurant) => restaurant.id === order.restaurantId
+    )
+  );
+
   const dispatch = useDispatch();
   const dispatchEdit = (order) => dispatch(edit(order));
 
@@ -43,10 +49,10 @@ function CouriersOrder({ order, setActive }) {
 
       <ul className="couriers-order__info info-list">
         <li>
-          <span>Restaurant:</span> {order.restaurant.name}
+          <span>Restaurant:</span> {restaurant.name}
         </li>
         <li>
-          <span>Restaurant address:</span> {order.restaurant.address}
+          <span>Restaurant address:</span> {restaurant.address}
         </li>
         <li>
           <span>Customer:</span> {order.customer.name}
