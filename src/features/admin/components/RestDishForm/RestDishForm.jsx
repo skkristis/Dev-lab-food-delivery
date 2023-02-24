@@ -60,19 +60,28 @@ function RestDishForm({
 
     if (formState === 'edit') {
       newDish.id = Number(dish.id);
-    } else {
-      while (true) {
+      dispatchEdit(newDish);
+      setActiveDish(newDish);
+      setFormState('idle');
+    }
+
+    if (formState === 'add') {
+      let attempts = 10;
+      while (attempts > 0) {
         let newId = Math.floor(Math.random() * 900000) + 100000;
         if (!allDishes.find((item) => item.id === newId)) {
           newDish.id = newId;
           break;
         }
+        attempts--;
+      }
+
+      if (newDish.id) {
+        dispatchAdd(newDish);
+        setActiveDish(newDish);
+        setFormState('idle');
       }
     }
-
-    formState === 'edit' ? dispatchEdit(newDish) : dispatchAdd(newDish);
-    setActiveDish(newDish);
-    setFormState('idle');
   };
 
   return (
