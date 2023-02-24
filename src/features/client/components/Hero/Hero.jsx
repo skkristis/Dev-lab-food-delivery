@@ -1,14 +1,18 @@
 import { Box, Heading, Image, Input } from '@chakra-ui/react';
 
 import imageUrl from '../../../../assets/client-landing-hero.jpg';
+import './hero.scss';
 
 function Hero() {
   return (
-    <Box position="relative" className="container" marginTop="50px">
+    <Box position="relative" className="container">
       <Image
         display={{ base: 'none', sm: 'block' }}
         src={imageUrl}
         zIndex="-1"
+        className="full-width"
+        height="100vh"
+        objectFit="cover"
       />
       <Box
         position={{ base: 'block', sm: 'absolute' }}
