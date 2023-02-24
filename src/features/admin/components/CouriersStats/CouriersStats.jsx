@@ -10,10 +10,10 @@ import {
 
 import './CouriersStats.scss';
 
-import user from '../../mocks/user';
+import courier from '../../mocks/courier';
 
 function CouriersStats() {
-  const partnerDate = new Date(user.registrationDate).toLocaleString(
+  const partnerDate = new Date(courier.registrationDate).toLocaleString(
     'default',
     {
       dateStyle: 'medium',
@@ -32,7 +32,7 @@ function CouriersStats() {
         borderRadius="lg"
       >
         <StatLabel>Total orders delivered</StatLabel>
-        <StatNumber>{user.stats.orders.total}</StatNumber>
+        <StatNumber>{courier.stats.orders.total}</StatNumber>
         <StatHelpText>Partner since {partnerDate}</StatHelpText>
       </Stat>
 
@@ -42,12 +42,14 @@ function CouriersStats() {
         borderRadius="lg"
       >
         <StatLabel>Delivered in {currentMonth}</StatLabel>
-        <StatNumber>{user.stats.orders.month}</StatNumber>
+        <StatNumber>{courier.stats.orders.month}</StatNumber>
         <StatHelpText>
           <StatArrow
-            type={user.stats.orders.monthIncrease > 0 ? 'increase' : 'decrease'}
+            type={
+              courier.stats.orders.monthIncrease > 0 ? 'increase' : 'decrease'
+            }
           />
-          {user.stats.orders.monthIncrease}%
+          {courier.stats.orders.monthIncrease}%
         </StatHelpText>
       </Stat>
 
@@ -57,7 +59,7 @@ function CouriersStats() {
         borderRadius="lg"
       >
         <StatLabel>Total revenue</StatLabel>
-        <StatNumber>{user.stats.revenue.total} EUR</StatNumber>
+        <StatNumber>{courier.stats.revenue.total} EUR</StatNumber>
         <StatHelpText>Partner since {partnerDate}</StatHelpText>
       </Stat>
 
@@ -67,14 +69,14 @@ function CouriersStats() {
         borderRadius="lg"
       >
         <StatLabel>Revenue in {currentMonth}</StatLabel>
-        <StatNumber>{user.stats.revenue.month} EUR</StatNumber>
+        <StatNumber>{courier.stats.revenue.month} EUR</StatNumber>
         <StatHelpText>
           <StatArrow
             type={
-              user.stats.revenue.monthIncrease > 0 ? 'increase' : 'decrease'
+              courier.stats.revenue.monthIncrease > 0 ? 'increase' : 'decrease'
             }
           />
-          {user.stats.revenue.monthIncrease}%
+          {courier.stats.revenue.monthIncrease}%
         </StatHelpText>
       </Stat>
     </div>

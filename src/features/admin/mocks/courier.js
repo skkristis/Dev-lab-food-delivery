@@ -1,4 +1,4 @@
-const user = {
+const courier = {
   firstName: 'John',
   lastName: 'Doe',
   driverLicense: '12345qwe',
@@ -17,4 +17,4 @@ const user = {
   },
 };
 
-export default user;
+export default courier;
