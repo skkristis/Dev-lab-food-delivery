@@ -13,6 +13,7 @@ function Hero() {
         className="full-width"
         height="100vh"
         objectFit="cover"
+        objectPosition="top center"
       />
       <Box
         position={{ base: 'block', sm: 'absolute' }}

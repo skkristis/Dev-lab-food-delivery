@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import Header from '../../components/Header/index';
 import Footer from '../../components/Footer/index';
 
-import './index.css';
+import './index.scss';
 import { ChakraProvider } from '@chakra-ui/react';
 
 function Layout() {
