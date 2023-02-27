@@ -7,7 +7,7 @@ import UserForm from '../../components/UserForm/UserForm';
 function CourierRegisterForm() {
   return (
     <>
-      <Box display="flex" flexDirection="column" alignItems="center">
+      <Box display="flex" flexDirection="column" textAlign="center">
         <Text>
           <Link to={'/courier'}>For couriers</Link> &#x3e; Apply Now
         </Text>
@@ -19,7 +19,8 @@ function CourierRegisterForm() {
       <Box
         display="flex"
         flexDirection="column"
-        m={10}
+        p={5}
+        m={5}
         backgroundColor="#edf2f7"
         rounded="md"
       >
