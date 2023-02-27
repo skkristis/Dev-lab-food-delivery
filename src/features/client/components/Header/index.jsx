@@ -6,11 +6,15 @@ import {
   Image,
   Button,
   useDisclosure,
+  Flex,
+  Text,
 } from '@chakra-ui/react';
 import React from 'react';
 
 import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
+import locationUrl from '../../../../assets/location-icon.svg';
+import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
 import BasketModal from '../BasketModal';
 
@@ -21,7 +25,7 @@ function Header() {
     <>
       <Box
         as="header"
-        height="110px"
+        height="150px"
         position="fixed"
         left="0"
         right="0"
@@ -39,9 +43,28 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Link as={ReachLink} to="/">
-            <Image boxSize="30px" src={logoUrl} />
-          </Link>
+          <Flex flexWrap="wrap" gap="10px" alignItems="center">
+            <Link as={ReachLink} to="/">
+              <Image boxSize="30px" src={logoUrl} />
+            </Link>
+            <Button variant="ghost" display="flex" gap="10px">
+              <Image
+                boxSize="30px"
+                src={locationUrl}
+                padding="5px"
+                rounded="full"
+                bg="blue.400"
+              />
+              <Text fontWeight="light">
+                Delivery to
+                <br />
+                <Box as="span" color="blue.400" fontWeight="semibold">
+                  Vilnius
+                </Box>
+              </Text>
+              <Image boxSize="20px" src={arrowDownUrl} />
+            </Button>
+          </Flex>
           <Box>
             <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
               <Button onClick={onOpen} variant="ghost">
