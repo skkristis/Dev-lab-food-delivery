@@ -22,7 +22,8 @@ function RestaurantDescriptionForm() {
   const defaultFormValues = {
     name: restaurant.name,
     address: restaurant.address,
-    hours: restaurant.workingHours,
+    hoursFrom: restaurant.workingHours.from,
+    hoursTill: restaurant.workingHours.till,
   };
 
   const {
@@ -72,20 +73,41 @@ function RestaurantDescriptionForm() {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl
-          className="restaurant-dataform__control"
-          isInvalid={errors.hours}
-        >
-          <FormLabel htmlFor="restaurant-hours">Working hours</FormLabel>
-          <Input
-            id="restaurant-hours"
-            placeholder="Working hours"
-            {...register('hours')}
-          />
-          <FormErrorMessage>
-            {errors.hours && errors.hours.message}
-          </FormErrorMessage>
-        </FormControl>
+        <div className="restaurant-dataform__row">
+          <FormControl
+            className="restaurant-dataform__control"
+            isInvalid={errors.hoursFrom}
+          >
+            <FormLabel htmlFor="restaurant-hours-from">
+              Working hours (from)
+            </FormLabel>
+            <Input
+              id="restaurant-hours-from"
+              type="time"
+              {...register('hoursFrom')}
+            />
+            <FormErrorMessage>
+              {errors.hoursFrom && errors.hoursFrom.message}
+            </FormErrorMessage>
+          </FormControl>
+
+          <FormControl
+            className="restaurant-dataform__control"
+            isInvalid={errors.hoursTill}
+          >
+            <FormLabel htmlFor="restaurant-hours-till">
+              Working hours (till)
+            </FormLabel>
+            <Input
+              id="restaurant-hours-till"
+              type="time"
+              {...register('hoursTill')}
+            />
+            <FormErrorMessage>
+              {errors.hoursTill && errors.hoursTill.message}
+            </FormErrorMessage>
+          </FormControl>
+        </div>
 
         <FormControl
           className="restaurant-dataform__control"

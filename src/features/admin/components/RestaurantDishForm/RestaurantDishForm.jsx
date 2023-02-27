@@ -109,7 +109,7 @@ function RestaurantDishForm({
           isInvalid={errors.price}
         >
           <FormLabel htmlFor="dish-price">Price (EUR)</FormLabel>
-          <NumberInput>
+          <NumberInput step={0.01} precision={2}>
             <NumberInputField
               id="dish-price"
               placeholder="Dish price"
