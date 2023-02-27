@@ -29,7 +29,11 @@ function Hero() {
         >
           {`Let's find some food!`}
         </Heading>
-        <Input color="white" bg="lightgray" placeholder="Search" />
+        <Input
+          color="white"
+          bg="lightgray"
+          placeholder="Search for cuisine, meal, restaurant..."
+        />
       </Box>
     </Box>
   );
