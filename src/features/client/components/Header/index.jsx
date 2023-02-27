@@ -16,21 +16,10 @@ import logoUrl from '../../../../assets/application-logo.svg';
 import locationUrl from '../../../../assets/location-icon.svg';
 import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
-
 import BasketModal from '../BasketModal';
-import SignUpModal from '../SignupModal';
 
 function Header() {
-  const {
-    isOpen: isLoginModalOpen,
-    onOpen: onLoginModalOpen,
-    onClose: onLoginModalClose,
-  } = useDisclosure();
-  const {
-    isOpen: isSignupModalOpen,
-    onOpen: onSignupModalOpen,
-    onClose: onSignupModalClose,
-  } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -78,14 +67,10 @@ function Header() {
           </Flex>
           <Box>
             <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
-              <Button onClick={onLoginModalOpen} variant="ghost">
+              <Button onClick={onOpen} variant="ghost">
                 Log In
               </Button>
-              <Button
-                onClick={onSignupModalOpen}
-                colorScheme="blue"
-                color="white"
-              >
+              <Button onClick={onOpen} colorScheme="blue" color="white">
                 Sign up
               </Button>
             </ButtonGroup>
@@ -147,8 +132,7 @@ function Header() {
           </ButtonGroup>
         </Box>
       </Box>
-      <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
-      <SignUpModal isOpen={isSignupModalOpen} onClose={onSignupModalClose} />
+      <LogInModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }
