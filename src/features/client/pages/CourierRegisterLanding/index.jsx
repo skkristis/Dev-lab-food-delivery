@@ -1,15 +1,22 @@
 import React from 'react';
 import './index.scss';
 import { Box, Button, Flex, Text, useMediaQuery } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
 import CardWithImage from '../../components/CardImageRight';
 import CardText from '../../components/CardText';
 import AccordionComponent from '../../components/AccordionComponent';
 import CardImageTop from '../../components/CardImageTop';
 import Circle from '../../components/Circle';
+import UserForm from '../../components/UserForm/UserForm';
+import { useRef } from 'react';
 
 function CourierRegisterLanding() {
   const [smallerScreen] = useMediaQuery('(max-width: 750px)');
+  const targetRef = useRef();
+
+  const handleClick = () => {
+    targetRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <Box>
@@ -17,8 +24,8 @@ function CourierRegisterLanding() {
           <Text as="b" fontSize="5xl" textAlign="center">
             Become A Courier!
           </Text>
-          <Button width="150px">
-            <Link to="/apply-as-courier">Submit A Form</Link>
+          <Button width="150px" onClick={handleClick}>
+            Submit A Form
           </Button>
         </Flex>
       </Box>
@@ -82,8 +89,8 @@ function CourierRegisterLanding() {
             <Circle circleText="2" bodyText="Get approved" />
             <Circle circleText="3" bodyText="Deliver & Earn" />
           </Flex>
-          <Button>
-            <Link to="/apply-as-courier">Submit A Form</Link>
+          <Button width="150px" onClick={handleClick}>
+            Submit A Form
           </Button>
         </Flex>
       </Box>
@@ -91,7 +98,6 @@ function CourierRegisterLanding() {
         heading="A few things you'll need to get started"
         text="Check our simple application requirements:"
         list={['Item1', 'Item2']}
-        buttonText={<Link to="/apply-as-courier">Submit A Form</Link>}
         imageSrc="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
         imageAlt="Cafe"
       />
@@ -124,14 +130,12 @@ function CourierRegisterLanding() {
           />
         </Flex>
       </Box>
-      <Box m={10}>
+      <Box m={10} ref={targetRef}>
         <Flex flexDirection="column" alignItems="center">
           <Text as="b" fontSize="4xl" textAlign="center">
             Sign up today and you&apos;ll hit the road in no time!
           </Text>
-          <Button width="150px" m={5}>
-            <Link to="/apply-as-courier">Submit A Form</Link>
-          </Button>
+          <UserForm />
         </Flex>
       </Box>
       <Box m={10}>
