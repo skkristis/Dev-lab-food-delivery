@@ -7,7 +7,6 @@ import {
   FormControl,
   Input,
   Button,
-  Checkbox,
   Stack,
   Modal,
   ModalOverlay,
@@ -18,6 +17,8 @@ import {
   ModalCloseButton,
   Text,
   useDisclosure,
+  Radio,
+  RadioGroup,
 } from '@chakra-ui/react';
 import './index.scss';
 
@@ -28,11 +29,6 @@ function SubmitForm() {
     formState: { errors },
   } = useForm();
 
-  const [checkBoxes, setCheckBoxes] = useState({
-    webshopChecked: false,
-    inAppChecked: false,
-  });
-
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -41,29 +37,11 @@ function SubmitForm() {
   );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = React.useState(<OverlayOne />);
-
-  const toggleCheckedState = (checkboxName) => {
-    return checkboxName === 'webshop'
-      ? setCheckBoxes({
-          ...checkBoxes,
-          webshopChecked: !checkBoxes.webshopChecked,
-        })
-      : setCheckBoxes({
-          ...checkBoxes,
-          inAppChecked: !checkBoxes.inAppChecked,
-        });
-  };
+  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const onSubmit = () => {
-    if (checkBoxes.webshopChecked || checkBoxes.inAppChecked) {
-      setOverlay(<OverlayOne />);
-      onOpen();
-      return;
-    }
-    return alert(
-      'Please select whether you are interested in a webshop, in placement on bfd.lt, or both'
-    );
+    setOverlay(<OverlayOne />);
+    onOpen();
   };
 
   return (
@@ -85,29 +63,19 @@ function SubmitForm() {
             Sign up and get your own webshop or join us at bfd.lt
           </div>
           <Stack spacing={3} direction="column">
-            <Checkbox
-              mt="20px"
-              {...register('webshop')}
-              colorScheme="teal"
-              size="lg"
-              onChange={(e) => {
-                toggleCheckedState(e.target.name);
-              }}
-            >
-              Get your own webshop
-            </Checkbox>
-            <Checkbox
-              {...register('inApp')}
-              colorScheme="teal"
-              size="lg"
-              onChange={(e) => {
-                toggleCheckedState(e.target.name);
-              }}
-            >
-              Get your restaurant on bfd.lt
-            </Checkbox>
+            <FormControl isRequired>
+              <RadioGroup name="subType" mt="10px">
+                <Stack>
+                  <Radio {...register('subType')} value="webshop">
+                    Get your own webshop
+                  </Radio>
+                  <Radio {...register('subType')} value="bfd.lt">
+                    Get your restaurant on bfd.lt
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+            </FormControl>
           </Stack>
-          <div className="form__label">* Select at least 1 option.</div>
           <FormControl mt="20px" isInvalid={errors.name}>
             <FormLabel htmlFor="name">Name of the restaurant</FormLabel>
             <Input
