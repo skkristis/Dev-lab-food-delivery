@@ -14,7 +14,10 @@ import {
   Text,
   useColorModeValue,
   VStack,
+  Image,
+  Link,
 } from '@chakra-ui/react';
+import { Link as ReachLink } from 'react-router-dom';
 
 import {
   FiMenu,
@@ -24,6 +27,8 @@ import {
   CgProfile,
   FiLogOut,
 } from 'react-icons/all.js';
+
+import logoUrl from '../../../../assets/application-logo.svg';
 
 export default function MobileNav({ onOpen, ...rest }) {
   return (
@@ -46,14 +51,9 @@ export default function MobileNav({ onOpen, ...rest }) {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
+      <Link display="flex" as={ReachLink} to="/">
+        <Image boxSize="30px" src={logoUrl} />
+      </Link>
 
       <HStack spacing={{ base: '0', md: '6' }}>
         <IconButton
