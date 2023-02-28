@@ -11,7 +11,7 @@ import {
 
 import './CouriersForm.scss';
 
-import user from '../../mocks/user';
+import courier from '../../mocks/courier';
 
 function CouriersForm() {
   const {
@@ -19,7 +19,7 @@ function CouriersForm() {
     register,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: { ...user },
+    defaultValues: { ...courier },
   });
 
   function onSubmit() {}

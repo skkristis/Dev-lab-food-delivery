@@ -14,10 +14,17 @@ function CouriersDashboard() {
     return orders
       .filter((order) => order.status === 'pending')
       .map((order) => {
-        const distance = Math.floor(Math.random() * 25 + 0.5);
-        return { ...order, distance };
+        const distanceToRestaurant = Math.floor(Math.random() * 25 + 1);
+        const distanceToCustomer = Math.floor(Math.random() * 25 + 1);
+        return { ...order, distanceToRestaurant, distanceToCustomer };
       })
-      .sort((a, b) => a.distance - b.distance);
+      .sort(
+        (a, b) =>
+          a.distanceToRestaurant +
+          a.distanceToCustomer -
+          b.distanceToRestaurant -
+          b.distanceToCustomer
+      );
   }
 
   const orders = useSelector((state) => state.orders.list);

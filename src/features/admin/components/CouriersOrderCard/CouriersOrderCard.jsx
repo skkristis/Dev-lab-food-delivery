@@ -1,10 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { Button } from '@chakra-ui/react';
 
 import './CouriersOrderCard.scss';
 
 function CouriersOrderCard({ order, setActive }) {
+  const restaurant = useSelector((state) =>
+    state.restaurants.list.find(
+      (restaurant) => restaurant.id === order.restaurantId
+    )
+  );
+
   const handleClick = () => {
     setActive({ ...order, status: 'active' });
   };
@@ -16,14 +23,14 @@ function CouriersOrderCard({ order, setActive }) {
 
         <ul className="order-card__list">
           <li>
-            Restaurant: <strong>{order.restaurant.name}</strong>,{' '}
-            {order.restaurant.address}
+            Restaurant: <strong>{restaurant.name}</strong>, {restaurant.address}
           </li>
           <li>
             Customer: <strong>{order.customer.name}</strong>,{' '}
             {order.customer.address}
           </li>
-          <li>Distance to restaurant: {order.distance} km</li>
+          <li>Distance to restaurant: {order.distanceToRestaurant} km</li>
+          <li>Distance to customer: {order.distanceToCustomer} km</li>
         </ul>
       </div>
 

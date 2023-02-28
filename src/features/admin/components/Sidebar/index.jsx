@@ -2,17 +2,19 @@ import {
   Box,
   CloseButton,
   Flex,
-  Text,
   useColorModeValue,
+  Link,
+  Image,
 } from '@chakra-ui/react';
 import React from 'react';
 import NavItem from '../NavItem/index.jsx';
 import { getAdminRoutes } from '../../../../router/index.jsx';
+import { Link as ReachLink } from 'react-router-dom';
+import logoUrl from '../../../../assets/application-logo.svg';
 
 export default function Sidebar({ onClose, ...rest }) {
   return (
     <Box
-      transition="3s ease"
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
@@ -22,9 +24,9 @@ export default function Sidebar({ onClose, ...rest }) {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+        <Link display="flex" as={ReachLink} to="/">
+          <Image boxSize="30px" src={logoUrl} />
+        </Link>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {getAdminRoutes().map((link) => (

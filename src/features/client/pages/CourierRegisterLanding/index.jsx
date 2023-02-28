@@ -18,7 +18,7 @@ function CourierRegisterLanding() {
   };
 
   return (
-    <>
+    <Box width="100%" maxWidth="1120px" margin="0 auto">
       <Box>
         <Flex flexDirection="column" alignItems="center">
           <Text as="b" fontSize="5xl" textAlign="center">
@@ -170,7 +170,7 @@ function CourierRegisterLanding() {
           <Text>About delivery app text awesome</Text>
         </Flex>
       </Box>
-    </>
+    </Box>
   );
 }
 
