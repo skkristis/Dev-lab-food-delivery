@@ -8,6 +8,7 @@ import {
   useDisclosure,
   Flex,
   Text,
+  Input,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -65,6 +66,12 @@ function Header() {
               <Image boxSize="20px" src={arrowDownUrl} />
             </Button>
           </Flex>
+          <Input
+            color="white"
+            bg="lightgray"
+            placeholder="Search for cuisine, meal, restaurant..."
+            width="33%"
+          />
           <Box>
             <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
               <Button onClick={onOpen} variant="ghost">
