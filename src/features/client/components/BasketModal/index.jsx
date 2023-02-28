@@ -15,14 +15,21 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import basketUrl from '../../../../assets/basket-icon.svg';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeAmount } from '../../../../store/reducers/cartReducer';
 
-function BasketModal({ basket }) {
+function BasketModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const orderTotal = basket.length
-    ? basket.reduce((acc, curr) => {
-        const currValue = +curr.recipePrice;
-        return acc + currValue * curr.recipeQauntity;
-      }, 0)
+  const cartItems = useSelector((store) => store.cart.list);
+  const dispatch = useDispatch();
+
+  const orderTotal = cartItems.length
+    ? cartItems
+        .reduce((acc, curr) => {
+          const currValue = +curr.recipePrice;
+          return acc + currValue * curr.quantity;
+        }, 0)
+        .toFixed(2)
     : '0';
 
   return (
@@ -39,7 +46,9 @@ function BasketModal({ basket }) {
           bottom="0"
           right="0"
         >
-          {basket.length}
+          {cartItems.length
+            ? cartItems.reduce((acc, cur) => acc + cur.quantity, 0)
+            : 0}
         </Text>
       </Button>
 
@@ -55,8 +64,8 @@ function BasketModal({ basket }) {
           </ModalHeader>
           <ModalCloseButton bg="lightgray" rounded="xl" />
           <ModalBody padding="20px">
-            {basket.map((deal, i) => {
-              const itemTotal = +deal.recipePrice * deal.recipeQauntity;
+            {cartItems.map((item, i) => {
+              const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
               return (
                 <Flex
                   key={i}
@@ -72,19 +81,37 @@ function BasketModal({ basket }) {
                       marginRight="10px"
                     >
                       <Image
-                        src={deal.recipeThumb}
+                        src={item.recipeThumb}
                         marginRight="10px"
                         rounded="md"
                       />
                     </Box>
                     <Box>
-                      <Heading fontSize="16px">{deal.recipeName}</Heading>
+                      <Heading fontSize="16px">{item.recipeName}</Heading>
                       <Text fontSize="14px" marginTop="10px" color="blue.400">
                         €{itemTotal}
                       </Text>
                     </Box>
                   </Flex>
-                  <Button>{deal.recipeQauntity}</Button>
+                  <Flex alignItems="center" gap="5px">
+                    <Button
+                      onClick={() =>
+                        dispatch(changeAmount({ id: item.id, index: -1 }))
+                      }
+                      background="none"
+                    >
+                      -
+                    </Button>
+                    <Text>{item.quantity}</Text>
+                    <Button
+                      onClick={() =>
+                        dispatch(changeAmount({ id: item.id, index: 1 }))
+                      }
+                      background="none"
+                    >
+                      +
+                    </Button>
+                  </Flex>
                 </Flex>
               );
             })}
@@ -109,11 +136,11 @@ function BasketModal({ basket }) {
                   fontSize="12px"
                   marginRight="10px"
                 >
-                  {basket.length}
+                  {cartItems.length}
                 </Box>
                 Go to checkout
               </Box>
-              <Text>{orderTotal.toFixed(2)}</Text>
+              <Text>{orderTotal}</Text>
             </Button>
           </ModalFooter>
         </ModalContent>
