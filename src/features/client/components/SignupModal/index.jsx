@@ -10,6 +10,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { Checkbox } from '@chakra-ui/react';
 import './index.scss';
 
 function SignUpModal({ isOpen, onClose }) {
@@ -43,7 +44,21 @@ function SignUpModal({ isOpen, onClose }) {
                 {...register('password')}
                 mb={2}
               />
-              <Button type="submit" colorScheme="blue" mb={3}>
+              <Checkbox
+                colorScheme="blue"
+                {...register('age_agreement')}
+                display="block"
+              >
+                I&apos;m older than <b>18</b> years old.
+              </Checkbox>
+              <Checkbox
+                colorScheme="blue"
+                {...register('terms_agreement')}
+                display="block"
+              >
+                I read and agree to the terms and conditions.
+              </Checkbox>
+              <Button type="submit" colorScheme="blue" mb={4}>
                 Register
               </Button>
             </form>
