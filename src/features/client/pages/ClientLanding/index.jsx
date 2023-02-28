@@ -9,17 +9,7 @@ import FilterByCategory from '../../components/FilterByCategory';
 function ClientLanding() {
   return (
     <Flex as="section" flexDir="column" gap="20px">
-      <FilterByCategory
-        items={[
-          'Convenience',
-          'Grocery',
-          'Retail',
-          'Beauty',
-          'Offers',
-          'Flowers',
-        ]}
-        bgColor="#F7F7F7"
-      />
+      <FilterByCategory items={['Restaurants', 'Grocery', 'Offers']} />
       <FilterByCategory
         items={[
           'Fast Food',
@@ -32,6 +22,7 @@ function ClientLanding() {
           'Chicken',
           'Burgers',
         ]}
+        categoryId={'scroll2'}
       />
       <Categories />
       <RestaurantList />
