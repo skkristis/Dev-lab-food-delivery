@@ -3,7 +3,10 @@ const restaurants = [
     id: 1,
     name: 'My Restaurant name',
     address: 'Vilnius, Gedimino pr. 1',
-    workingHours: '12.00-22.00',
+    workingHours: {
+      from: '09:00',
+      till: '22:00',
+    },
     registrationDate: '01.01.2020',
     paymentMethods: {
       cash: true,

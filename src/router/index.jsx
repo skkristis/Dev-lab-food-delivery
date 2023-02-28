@@ -11,6 +11,7 @@ import { BiRestaurant, BiCar } from 'react-icons/all.js';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
+import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
 
 function getClientRoutes() {
   return [
@@ -22,7 +23,6 @@ function getClientRoutes() {
       path: '/subscriptions',
       element: <Subscriptions />,
     },
-
     {
       path: '/restaurants/:id',
       loader: async () => {
@@ -41,6 +41,10 @@ function getClientRoutes() {
     {
       path: '/apply-as-courier',
       element: <CourierRegisterForm />,
+    },
+    {
+      path: '/order-status',
+      element: <CustomerOrderStatus />,
     },
   ];
 }

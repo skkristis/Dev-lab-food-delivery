@@ -2,6 +2,15 @@
   display: flex;
   justify-content: center;
 
+  &__row {
+    display: flex;
+    gap: 20px;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
   form {
     width: 600px;
     max-width: 100%;
