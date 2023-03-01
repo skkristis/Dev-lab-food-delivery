@@ -1,36 +1,8 @@
-import {
-  Button,
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Flex,
-  Heading,
-  Image,
-  Box,
-  useDisclosure,
-} from '@chakra-ui/react';
-import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  extendTheme,
-} from '@chakra-ui/react';
-import basketUrl from '../../../../assets/basket-icon.svg';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Text, Flex, Heading, Image, Box } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
 import { changeAmount } from '../../../../store/reducers/cartReducer';
 
-function BasketModal() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cartItems = useSelector((store) => store.cart.list);
+function CartSideBar({ cartItems }) {
   const dispatch = useDispatch();
 
   const orderTotal = cartItems.length
@@ -44,38 +16,13 @@ function BasketModal() {
 
   return (
     <>
-      <Button onClick={onOpen} variant="ghost" position="relative">
-        <Image src={basketUrl} boxSize="30px" />
-        <Text
-          padding="2px 8px"
-          bg="blue.400"
-          rounded="xl"
-          color="white"
-          fontSize="12px"
-          position="absolute"
-          bottom="0"
-          right="0"
-        >
-          {cartItems.length
-            ? cartItems.reduce((acc, cur) => acc + cur.quantity, 0)
-            : 0}
-        </Text>
-      </Button>
-
-      <Drawer
-        // variant="alwaysOpen"
-        isOpen={isOpen}
-        onClose={onClose}
-        size={{ base: 'sm', sm: 'md', md: 'lg' }}
-        blockScrollOnMount={false}
-        // closeOnOverlayClick={false}
-      >
-        <DrawerContent>
-          <DrawerHeader>
+      <Box size={{ base: 'sm', sm: 'md', md: 'lg' }} bg="white">
+        <Box>
+          <Box>
             <Heading>Your order</Heading>
-          </DrawerHeader>
-          <DrawerCloseButton bg="lightgray" rounded="xl" />
-          <DrawerBody padding="20px">
+          </Box>
+          <Button bg="lightgray" rounded="xl" />
+          <Box padding="20px">
             {cartItems.map((item, i) => {
               const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
               return (
@@ -127,9 +74,9 @@ function BasketModal() {
                 </Flex>
               );
             })}
-          </DrawerBody>
+          </Box>
 
-          <DrawerFooter width="100%">
+          <Box width="100%">
             <Button
               width="100%"
               bg="blue.400"
@@ -154,11 +101,11 @@ function BasketModal() {
               </Box>
               <Text>{orderTotal}</Text>
             </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 }
 
-export default BasketModal;
+export default CartSideBar;
