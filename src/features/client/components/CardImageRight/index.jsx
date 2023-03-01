@@ -9,20 +9,11 @@ import {
   List,
   ListItem,
   ListIcon,
-  CardFooter,
-  Button,
   Image,
 } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 
-function CardWithImage({
-  heading,
-  text,
-  list,
-  buttonText,
-  imageSrc,
-  imageAlt,
-}) {
+function CardWithImage({ heading, text, list, imageSrc, imageAlt }) {
   return (
     <Box m={10}>
       <Card
@@ -45,9 +36,6 @@ function CardWithImage({
               ))}
             </List>
           </CardBody>
-          <CardFooter>
-            {buttonText ? <Button>{buttonText}</Button> : <></>}
-          </CardFooter>
         </Stack>
         {imageSrc ? (
           <Image
