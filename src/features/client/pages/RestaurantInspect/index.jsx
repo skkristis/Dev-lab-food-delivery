@@ -2,11 +2,14 @@ import { Box, Heading, Image, Text, Flex, Button } from '@chakra-ui/react';
 
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import clockUrl from '../../../../assets/clock-icon.svg';
+import CartSideBar from '../../components/BasketModal/index2';
 import RestaurantInspectSection from '../../components/RestaurantInspectSection';
 
 function RestaurantInspect() {
   const restaurantInfo = useLoaderData();
+  const cartItems = useSelector((store) => store.cart.list);
 
   return (
     <Box as="section" marginTop="50px">
@@ -73,11 +76,16 @@ function RestaurantInspect() {
           </Button>
         </Flex>
       </Box>
-      <Box bg="white" paddingTop="20px">
-        {restaurantInfo.restaurantMenu.map((dealSection, i) => {
-          return <RestaurantInspectSection key={i} dealSection={dealSection} />;
-        })}
-      </Box>
+      <Flex padding={{ base: 0, sm: '0 10px' }} bg="white" gap="10px">
+        <Box bg="white" paddingTop="20px" width="100%">
+          {restaurantInfo.restaurantMenu.map((dealSection, i) => {
+            return (
+              <RestaurantInspectSection key={i} dealSection={dealSection} />
+            );
+          })}
+        </Box>
+        {cartItems.length && <CartSideBar cartItems={cartItems} />}
+      </Flex>
     </Box>
   );
 }
