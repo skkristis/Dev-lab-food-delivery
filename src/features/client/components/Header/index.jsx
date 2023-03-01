@@ -9,15 +9,18 @@ import {
   Flex,
   Text,
   Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useMediaQuery,
 } from '@chakra-ui/react';
-import React from 'react';
-
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
 import locationUrl from '../../../../assets/location-icon.svg';
 import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
-
 import BasketModal from '../BasketModal';
 import SignUpModal from '../SignupModal';
 
@@ -32,6 +35,7 @@ function Header() {
     onOpen: onSignupModalOpen,
     onClose: onSignupModalClose,
   } = useDisclosure();
+  const [smallerScreen] = useMediaQuery('(max-width: 750px)');
 
   return (
     <>
@@ -55,50 +59,107 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Flex flexWrap="wrap" gap="10px" alignItems="center">
+          <Flex flexWrap="nowrap" gap="10px" alignItems="center">
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
-            <Button variant="ghost" display="flex" gap="10px">
-              <Image
-                boxSize="30px"
-                src={locationUrl}
-                padding="5px"
-                rounded="full"
-                bg="blue.400"
-              />
-              <Text fontWeight="light">
-                Delivery to
-                <br />
-                <Box as="span" color="blue.400" fontWeight="semibold">
-                  Vilnius
-                </Box>
-              </Text>
-              <Image boxSize="20px" src={arrowDownUrl} />
-            </Button>
+            {smallerScreen ? (
+              <></>
+            ) : (
+              <Button variant="ghost" display="flex" gap="10px">
+                <Image
+                  boxSize="30px"
+                  src={locationUrl}
+                  padding="5px"
+                  rounded="full"
+                  bg="blue.400"
+                />
+                <Text fontWeight="light">
+                  Delivery to
+                  <br />
+                  <Box as="span" color="blue.400" fontWeight="semibold">
+                    Vilnius
+                  </Box>
+                </Text>
+                <Image boxSize="20px" src={arrowDownUrl} />
+              </Button>
+            )}
           </Flex>
           <Input
             color="white"
             bg="lightgray"
-            placeholder="Search for cuisine, meal, restaurant..."
-            width="33%"
+            placeholder={
+              smallerScreen
+                ? 'Search for meal...'
+                : 'Search for cuisine, meal, restaurant...'
+            }
+            width={smallerScreen ? '40%' : '300px'}
+            borderRadius="50px"
           />
-          <Box>
-            <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
-              <Button onClick={onLoginModalOpen} variant="ghost">
-                Log In
-              </Button>
-              <Button
-                onClick={onSignupModalOpen}
-                colorScheme="blue"
-                color="white"
-              >
-                Sign up
-              </Button>
-            </ButtonGroup>
-            <BasketModal basket={basket} />
-          </Box>
+          {smallerScreen ? (
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                User
+              </MenuButton>
+              <MenuList>
+                <MenuItem>
+                  <Button onClick={onLoginModalOpen} variant="ghost">
+                    Log In
+                  </Button>
+                </MenuItem>
+                <MenuItem>
+                  <Button
+                    onClick={onSignupModalOpen}
+                    colorScheme="blue"
+                    color="white"
+                  >
+                    Sign up
+                  </Button>
+                </MenuItem>
+                <MenuItem>
+                  <BasketModal basket={basket} />
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Box>
+              <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
+                <Button onClick={onLoginModalOpen} variant="ghost">
+                  Log In
+                </Button>
+                <Button
+                  onClick={onSignupModalOpen}
+                  colorScheme="blue"
+                  color="white"
+                >
+                  Sign up
+                </Button>
+              </ButtonGroup>
+              <BasketModal basket={basket} />
+            </Box>
+          )}
         </Box>
+        {smallerScreen ? (
+          <Button variant="ghost" display="flex" gap="10px" width="175px">
+            <Image
+              boxSize="30px"
+              src={locationUrl}
+              padding="5px"
+              rounded="full"
+              bg="blue.400"
+            />
+            <Text fontWeight="light">
+              Delivery to
+              <br />
+              <Box as="span" color="blue.400" fontWeight="semibold">
+                Vilnius
+              </Box>
+            </Text>
+            <Image boxSize="20px" src={arrowDownUrl} />
+          </Button>
+        ) : (
+          <></>
+        )}
         <Box
           display="flex"
           justifyContent="center"

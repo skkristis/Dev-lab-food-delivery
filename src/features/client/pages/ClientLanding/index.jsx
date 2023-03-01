@@ -9,10 +9,7 @@ import FilterByCategory from '../../components/FilterByCategory';
 function ClientLanding() {
   return (
     <Flex as="section" flexDir="column" gap="20px">
-      <FilterByCategory
-        items={['Restaurants', 'Grocery', 'Offers']}
-        justify="center"
-      />
+      <FilterByCategory items={['Restaurants', 'Grocery', 'Offers']} />
       <FilterByCategory
         items={[
           'Fast Food',
@@ -26,7 +23,6 @@ function ClientLanding() {
           'Burgers',
         ]}
         categoryId={'scroll2'}
-        justify="space-evenly"
       />
       <Discovery />
       <RestaurantList />
