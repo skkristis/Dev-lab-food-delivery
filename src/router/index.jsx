@@ -10,7 +10,6 @@ import RestaurantDashboard from '../features/admin/components/RestaurantDashboar
 import { BiRestaurant, BiCar } from 'react-icons/all.js';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
-import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
 import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
 
 function getClientRoutes() {
