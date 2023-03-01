@@ -1,34 +1,24 @@
 import {
   Button,
   Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Flex,
   Heading,
   Image,
   Box,
   useDisclosure,
-} from '@chakra-ui/react';
-import {
   Drawer,
   DrawerBody,
   DrawerFooter,
   DrawerHeader,
-  DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  extendTheme,
+  Center,
 } from '@chakra-ui/react';
 import basketUrl from '../../../../assets/basket-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeAmount } from '../../../../store/reducers/cartReducer';
 
-function BasketModal() {
+function CartDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cartItems = useSelector((store) => store.cart.list);
   const dispatch = useDispatch();
@@ -44,7 +34,12 @@ function BasketModal() {
 
   return (
     <>
-      <Button onClick={onOpen} variant="ghost" position="relative">
+      <Button
+        onClick={onOpen}
+        variant="ghost"
+        position="relative"
+        display={{ base: 'inline-block', md: 'none' }}
+      >
         <Image src={basketUrl} boxSize="30px" />
         <Text
           padding="2px 8px"
@@ -62,20 +57,13 @@ function BasketModal() {
         </Text>
       </Button>
 
-      <Drawer
-        // variant="alwaysOpen"
-        isOpen={isOpen}
-        onClose={onClose}
-        size={{ base: 'sm', sm: 'md', md: 'lg' }}
-        blockScrollOnMount={false}
-        // closeOnOverlayClick={false}
-      >
+      <Drawer isOpen={isOpen} onClose={onClose} size="100%">
         <DrawerContent>
           <DrawerHeader>
             <Heading>Your order</Heading>
           </DrawerHeader>
           <DrawerCloseButton bg="lightgray" rounded="xl" />
-          <DrawerBody padding="20px">
+          <DrawerBody padding="0px 20px 20px 20px" mt="20px">
             {cartItems.map((item, i) => {
               const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
               return (
@@ -83,27 +71,27 @@ function BasketModal() {
                   key={i}
                   marginBottom="10px"
                   justifyContent="space-between"
+                  minHeight="80px"
                 >
                   <Flex>
-                    <Box
+                    <Center
                       overflow="hidden"
                       rounded="md"
-                      height="60px"
-                      width="20%"
+                      minWidth="100px"
+                      width="30%"
+                      maxHeight="150px"
                       marginRight="10px"
                     >
-                      <Image
-                        src={item.recipeThumb}
-                        marginRight="10px"
-                        rounded="md"
-                      />
-                    </Box>
-                    <Box>
-                      <Heading fontSize="16px">{item.recipeName}</Heading>
-                      <Text fontSize="14px" marginTop="10px" color="blue.400">
-                        €{itemTotal}
-                      </Text>
-                    </Box>
+                      <Image src={item.recipeThumb} rounded="md" />
+                    </Center>
+                    <Center>
+                      <Box>
+                        <Heading fontSize="16px">{item.recipeName}</Heading>
+                        <Text fontSize="14px" marginTop="10px" color="blue.400">
+                          €{itemTotal}
+                        </Text>
+                      </Box>
+                    </Center>
                   </Flex>
                   <Flex alignItems="center" gap="5px">
                     <Button
@@ -161,4 +149,4 @@ function BasketModal() {
   );
 }
 
-export default BasketModal;
+export default CartDrawer;

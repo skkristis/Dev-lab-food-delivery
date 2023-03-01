@@ -6,7 +6,7 @@ import {
   Image,
   Box,
   Center,
-  Circle,
+  Spacer,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { changeAmount } from '../../../../store/reducers/cartReducer';
@@ -24,13 +24,20 @@ function CartSideBar({ cartItems }) {
     : '0';
 
   return (
-    <>
-      <Box bg="white">
-        <Box>
+    <Flex height="100%" direction="column" position="relative">
+      <Box bg="white" height="400px" position="sticky" top="20px">
+        <Flex direction="column" height="100%">
           <Center>
             <Heading>Your order</Heading>
           </Center>
-          <Box padding="20px">
+          <Box
+            padding="0px 20px"
+            mt="20px"
+            mb="20px"
+            maxHeight="300px"
+            overflow="scroll"
+            overflowX="hidden"
+          >
             {cartItems.map((item, i) => {
               const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
               return (
@@ -40,25 +47,25 @@ function CartSideBar({ cartItems }) {
                   justifyContent="space-between"
                 >
                   <Flex>
-                    <Box
+                    <Center
                       overflow="hidden"
                       rounded="md"
                       height="60px"
-                      width="20%"
                       marginRight="10px"
+                      minWidth="100px"
+                      width="30%"
+                      maxHeight="150px"
                     >
-                      <Image
-                        src={item.recipeThumb}
-                        marginRight="10px"
-                        rounded="md"
-                      />
-                    </Box>
-                    <Box>
-                      <Heading fontSize="16px">{item.recipeName}</Heading>
-                      <Text fontSize="14px" marginTop="10px" color="blue.400">
-                        €{itemTotal}
-                      </Text>
-                    </Box>
+                      <Image src={item.recipeThumb} rounded="md" />
+                    </Center>
+                    <Center>
+                      <Box>
+                        <Heading fontSize="16px">{item.recipeName}</Heading>
+                        <Text fontSize="14px" marginTop="10px" color="blue.400">
+                          €{itemTotal}
+                        </Text>
+                      </Box>
+                    </Center>
                   </Flex>
                   <Flex alignItems="center" gap="5px">
                     <Button
@@ -83,8 +90,8 @@ function CartSideBar({ cartItems }) {
               );
             })}
           </Box>
-
-          <Box width="100%">
+          <Spacer />
+          <Box maxWidth="100%">
             <Button
               width="100%"
               bg="blue.400"
@@ -110,9 +117,10 @@ function CartSideBar({ cartItems }) {
               <Text>{orderTotal}</Text>
             </Button>
           </Box>
-        </Box>
+        </Flex>
       </Box>
-    </>
+      <Box></Box>
+    </Flex>
   );
 }
 

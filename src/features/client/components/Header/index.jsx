@@ -11,13 +11,12 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-// import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
 import locationUrl from '../../../../assets/location-icon.svg';
 import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
 
-import BasketModal from '../BasketModal';
+import CartDrawer from '../CartComponent/CartDrawer';
 import SignUpModal from '../SignupModal';
 
 function Header() {
@@ -89,7 +88,7 @@ function Header() {
                 Sign up
               </Button>
             </ButtonGroup>
-            <BasketModal />
+            <CartDrawer />
           </Box>
         </Box>
         <Box
