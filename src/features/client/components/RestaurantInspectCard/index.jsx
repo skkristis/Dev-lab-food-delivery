@@ -18,8 +18,8 @@ function RestaurantInspectCard({ deal, cartOpened }) {
       width="100%"
       maxW={
         cartOpened
-          ? { base: '100%', lg: '45%' }
-          : { base: '100%', md: '45%', lg: '30%' }
+          ? { base: '100%', xl: '45%' }
+          : { base: '100%', lg: '45%', xl: '30%' }
       }
       border="1px solid lightgray"
       rounded="md"
