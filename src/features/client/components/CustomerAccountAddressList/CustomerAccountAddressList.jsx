@@ -22,7 +22,7 @@ function CustomerAccountAddressList({
     dispatch(setPrimaryAddress(addressId));
 
   const handleSetPrimary = (value) => {
-    if (primaryAddress.id !== value) {
+    if (primaryAddress?.id !== value) {
       dispatchPrimaryAddress(value);
     }
   };
@@ -33,7 +33,7 @@ function CustomerAccountAddressList({
         {addressList.length > 0 ? (
           <RadioGroup
             onChange={(value) => handleSetPrimary(Number(value))}
-            value={primaryAddress.id}
+            value={primaryAddress?.id}
           >
             {addressList.map((address) => (
               <CustomerAccountAddressCard

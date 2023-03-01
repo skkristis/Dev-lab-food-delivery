@@ -166,7 +166,7 @@ function CustomerAccountAddressForm({
           size="lg"
           isLoading={isSubmitting}
         >
-          Update
+          {address ? 'Update' : 'Add'}
         </Button>
       </form>
     </div>
