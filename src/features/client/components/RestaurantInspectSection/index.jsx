@@ -1,7 +1,7 @@
 import { Box, Heading, Flex } from '@chakra-ui/react';
 import RestaurantInspectCard from '../RestaurantInspectCard';
 
-function RestaurantInspectSection({ dealSection }) {
+function RestaurantInspectSection({ dealSection, cartOpened }) {
   return (
     <Box className="container">
       <Heading fontSize="24px">{dealSection.sectionName}</Heading>
@@ -13,7 +13,13 @@ function RestaurantInspectSection({ dealSection }) {
         justifyContent="space-between"
       >
         {dealSection.deals.map((deal, i) => {
-          return <RestaurantInspectCard deal={deal} key={i} />;
+          return (
+            <RestaurantInspectCard
+              deal={deal}
+              key={i}
+              cartOpened={cartOpened}
+            />
+          );
         })}
       </Flex>
     </Box>

@@ -1,4 +1,12 @@
-import { Box, Heading, Image, Text, Flex, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Image,
+  Text,
+  Flex,
+  Button,
+  Center,
+} from '@chakra-ui/react';
 
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -80,12 +88,21 @@ function RestaurantInspect() {
         <Box bg="white" paddingTop="20px" width="100%" flex="5">
           {restaurantInfo.restaurantMenu.map((dealSection, i) => {
             return (
-              <RestaurantInspectSection key={i} dealSection={dealSection} />
+              <RestaurantInspectSection
+                key={i}
+                dealSection={dealSection}
+                cartOpened={cartItems.length ? true : false}
+              />
             );
           })}
         </Box>
-        {cartItems.length && (
-          <Box flex="2" pt="20px">
+        {cartItems.length !== 0 && (
+          <Box
+            display={{ base: 'none', md: 'flex' }}
+            flex={{ md: '4', lg: '2' }}
+            padding="20px 10px 0 10px"
+            borderLeft="1px solid lightgray"
+          >
             <CartSideBar cartItems={cartItems} />
           </Box>
         )}

@@ -1,4 +1,13 @@
-import { Button, Text, Flex, Heading, Image, Box } from '@chakra-ui/react';
+import {
+  Button,
+  Text,
+  Flex,
+  Heading,
+  Image,
+  Box,
+  Center,
+  Circle,
+} from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { changeAmount } from '../../../../store/reducers/cartReducer';
 
@@ -18,9 +27,9 @@ function CartSideBar({ cartItems }) {
     <>
       <Box bg="white">
         <Box>
-          <Box>
+          <Center>
             <Heading>Your order</Heading>
-          </Box>
+          </Center>
           <Box padding="20px">
             {cartItems.map((item, i) => {
               const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);

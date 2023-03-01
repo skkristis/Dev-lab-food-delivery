@@ -9,14 +9,18 @@ import {
 } from '@chakra-ui/react';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
-function RestaurantInspectCard({ deal }) {
+function RestaurantInspectCard({ deal, cartOpened }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Flex
       gap="5px"
       width="100%"
-      maxW={{ base: '100%', md: '45%', lg: '30%' }}
+      maxW={
+        cartOpened
+          ? { base: '100%', lg: '45%' }
+          : { base: '100%', md: '45%', lg: '30%' }
+      }
       border="1px solid lightgray"
       rounded="md"
       padding="10px"
