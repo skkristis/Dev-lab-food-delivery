@@ -9,18 +9,23 @@ import FilterByCategory from '../../components/FilterByCategory';
 function ClientLanding() {
   return (
     <Flex as="section" flexDir="column" gap="20px">
-      <FilterByCategory items={['Restaurants', 'Grocery', 'Offers']} />
       <FilterByCategory
         items={[
-          'Fast Food',
-          'Drinks',
-          'Desserts',
-          'Snacks',
-          'Coffee',
-          'Breakfast',
-          'Sandwiches',
-          'Chicken',
-          'Burgers',
+          { icon: '🍝 ', name: 'Restaurants' },
+          { icon: '🛒 ', name: 'Grocery' },
+          { icon: '🎉 ', name: 'Offers' },
+        ]}
+      />
+      <FilterByCategory
+        items={[
+          { icon: '🍟 ', name: 'Fast Food' },
+          { icon: '🍰 ', name: 'Desserts' },
+          { icon: '🍿 ', name: 'Snacks' },
+          { icon: '☕️ ', name: 'Coffee' },
+          { icon: '🥞 ', name: 'Breakfast' },
+          { icon: '🥪 ', name: 'Sandwiches' },
+          { icon: '🍗 ', name: 'Chicken' },
+          { icon: '🍔 ', name: 'Burgers' },
         ]}
         categoryId={'scroll2'}
       />
