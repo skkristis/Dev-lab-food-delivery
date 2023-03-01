@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { removeAddress } from '../../../../store/reducers/customerReducer';
 
-import { Button } from '@chakra-ui/react';
+import { Button, Tooltip } from '@chakra-ui/react';
 import CustomerAccountAddressList from '../CustomerAccountAddressList/CustomerAccountAddressList';
 import CustomerAccountAddressForm from '../CustomerAccountAddressForm/CustomerAccountAddressForm';
 
@@ -11,6 +11,8 @@ import './CustomerAccountAddress.scss';
 function CustomerAccountAddress({ customer }) {
   const [activeAddress, setActiveAddress] = useState(null);
   const [showForm, setShowForm] = useState(false);
+
+  const savedAddressBook = useSelector((state) => state.customer.addressBook);
 
   const dispatch = useDispatch();
   const dispatchRemove = (address) => dispatch(removeAddress(address));
@@ -41,14 +43,26 @@ function CustomerAccountAddress({ customer }) {
         )}
 
         {showForm && activeAddress && (
-          <Button
-            variant="outline"
-            colorScheme="red"
-            size="lg"
-            onClick={handleRemove}
+          <Tooltip
+            label="You can't remove primary address."
+            shouldWrapChildren
+            hasArrow
+            placement="bottom"
+            bg="red.500"
+            isDisabled={!activeAddress.primary}
           >
-            Remove
-          </Button>
+            <Button
+              variant="outline"
+              colorScheme="red"
+              size="lg"
+              isDisabled={
+                activeAddress.primary || savedAddressBook.length === 1
+              }
+              onClick={handleRemove}
+            >
+              Remove
+            </Button>
+          </Tooltip>
         )}
       </div>
 

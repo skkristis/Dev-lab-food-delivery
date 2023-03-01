@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import CustomerAccountWelcome from '../CustomerAccountWelcome/CustomerAccountWelcome';
+import CustomerAccountPayment from '../CustomerAccountPayment/CustomerAccountPayment';
 import CustomerAccountAddress from '../CustomerAccountAddress/CustomerAccountAddress';
 import CustomerAccountSettings from '../CustomerAccountSettings/CustomerAccountSettings';
 
@@ -27,7 +28,9 @@ function CustomerAccountDashboard() {
             <CustomerAccountWelcome customer={customer} />
           </TabPanel>
 
-          <TabPanel p={0}></TabPanel>
+          <TabPanel p={0}>
+            <CustomerAccountPayment customer={customer} />
+          </TabPanel>
 
           <TabPanel p={0}>
             <CustomerAccountAddress customer={customer} />
