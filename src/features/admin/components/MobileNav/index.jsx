@@ -51,7 +51,7 @@ export default function MobileNav({ onOpen, ...rest }) {
         icon={<FiMenu />}
       />
 
-      <Link display="flex" as={ReachLink} to="/">
+      <Link display={{ base: 'flex', md: 'none' }} as={ReachLink} to="/">
         <Image boxSize="30px" src={logoUrl} />
       </Link>
 

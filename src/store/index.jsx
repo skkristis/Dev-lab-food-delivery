@@ -4,11 +4,13 @@ import { persistReducer, persistStore } from 'redux-persist';
 import ordersReducer from './reducers/ordersReducer';
 import dishesReducer from './reducers/dishesReducer';
 import restaurantsReducer from './reducers/restaurantsReducer';
+import customerReducer from './reducers/customerReducer';
 
 const rootReducer = combineReducers({
   dishes: dishesReducer,
   restaurants: restaurantsReducer,
   orders: ordersReducer,
+  customer: customerReducer,
 });
 
 const persistConfig = {
