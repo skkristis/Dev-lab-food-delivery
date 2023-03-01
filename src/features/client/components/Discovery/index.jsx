@@ -11,7 +11,7 @@ function Discovery() {
       <Flex alignItems="center" mt={5}>
         <Button
           position="absolute"
-          zIndex={10}
+          zIndex={4}
           onClick={() => {
             const container = document.querySelector('#discovery-item-list');
             container.scrollLeft -= 160;
@@ -37,7 +37,7 @@ function Discovery() {
         </Box>
         <Button
           position="absolute"
-          zIndex={10}
+          zIndex={4}
           right="0"
           onClick={() => {
             const container = document.querySelector('#discovery-item-list');
