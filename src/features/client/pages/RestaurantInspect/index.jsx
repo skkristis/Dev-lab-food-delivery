@@ -77,14 +77,18 @@ function RestaurantInspect() {
         </Flex>
       </Box>
       <Flex padding={{ base: 0, sm: '0 10px' }} bg="white" gap="10px">
-        <Box bg="white" paddingTop="20px" width="100%">
+        <Box bg="white" paddingTop="20px" width="100%" flex="5">
           {restaurantInfo.restaurantMenu.map((dealSection, i) => {
             return (
               <RestaurantInspectSection key={i} dealSection={dealSection} />
             );
           })}
         </Box>
-        {cartItems.length && <CartSideBar cartItems={cartItems} />}
+        {cartItems.length && (
+          <Box flex="2" pt="20px">
+            <CartSideBar cartItems={cartItems} />
+          </Box>
+        )}
       </Flex>
     </Box>
   );

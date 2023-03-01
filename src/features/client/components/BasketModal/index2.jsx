@@ -16,12 +16,11 @@ function CartSideBar({ cartItems }) {
 
   return (
     <>
-      <Box size={{ base: 'sm', sm: 'md', md: 'lg' }} bg="white">
+      <Box bg="white">
         <Box>
           <Box>
             <Heading>Your order</Heading>
           </Box>
-          <Button bg="lightgray" rounded="xl" />
           <Box padding="20px">
             {cartItems.map((item, i) => {
               const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
