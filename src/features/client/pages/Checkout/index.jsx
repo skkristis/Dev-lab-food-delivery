@@ -259,7 +259,7 @@ function Checkout() {
             <Flex justifyContent="center" gap="10px">
               <Image
                 src={payMethod === 'Swedbank' ? SwedbankUrl : PayseraUrl}
-                width="30px"
+                width={payMethod === 'Swedbank' ? '30px' : '100px'}
               />
               <Text>Payment window</Text>
             </Flex>
