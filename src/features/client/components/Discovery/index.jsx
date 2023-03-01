@@ -6,23 +6,24 @@ import RestaurantInspectForLanding from '../RestaurantInspectForLanding';
 
 function Discovery() {
   return (
-    <Box as="section" className="container">
+    <Box as="section" className="container" position="relative">
       <Heading>Discover</Heading>
       <Flex alignItems="center" mt={5}>
         <Button
-          variant="ghost"
+          position="absolute"
+          zIndex={10}
           onClick={() => {
             const container = document.querySelector('#discovery-item-list');
-            container.scrollLeft -= 80;
+            container.scrollLeft -= 160;
           }}
         >
           <ChevronLeftIcon />
         </Button>
         <Box
-          overflowX="scroll"
-          id="discovery-item-list"
           padding="20px"
           width="100%"
+          overflowX="scroll"
+          id="discovery-item-list"
         >
           <Flex gap="20px">
             {restaurantInspectMock.restaurantMenu.map((dealSection) => {
@@ -35,10 +36,12 @@ function Discovery() {
           </Flex>
         </Box>
         <Button
-          variant="ghost"
+          position="absolute"
+          zIndex={10}
+          right="0"
           onClick={() => {
             const container = document.querySelector('#discovery-item-list');
-            container.scrollLeft += 80;
+            container.scrollLeft += 160;
           }}
         >
           <ChevronRightIcon />

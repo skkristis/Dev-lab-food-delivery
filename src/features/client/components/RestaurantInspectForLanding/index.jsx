@@ -2,15 +2,17 @@ import { Box, Flex, Heading } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { restaurantInspectMock } from '../../mocks/restaurantInspectMock';
 import RestaurantInspectModal from '../RestaurantInspectModal';
+import { useMediaQuery } from '@chakra-ui/react';
 
 function RestaurantInspectForLanding({ item }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [smallerScreen] = useMediaQuery('(max-width: 750px)');
   return (
     <Box
       as="button"
       onClick={onOpen}
       border="1px solid lightgray"
-      minWidth="200px"
+      minWidth={smallerScreen ? '200px' : '270px'}
       minHeight="200px"
       rounded="md"
       _hover={{ transform: 'scale(1.01)' }}
