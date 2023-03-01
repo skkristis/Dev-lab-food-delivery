@@ -7,7 +7,7 @@ import React from 'react';
 
 import './index.scss';
 
-function FilterByCategory({ items, bgColor, categoryId }) {
+function FilterByCategory({ items, bgColor, categoryId, justify }) {
   const [smallerScreen] = useMediaQuery('(max-width: 750px)');
   return (
     <>
@@ -67,60 +67,27 @@ function FilterByCategory({ items, bgColor, categoryId }) {
           )}
         </Flex>
       ) : (
-        <>
-          {categoryId && smallerScreen ? (
+        <Flex
+          direction="row"
+          justifyContent={justify}
+          backgroundColor={bgColor}
+          p={4}
+          className="category"
+          id={categoryId}
+        >
+          {items.map((item, index) => (
             <Button
-              variant="ghost"
-              onClick={() => {
-                const container = document.querySelector(`#${categoryId}`);
-                container.scrollLeft -= 20;
-              }}
-              ml="auto"
-              mt={5}
-              float="left"
+              borderRadius="lg"
+              bg="white"
+              key={index}
+              p={3}
+              display="block"
+              minWidth="fit-content"
             >
-              <ChevronLeftIcon />
+              {item}
             </Button>
-          ) : (
-            <></>
-          )}
-          <Flex
-            direction="row"
-            justifyContent="space-evenly"
-            backgroundColor={bgColor}
-            p={4}
-            className="category"
-            id={categoryId}
-          >
-            {items.map((item, index) => (
-              <Button
-                borderRadius="lg"
-                bg="white"
-                key={index}
-                p={3}
-                display="block"
-                minWidth="fit-content"
-              >
-                {item}
-              </Button>
-            ))}
-          </Flex>
-          {categoryId && smallerScreen ? (
-            <Button
-              variant="ghost"
-              onClick={() => {
-                const container = document.querySelector(`#${categoryId}`);
-                container.scrollLeft += 20;
-              }}
-              ml="auto"
-              mt={5}
-            >
-              <ChevronRightIcon />
-            </Button>
-          ) : (
-            <></>
-          )}
-        </>
+          ))}
+        </Flex>
       )}
     </>
   );
