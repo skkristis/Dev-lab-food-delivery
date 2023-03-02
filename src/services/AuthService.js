@@ -2,10 +2,8 @@ import axios from './axios';
 
 class Auth {
   async login(email, password) {
-    return await axios.get('/sanctum/csrf-cookie').then(async () => {
-      const status = await axios.post('/auth/login', { email, password });
-      return status === 204;
-    });
+    const response = await axios.post('/auth/login', { email, password });
+    localStorage.setItem('accessToken', response.data.access_token);
   }
 
   async register(user) {
@@ -19,21 +17,26 @@ class Auth {
       terms_agree: user.termsAgree,
     };
 
-    return await axios.get('/sanctum/csrf-cookie').then(async () => {
-      const status = await axios.post('/auth/register', userData);
-      return status === 204;
-    });
+    await axios.post('/auth/register', userData);
   }
 
   async logout() {
-    const status = await axios.get('/auth/logout');
-    return status === 204;
+    const response = await axios.post('/auth/logout');
+    localStorage.removeItem('accessToken');
   }
 
   async me() {
-    const user = await axios.get('/api/me');
-    return user;
+    const response = await axios.get('/api/me');
+
+    return {
+      id: response.data.data.id,
+      email: response.data.data.email,
+      firstName: response.data.data.first_name,
+      lastName: response.data.data.last_name,
+    };
   }
+
+  refresh() {}
 }
 
 export default new Auth();
