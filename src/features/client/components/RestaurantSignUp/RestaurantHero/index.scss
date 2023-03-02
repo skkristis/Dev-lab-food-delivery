@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .promo1 {
   &__section {
     background-image: url(https://www.lekste.lt/dist/img/static/marketing/hero-bg.png);
@@ -37,7 +39,7 @@
   &__btns {
     display: flex;
     gap: 15px;
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: $screen-md) {
       flex-direction: column;
       padding: 0 30px;
     }

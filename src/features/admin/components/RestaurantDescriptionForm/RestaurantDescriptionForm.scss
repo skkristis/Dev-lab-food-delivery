@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .restaurant-dataform {
   display: flex;
   justify-content: center;
@@ -6,7 +8,7 @@
     display: flex;
     gap: 20px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
       flex-direction: column;
     }
   }

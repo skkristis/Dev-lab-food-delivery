@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .promo2 {
   &__section {
     padding: 50px 0;
@@ -25,7 +27,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    @media only screen and (max-width: 1200px) {
+    @media only screen and (max-width: $screen-xl) {
       flex: 1;
     }
   }
@@ -35,11 +37,11 @@
     span {
       font-weight: 700;
     }
-    @media only screen and (max-width: 1200px) {
+    @media only screen and (max-width: $screen-xl) {
       flex: 1;
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: $screen-md) {
     &__section {
       padding: 0 0 50px 0;
     }

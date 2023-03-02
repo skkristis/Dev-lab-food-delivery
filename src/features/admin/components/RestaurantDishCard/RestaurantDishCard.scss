@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .dish-card {
   position: relative;
   display: flex;
@@ -35,7 +37,7 @@
     }
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: $screen-xl) {
     flex-direction: column;
   }
 
@@ -49,15 +51,11 @@
       object-fit: cover;
     }
 
-    @media screen and (max-width: 1440px) {
+    @media screen and (max-width: $screen-xl) {
       flex-basis: 160px;
     }
 
-    @media screen and (max-width: 1024px) {
-      flex-basis: 120px;
-    }
-
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
     }
   }
 
