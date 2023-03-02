@@ -1,16 +1,14 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
-import { useDisclosure } from '@chakra-ui/react';
 import { restaurantInspectMock } from '../../mocks/restaurantInspectMock';
-import RestaurantInspectModal from '../RestaurantInspectModal';
 import { useMediaQuery } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 function RestaurantInspectForLanding({ item }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [smallerScreen] = useMediaQuery('(max-width: 750px)');
   return (
     <Box
-      as="button"
-      onClick={onOpen}
+      as={Link}
+      to={`/restaurants/${restaurantInspectMock.restaurantName}`}
       border="1px solid lightgray"
       minWidth={smallerScreen ? '200px' : '270px'}
       minHeight="200px"
@@ -39,7 +37,6 @@ function RestaurantInspectForLanding({ item }) {
           </Flex>
         </Flex>
       </Box>
-      <RestaurantInspectModal deal={item} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }
