@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 h1,
 h2,
 h3,
@@ -26,12 +28,12 @@ h6 {
   &__text-big {
     font-size: 24px;
   }
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: $screen-xl) {
     &__container {
       width: 720px;
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: $screen-md) {
     &__container {
       width: 100vw;
       text-align: center;

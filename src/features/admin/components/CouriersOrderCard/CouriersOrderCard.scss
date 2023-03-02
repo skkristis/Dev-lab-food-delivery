@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .order-card {
   display: flex;
   justify-content: space-between;
@@ -8,7 +10,7 @@
   border: 2px solid grey;
   border-radius: 10px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $screen-md) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -47,7 +49,7 @@
     justify-content: center;
     flex: 0 0 140px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
       flex-basis: 0;
     }
   }

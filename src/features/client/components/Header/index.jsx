@@ -10,11 +10,15 @@ import {
   Input,
   useMediaQuery,
 } from '@chakra-ui/react';
-import { basket } from '../../mocks/basketMock';
+import React from 'react';
+import { useState } from 'react';
+
 import logoUrl from '../../../../assets/application-logo.svg';
 import LogInModal from '../LogInModal';
-import BasketModal from '../BasketModal';
+
+import CartDrawer from '../CartDrawer';
 import SignUpModal from '../SignupModal';
+import LoggedInUserHeader from '../LoggedInUserHeader';
 import DeliverToButton from '../DeliverToButton';
 import UserMenu from '../UserMenu';
 
@@ -31,11 +35,13 @@ function Header() {
   } = useDisclosure();
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
 
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <>
       <Box
         as="header"
-        height="150px"
+        height="80px"
         position="fixed"
         left="0"
         right="0"
@@ -65,6 +71,30 @@ function Header() {
             </Link>
             <DeliverToButton />
           </Flex>
+          <Box>
+            {isLoggedIn ? (
+              <Flex>
+                <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
+                <CartDrawer />
+              </Flex>
+            ) : (
+              <>
+                <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
+                  <Button onClick={onLoginModalOpen} variant="ghost">
+                    Log In
+                  </Button>
+                  <Button
+                    onClick={onSignupModalOpen}
+                    colorScheme="blue"
+                    color="white"
+                  >
+                    Sign up
+                  </Button>
+                </ButtonGroup>
+                <CartDrawer />
+              </>
+            )}
+          </Box>
           <Input
             color="white"
             bg="lightgray"
@@ -98,63 +128,8 @@ function Header() {
                   Sign up
                 </Button>
               </ButtonGroup>
-              <BasketModal basket={basket} />
             </>
           )}
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="center"
-          height="60px"
-          alignItems="center"
-        >
-          <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
-            <Button
-              as={ReachLink}
-              to="/subscriptions"
-              colorScheme="blue"
-              color="white"
-              whiteSpace="normal"
-              flex="1"
-              size="md"
-              textAlign="center"
-              paddingTop="5px"
-              paddingBottom="5px"
-              height="auto"
-            >
-              Restaurant registration
-            </Button>
-            <Button
-              as={ReachLink}
-              to="/courier"
-              colorScheme="blue"
-              color="white"
-              whiteSpace="normal"
-              flex="1"
-              size="md"
-              textAlign="center"
-              paddingTop="5px"
-              paddingBottom="5px"
-              height="auto"
-            >
-              Courier registration
-            </Button>
-            <Button
-              as={ReachLink}
-              to="/admin"
-              colorScheme="blue"
-              color="white"
-              whiteSpace="normal"
-              flex="1"
-              size="md"
-              textAlign="center"
-              paddingTop="5px"
-              paddingBottom="5px"
-              height="auto"
-            >
-              Admin panel
-            </Button>
-          </ButtonGroup>
         </Box>
       </Box>
       <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />

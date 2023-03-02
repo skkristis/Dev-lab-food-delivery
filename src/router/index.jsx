@@ -10,8 +10,8 @@ import RestaurantDashboard from '../features/admin/components/RestaurantDashboar
 import { BiRestaurant, BiCar } from 'react-icons/all.js';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
-import CourierRegisterForm from '../features/client/pages/CourierRegisterForm';
 import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
+import CustomerAccountDashboard from '../features/client/components/CustomerAccountDashboard/CustomerAccountDashboard';
 
 function getClientRoutes() {
   return [
@@ -39,8 +39,8 @@ function getClientRoutes() {
       element: <CourierRegisterLanding />,
     },
     {
-      path: '/apply-as-courier',
-      element: <CourierRegisterForm />,
+      path: '/account',
+      element: <CustomerAccountDashboard />,
     },
     {
       path: '/order-status',

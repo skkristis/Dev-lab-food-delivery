@@ -2,17 +2,17 @@ export const footerArticles = [
   {
     footerArticleHeading: "Let's do this together",
     footerArticleListItems: [
-      { to: '/admin/couriers', content: 'For couriers' },
-      { to: '/admin', content: 'For restaurants' },
+      { to: '/subscriptions', content: 'For restaurants' },
+      { to: '/courier', content: 'For couriers' },
       { to: '', content: 'For stores' },
       { to: '', content: 'For companies' },
     ],
   },
   {
-    footerArticleHeading: 'Company',
+    footerArticleHeading: 'For partners',
     footerArticleListItems: [
-      { to: '', content: 'Lorem ipsum' },
-      { to: '', content: 'Consectetur' },
+      { to: '/admin', content: 'For restaurants' },
+      { to: '/admin/couriers', content: 'For couriers' },
       { to: '', content: 'Integer molestie' },
       { to: '', content: 'Facilisis in' },
     ],
