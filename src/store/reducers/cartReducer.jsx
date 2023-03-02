@@ -9,7 +9,26 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action) => {
-      state.list = [...state.list, action.payload];
+      // state.list = [...state.list, action.payload];
+
+      let existingItem = state.list.find(
+        (item) => item.id === action.payload.id
+      );
+
+      if (existingItem) {
+        return {
+          ...state,
+          list: state.list.map((dish) => {
+            return dish.id === action.payload.id
+              ? {
+                  ...dish,
+                  quantity: dish.quantity + action.payload.quantity,
+                }
+              : dish;
+          }),
+        };
+      }
+      return { ...state, list: [...state.list, action.payload] };
     },
     changeAmount: (state, action) => {
       state.list = state.list

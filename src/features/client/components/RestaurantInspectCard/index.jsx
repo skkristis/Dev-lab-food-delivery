@@ -7,10 +7,13 @@ import {
   useDisclosure,
   Button,
 } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+import { add } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
 function RestaurantInspectCard({ deal, cartOpened }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
 
   return (
     <Flex
@@ -68,7 +71,7 @@ function RestaurantInspectCard({ deal, cartOpened }) {
         </Flex>
         <RestaurantInspectModal deal={deal} isOpen={isOpen} onClose={onClose} />
       </Box>
-      <Button onClick={() => {}}>+</Button>
+      <Button onClick={() => dispatch(add({ ...deal, quantity: 1 }))}>+</Button>
     </Flex>
   );
 }
