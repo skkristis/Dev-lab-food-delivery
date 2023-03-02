@@ -7,14 +7,8 @@ export const customerSlice = createSlice({
   name: 'customer',
   initialState,
   reducers: {
-    add: (state, action) => {
-      state = action.payload;
-    },
     edit: (state, action) => {
       state = { ...state, ...action.payload };
-    },
-    remove: (state) => {
-      state = {};
     },
     addAddress: (state, action) => {
       state.addressBook = [action.payload, ...state.addressBook];
@@ -70,9 +64,7 @@ export const customerSlice = createSlice({
 });
 
 export const {
-  add,
   edit,
-  remove,
   addAddress,
   editAddress,
   setPrimaryAddress,

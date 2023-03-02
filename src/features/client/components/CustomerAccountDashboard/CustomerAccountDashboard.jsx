@@ -5,6 +5,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import CustomerAccountWelcome from '../CustomerAccountWelcome/CustomerAccountWelcome';
 import CustomerAccountPayment from '../CustomerAccountPayment/CustomerAccountPayment';
 import CustomerAccountAddress from '../CustomerAccountAddress/CustomerAccountAddress';
+import CustomerAccountOrders from '../CustomerAccountOrders/CustomerAccountOrders';
 import CustomerAccountSettings from '../CustomerAccountSettings/CustomerAccountSettings';
 
 import './CustomerAccountDashboard.scss';
@@ -36,7 +37,9 @@ function CustomerAccountDashboard() {
             <CustomerAccountAddress customer={customer} />
           </TabPanel>
 
-          <TabPanel p={0}></TabPanel>
+          <TabPanel p={0}>
+            <CustomerAccountOrders customer={customer} />
+          </TabPanel>
 
           <TabPanel p={0}>
             <CustomerAccountSettings customer={customer} />

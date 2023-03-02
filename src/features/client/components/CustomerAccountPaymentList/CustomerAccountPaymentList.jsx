@@ -10,7 +10,6 @@ import { AddIcon } from '@chakra-ui/icons';
 import CustomerAccountPaymentCard from '../CustomerAccountPaymentCard/CustomerAccountPaymentCard';
 
 import './CustomerAccountPaymentList.scss';
-import customer from '../../mocks/customer';
 
 function CustomerAccountPaymentList({ cardList, setActiveCard, setShowForm }) {
   const primaryCard = useSelector((state) =>
@@ -50,6 +49,7 @@ function CustomerAccountPaymentList({ cardList, setActiveCard, setShowForm }) {
             className="customer-prefer__switch"
             colorScheme="blue"
             size="lg"
+            isChecked={paymentMethod === 'cash'}
             onChange={handleChangePrefer}
           />
           <p

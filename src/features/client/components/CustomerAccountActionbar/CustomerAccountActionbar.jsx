@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import {
   Button,
@@ -14,21 +13,11 @@ import {
 
 import './CustomerAccountActionbar.scss';
 
-function CustomerAccountActionbar({ customer }) {
+function CustomerAccountActionbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
 
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    // const response = await fetch('http://70.34.250.230/auth/logout', {
-    //   method: 'POST',
-    //   body: {},
-    // });
-    // if (response.status === 204) {
-    //   navigate('/');
-    // }
-  };
+  const handleLogout = async () => {};
 
   const handleDelete = () => {
     onClose();
@@ -61,7 +50,7 @@ function CustomerAccountActionbar({ customer }) {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
+              Are you sure? You can&apos;t undo this action afterwards.
             </AlertDialogBody>
 
             <AlertDialogFooter>

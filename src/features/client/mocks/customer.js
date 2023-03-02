@@ -65,7 +65,7 @@ const customer = {
         },
       ],
       payment: {
-        total: 125,
+        total: 70,
         method: 'card',
       },
       deliveryAddress: {
