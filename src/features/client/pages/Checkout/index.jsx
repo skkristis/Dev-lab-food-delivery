@@ -12,29 +12,45 @@ import {
   Switch,
   Text,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Center,
 } from '@chakra-ui/react';
-import { checkoutMock, payingOptions } from '../../mocks/checkoutMock';
-import bicycleUrl from '../../../../assets/bicycle-icon.svg';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+import { checkoutMock, payingOptions } from '../../mocks/checkoutMock';
 import SwedbankUrl from '../../../../assets/swedbank-icon.png';
 import PayseraUrl from '../../../../assets/paysera-icon.png';
+import bicycleUrl from '../../../../assets/bicycle-icon.svg';
 import CardUrl from '../../../../assets/card-icon.svg';
-import { useState } from 'react';
+
+import PaymentModal from '../../components/PaymentModal';
+import OrderParametersModal from '../../components/OrderParametersModal';
 
 function Checkout() {
   const [payMethod, setPayMethod] = useState('Swedbank');
+  const [deliveryAddress, setDeliveryAddress] = useState(
+    checkoutMock.customerAddresses[0]
+  );
 
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: paymentIsOpen,
+    onOpen: paymentOnOpen,
+    onClose: paymentOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: deliveryAddressIsOpen,
+    onOpen: deliveryAddressOnOpen,
+    onClose: deliveryAddressOnClose,
+  } = useDisclosure();
+  const {
+    isOpen: paymentOptionIsOpen,
+    onOpen: paymentOptionOnOpen,
+    onClose: paymentOptionOnClose,
+  } = useDisclosure();
 
   const orderSubtotal = checkoutMock.cartItems.reduce((acc, cur) => {
     return +cur.dishPrice * +cur.dishQuantity + acc;
@@ -67,6 +83,7 @@ function Checkout() {
           </Heading>
         </Box>
       </Box>
+
       <Box
         className="container"
         display="grid"
@@ -76,25 +93,23 @@ function Checkout() {
         <Stack spacing="20px">
           <Stack spacing={3}>
             <Heading fontSize="28px">Delivery method and time</Heading>
-            <Flex
-              padding="10px 20px"
-              border="1px solid lightgray"
-              rounded="md"
-              gap="10px"
-              marginTop="20px"
+            <Button
+              variant="outline"
+              onClick={deliveryAddressOnOpen}
+              display="flex"
+              justifyContent="space-between"
             >
               <Image src={bicycleUrl} width="30px" />
-              <Select variant="unstyled">
-                {checkoutMock?.customerAddresses &&
-                  checkoutMock.customerAddresses.map((address) => {
-                    return (
-                      <option key={address} value={address}>
-                        {address}
-                      </option>
-                    );
-                  })}
-              </Select>
-            </Flex>
+              <Text>{deliveryAddress}</Text>
+              <ChevronRightIcon />
+            </Button>
+            <OrderParametersModal
+              isOpen={deliveryAddressIsOpen}
+              onClose={deliveryAddressOnClose}
+              header="Delivery method and time"
+              options={checkoutMock.customerAddresses}
+              setStateFn={setDeliveryAddress}
+            />
             <FormControl
               display="flex"
               alignItems="center"
@@ -172,34 +187,31 @@ function Checkout() {
           </Stack>
           <Stack spacing={3}>
             <Heading fontSize="28px">Payment details</Heading>
-            <Flex
-              padding="10px 20px"
-              border="1px solid lightgray"
-              rounded="md"
-              gap="10px"
-              marginTop="20px"
+
+            <Button
+              variant="outline"
+              onClick={paymentOptionOnOpen}
+              display="flex"
+              justifyContent="space-between"
             >
-              <Image src={CardUrl} width="30px" />
-              <Select
-                variant="unstyled"
-                onChange={(e) => {
-                  setPayMethod(e.target.value);
-                }}
-              >
-                {payingOptions.map((payOption) => {
-                  return (
-                    <option
-                      key={payOption.payingService}
-                      value={payOption.payingService}
-                    >
-                      {payOption.payingService}
-                    </option>
-                  );
-                })}
-              </Select>
-            </Flex>
+              <Image
+                src={payMethod === 'Swedbank' ? SwedbankUrl : PayseraUrl}
+                width="30px"
+              />
+              <Text>{payMethod}</Text>
+              <ChevronRightIcon />
+            </Button>
+
+            <OrderParametersModal
+              isOpen={paymentOptionIsOpen}
+              onClose={paymentOptionOnClose}
+              header="Payment option"
+              options={payingOptions}
+              setStateFn={setPayMethod}
+            />
           </Stack>
         </Stack>
+
         <Stack
           gridColumn="3"
           width="100%"
@@ -246,55 +258,18 @@ function Checkout() {
             <Text>Total sum</Text>
             <Text>{orderTotal}</Text>
           </Flex>
-          <Button color="white" bg="blue.400" onClick={onOpen}>
+          <Button color="white" bg="blue.400" onClick={paymentOnOpen}>
             Click to order
           </Button>
         </Stack>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="full">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader marginTop="30vh" textAlign="center">
-            <Flex justifyContent="center" gap="10px">
-              <Image
-                src={payMethod === 'Swedbank' ? SwedbankUrl : PayseraUrl}
-                width={payMethod === 'Swedbank' ? '30px' : '100px'}
-              />
-              <Text>Payment window</Text>
-            </Flex>
-          </ModalHeader>
-          <ModalBody center>
-            <Center>
-              <Flex gap="20px">
-                <Stack
-                  padding="10px 20px"
-                  border="1px solid lightgray"
-                  rounded="md"
-                >
-                  <Heading fontSize="16px">Order nr.: 1856715813</Heading>
-                  <Text>Total: {orderTotal} EUR</Text>
-                  <Heading fontSize="16px">Merchant:</Heading>
-                  <Text>Name: BestFoodDelivery, UAB</Text>
-                </Stack>
-                <Stack>
-                  <Button onClick={() => navigate('/order-status')}>
-                    Accept
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      onClose();
-                      alert('something went wrong!');
-                    }}
-                  >
-                    Decline
-                  </Button>
-                </Stack>
-              </Flex>
-            </Center>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <PaymentModal
+        paymentIsOpen={paymentIsOpen}
+        paymentOnClose={paymentOnClose}
+        payMethod={payMethod}
+        orderTotal={orderTotal}
+      />
     </Box>
   );
 }

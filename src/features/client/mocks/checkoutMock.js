@@ -28,11 +28,4 @@ export const checkoutMock = {
   ],
 };
 
-export const payingOptions = [
-  {
-    payingService: 'Swedbank',
-  },
-  {
-    payingService: 'Paysera',
-  },
-];
+export const payingOptions = ['Swedbank', 'Paysera'];
