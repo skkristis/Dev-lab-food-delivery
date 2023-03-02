@@ -12,7 +12,7 @@ import { addToCart } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
 function RestaurantInspectCard({ deal, cartOpened }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const addItemToCart = (deal) => dispatch(addToCart({ ...deal, quantity: 1 }));
   const handleAddClick = () => {
