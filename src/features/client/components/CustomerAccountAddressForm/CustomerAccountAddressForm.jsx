@@ -14,7 +14,6 @@ import {
   Input,
   Button,
   HStack,
-  Checkbox,
 } from '@chakra-ui/react';
 
 import './CustomerAccountAddressForm.scss';
@@ -70,6 +69,9 @@ function CustomerAccountAddressForm({
       }
 
       if (newAddress.id) {
+        if (!addressIds.length) {
+          newAddress.primary = true;
+        }
         dispatchAdd(newAddress);
       }
     }

@@ -50,7 +50,7 @@ function CustomerAccountPaymentCard({ card, setActiveCard, setShowForm }) {
       <Button
         colorScheme="blue"
         className="card-item__button"
-        onClick={(e) => handleEdit(card)}
+        onClick={() => handleEdit(card)}
       >
         Edit
       </Button>

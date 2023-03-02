@@ -52,7 +52,7 @@ function CustomerAccountAddressCard({
       <Button
         colorScheme="blue"
         className="address-card__button"
-        onClick={(e) => handleEdit(address)}
+        onClick={() => handleEdit(address)}
       >
         Edit
       </Button>
