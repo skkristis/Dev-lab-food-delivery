@@ -12,13 +12,12 @@ import {
 import React from 'react';
 import { useState } from 'react';
 
-import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
 import locationUrl from '../../../../assets/location-icon.svg';
 import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
 
-import BasketModal from '../BasketModal';
+import CartDrawer from '../CartDrawer';
 import SignUpModal from '../SignupModal';
 import LoggedInUserHeader from '../LoggedInUserHeader';
 
@@ -84,7 +83,7 @@ function Header() {
             {isLoggedIn ? (
               <Flex>
                 <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
-                <BasketModal basket={basket} />
+                <CartDrawer />
               </Flex>
             ) : (
               <>
@@ -100,7 +99,7 @@ function Header() {
                     Sign up
                   </Button>
                 </ButtonGroup>
-                <BasketModal basket={basket} />
+                <CartDrawer />
               </>
             )}
           </Box>
