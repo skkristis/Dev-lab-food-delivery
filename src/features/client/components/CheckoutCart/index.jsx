@@ -35,6 +35,10 @@ function CheckoutCart({ payMethod }) {
     +mockFess.smallOrderFee
   ).toFixed(2);
 
+  const handleOrderClick = () => {
+    if (orderSubtotal > 0) paymentOnOpen();
+  };
+
   return (
     <Stack
       gridColumn={{ base: '1', lg: '3' }}
@@ -87,7 +91,7 @@ function CheckoutCart({ payMethod }) {
         position="sticky"
         color="white"
         bg="blue.400"
-        onClick={paymentOnOpen}
+        onClick={handleOrderClick}
       >
         Click to order
       </Button>
