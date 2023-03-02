@@ -39,26 +39,6 @@ export const customerSlice = createSlice({
     setPreferPayment: (state, action) => {
       state.payment.prefer = action.payload;
     },
-    addCard: (state, action) => {
-      state.payment.cards = [action.payload, ...state.payment.cards];
-    },
-    updateCard: (state, action) => {
-      state.payment.cards = state.payment.cards.map((card) =>
-        card.id === action.payload.id ? { ...card, ...action.payload } : card
-      );
-    },
-    setPrimaryCard: (state, action) => {
-      state.payment.cards = state.payment.cards
-        .map((card) => (card.primary ? { ...card, primary: false } : card))
-        .map((card) =>
-          card.id === action.payload ? { ...card, primary: true } : card
-        );
-    },
-    removeCard: (state, action) => {
-      state.payment.cards = state.payment.cards.filter(
-        (card) => card.id !== action.payload
-      );
-    },
   },
   extraReducers: () => {},
 });
@@ -70,10 +50,6 @@ export const {
   setPrimaryAddress,
   removeAddress,
   setPreferPayment,
-  addCard,
-  updateCard,
-  setPrimaryCard,
-  removeCard,
 } = customerSlice.actions;
 
 export default customerSlice.reducer;
