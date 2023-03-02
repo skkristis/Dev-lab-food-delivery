@@ -10,6 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
+import { useState } from 'react';
 
 import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
@@ -19,6 +20,7 @@ import LogInModal from '../LogInModal';
 
 import BasketModal from '../BasketModal';
 import SignUpModal from '../SignupModal';
+import LoggedInUserHeader from '../LoggedInUserHeader';
 
 function Header() {
   const {
@@ -31,6 +33,8 @@ function Header() {
     onOpen: onSignupModalOpen,
     onClose: onSignupModalClose,
   } = useDisclosure();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
@@ -77,19 +81,28 @@ function Header() {
             </Button>
           </Flex>
           <Box>
-            <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
-              <Button onClick={onLoginModalOpen} variant="ghost">
-                Log In
-              </Button>
-              <Button
-                onClick={onSignupModalOpen}
-                colorScheme="blue"
-                color="white"
-              >
-                Sign up
-              </Button>
-            </ButtonGroup>
-            <BasketModal basket={basket} />
+            {isLoggedIn ? (
+              <Flex>
+                <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
+                <BasketModal basket={basket} />
+              </Flex>
+            ) : (
+              <>
+                <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
+                  <Button onClick={onLoginModalOpen} variant="ghost">
+                    Log In
+                  </Button>
+                  <Button
+                    onClick={onSignupModalOpen}
+                    colorScheme="blue"
+                    color="white"
+                  >
+                    Sign up
+                  </Button>
+                </ButtonGroup>
+                <BasketModal basket={basket} />
+              </>
+            )}
           </Box>
         </Box>
         <Box
