@@ -83,7 +83,7 @@ function Header() {
             {isLoggedIn ? (
               <Flex>
                 <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
-                <BasketModal basket={basket} />
+                <CartDrawer />
               </Flex>
             ) : (
               <>
