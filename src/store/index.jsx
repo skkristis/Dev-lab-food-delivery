@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
-import sessionReducer from './reducers/sessionReducer';
 import ordersReducer from './reducers/ordersReducer';
 import dishesReducer from './reducers/dishesReducer';
 import restaurantsReducer from './reducers/restaurantsReducer';
@@ -10,7 +9,6 @@ import customerReducer from './reducers/customerReducer';
 import userReducer from './reducers/userReducer';
 
 const rootReducer = combineReducers({
-  session: sessionReducer,
   dishes: dishesReducer,
   restaurants: restaurantsReducer,
   orders: ordersReducer,
