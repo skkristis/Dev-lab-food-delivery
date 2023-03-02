@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { edit } from '../../../../store/reducers/ordersReducer';
+import { update } from '../../../../store/reducers/ordersReducer';
 
 import { Button } from '@chakra-ui/react';
 
@@ -15,10 +15,10 @@ function CouriersOrder({ order, setActive }) {
   );
 
   const dispatch = useDispatch();
-  const dispatchEdit = (order) => dispatch(edit(order));
+  const dispatchUpdate = (order) => dispatch(update(order));
 
   const changeOrderStatus = (status) => {
-    dispatchEdit({ ...order, status });
+    dispatchUpdate({ ...order, status });
     setActive(null);
   };
 

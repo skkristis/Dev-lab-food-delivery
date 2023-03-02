@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { add, edit } from '../../../../store/reducers/dishesReducer';
+import { add, update } from '../../../../store/reducers/dishesReducer';
 
 import {
   FormErrorMessage,
@@ -49,7 +49,7 @@ function RestaurantDishForm({
 
   const dispatch = useDispatch();
   const dispatchAdd = (dish) => dispatch(add(dish));
-  const dispatchEdit = (dish) => dispatch(edit(dish));
+  const dispatchUpdate = (dish) => dispatch(update(dish));
 
   const onSubmit = (data) => {
     const newDish = { ...data, price: Number(data.price) };
@@ -60,7 +60,7 @@ function RestaurantDishForm({
 
     if (formState === 'edit') {
       newDish.id = Number(dish.id);
-      dispatchEdit(newDish);
+      dispatchUpdate(newDish);
       setActiveDish(newDish);
       setFormState('idle');
     }
