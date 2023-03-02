@@ -20,8 +20,7 @@ function Footer() {
       as="footer"
       bg="black"
       color="white"
-      marginTop="50px"
-      padding="100px 20px 5px 20px"
+      padding={{ base: '20px', md: '50px 20px 15px 20px' }}
     >
       <Flex
         justifyContent="space-between"

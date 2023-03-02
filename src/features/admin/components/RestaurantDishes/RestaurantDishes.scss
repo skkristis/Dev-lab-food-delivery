@@ -1,10 +1,12 @@
+@import './src/constants/variables';
+
 .restaurant-dishes {
   .dish-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $screen-600p) {
       grid-template-columns: 1fr;
     }
 

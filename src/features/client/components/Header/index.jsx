@@ -10,11 +10,16 @@ import {
   Input,
   useMediaQuery,
 } from '@chakra-ui/react';
+import React from 'react';
+import { useState } from 'react';
+
 import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
 import LogInModal from '../LogInModal';
-import BasketModal from '../BasketModal';
+
+import CartDrawer from '../CartDrawer';
 import SignUpModal from '../SignupModal';
+import LoggedInUserHeader from '../LoggedInUserHeader';
 import DeliverToButton from '../DeliverToButton';
 import UserMenu from '../UserMenu';
 
@@ -30,6 +35,8 @@ function Header() {
     onClose: onSignupModalClose,
   } = useDisclosure();
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
+
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
@@ -59,6 +66,30 @@ function Header() {
             </Link>
             <DeliverToButton />
           </Flex>
+          <Box>
+            {isLoggedIn ? (
+              <Flex>
+                <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
+                <CartDrawer />
+              </Flex>
+            ) : (
+              <>
+                <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
+                  <Button onClick={onLoginModalOpen} variant="ghost">
+                    Log In
+                  </Button>
+                  <Button
+                    onClick={onSignupModalOpen}
+                    colorScheme="blue"
+                    color="white"
+                  >
+                    Sign up
+                  </Button>
+                </ButtonGroup>
+                <CartDrawer />
+              </>
+            )}
+          </Box>
           <Input
             color="white"
             bg="lightgray"
@@ -76,7 +107,6 @@ function Header() {
                 onLoginModalOpen={onLoginModalOpen}
                 onSignupModalOpen={onSignupModalOpen}
               />
-              <BasketModal basket={basket} />
             </>
           ) : (
             <>
@@ -92,7 +122,6 @@ function Header() {
                   Sign up
                 </Button>
               </ButtonGroup>
-              <BasketModal basket={basket} />
             </>
           )}
         </Box>
