@@ -16,12 +16,18 @@ import {
 } from '@chakra-ui/react';
 import basketUrl from '../../../../assets/basket-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeAmount } from '../../../../store/reducers/cartReducer';
+import {
+  decreaseItemQuantity,
+  increaseItemQuantity,
+} from '../../../../store/reducers/cartReducer';
 
 function CartDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cartItems = useSelector((store) => store.cart.list);
   const dispatch = useDispatch();
+
+  const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
+  const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
 
   const orderTotal = cartItems.length
     ? cartItems
@@ -31,6 +37,9 @@ function CartDrawer() {
         }, 0)
         .toFixed(2)
     : '0';
+
+  const quantityTotal = () =>
+    cartItems.reduce((acc, cur) => acc + cur.quantity, 0);
 
   return (
     <>
@@ -51,9 +60,7 @@ function CartDrawer() {
           bottom="0"
           right="0"
         >
-          {cartItems.length
-            ? cartItems.reduce((acc, cur) => acc + cur.quantity, 0)
-            : 0}
+          {cartItems.length ? quantityTotal() : 0}
         </Text>
       </Button>
 
@@ -95,18 +102,14 @@ function CartDrawer() {
                   </Flex>
                   <Flex alignItems="center" gap="5px">
                     <Button
-                      onClick={() =>
-                        dispatch(changeAmount({ id: item.id, index: -1 }))
-                      }
+                      onClick={() => decreaseQuantity(item.id)}
                       background="none"
                     >
                       -
                     </Button>
                     <Text>{item.quantity}</Text>
                     <Button
-                      onClick={() =>
-                        dispatch(changeAmount({ id: item.id, index: 1 }))
-                      }
+                      onClick={() => increaseQuantity(item.id)}
                       background="none"
                     >
                       +

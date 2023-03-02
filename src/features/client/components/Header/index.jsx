@@ -17,7 +17,7 @@ import locationUrl from '../../../../assets/location-icon.svg';
 import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
 
-import CartDrawer from '../CartComponent/CartDrawer';
+import CartDrawer from '../CartDrawer';
 import SignUpModal from '../SignupModal';
 import LoggedInUserHeader from '../LoggedInUserHeader';
 

@@ -4,12 +4,14 @@ import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import clockUrl from '../../../../assets/clock-icon.svg';
-import CartSideBar from '../../components/CartComponent/CartSideBar';
+import CartSideBar from '../../components/CartSideBar';
 import RestaurantInspectSection from '../../components/RestaurantInspectSection';
 
 function RestaurantInspect() {
   const restaurantInfo = useLoaderData();
   const cartItems = useSelector((store) => store.cart.list);
+
+  const cartOpened = cartItems.length ? true : false;
 
   return (
     <Box as="section" marginTop="50px">
@@ -83,7 +85,7 @@ function RestaurantInspect() {
               <RestaurantInspectSection
                 key={i}
                 dealSection={dealSection}
-                cartOpened={cartItems.length ? true : false}
+                cartOpened={cartOpened}
               />
             );
           })}

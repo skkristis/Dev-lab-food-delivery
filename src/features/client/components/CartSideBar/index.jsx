@@ -9,7 +9,10 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { changeAmount } from '../../../../store/reducers/cartReducer';
+import {
+  decreaseItemQuantity,
+  increaseItemQuantity,
+} from '../../../../store/reducers/cartReducer';
 
 function CartSideBar({ cartItems }) {
   const dispatch = useDispatch();
@@ -23,9 +26,12 @@ function CartSideBar({ cartItems }) {
         .toFixed(2)
     : '0';
 
+  const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
+  const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
+
   return (
     <Flex height="100%" direction="column" position="relative">
-      <Box bg="white" height="400px" position="sticky" top="20px">
+      <Box bg="white" height="400px">
         <Flex direction="column" height="100%">
           <Center>
             <Heading>Your order</Heading>
@@ -69,18 +75,14 @@ function CartSideBar({ cartItems }) {
                   </Flex>
                   <Flex alignItems="center" gap="5px">
                     <Button
-                      onClick={() =>
-                        dispatch(changeAmount({ id: item.id, index: -1 }))
-                      }
+                      onClick={() => decreaseQuantity(item.id)}
                       background="none"
                     >
                       -
                     </Button>
                     <Text>{item.quantity}</Text>
                     <Button
-                      onClick={() =>
-                        dispatch(changeAmount({ id: item.id, index: 1 }))
-                      }
+                      onClick={() => increaseQuantity(item.id)}
                       background="none"
                     >
                       +
@@ -91,7 +93,7 @@ function CartSideBar({ cartItems }) {
             })}
           </Box>
           <Spacer />
-          <Box maxWidth="100%">
+          <Box>
             <Button
               width="100%"
               bg="blue.400"

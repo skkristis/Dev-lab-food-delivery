@@ -8,13 +8,13 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { add } from '../../../../store/reducers/cartReducer';
+import { addToCart } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
 function RestaurantInspectCard({ deal, cartOpened }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-
+  const addItemToCart = (deal) => dispatch(addToCart({ ...deal, quantity: 1 }));
   return (
     <Flex
       gap="5px"
@@ -71,7 +71,7 @@ function RestaurantInspectCard({ deal, cartOpened }) {
         </Flex>
         <RestaurantInspectModal deal={deal} isOpen={isOpen} onClose={onClose} />
       </Box>
-      <Button onClick={() => dispatch(add({ ...deal, quantity: 1 }))}>+</Button>
+      <Button onClick={() => addItemToCart(deal)}>+</Button>
     </Flex>
   );
 }
