@@ -7,13 +7,13 @@ export const customerSlice = createSlice({
   name: 'customer',
   initialState,
   reducers: {
-    edit: (state, action) => {
+    update: (state, action) => {
       state = { ...state, ...action.payload };
     },
     addAddress: (state, action) => {
       state.addressBook = [action.payload, ...state.addressBook];
     },
-    editAddress: (state, action) => {
+    updateAddress: (state, action) => {
       state.addressBook = state.addressBook.map((address) =>
         address.id === action.payload.id
           ? { ...address, ...action.payload }
@@ -42,7 +42,7 @@ export const customerSlice = createSlice({
     addCard: (state, action) => {
       state.payment.cards = [action.payload, ...state.payment.cards];
     },
-    editCard: (state, action) => {
+    updateCard: (state, action) => {
       state.payment.cards = state.payment.cards.map((card) =>
         card.id === action.payload.id ? { ...card, ...action.payload } : card
       );
@@ -64,14 +64,14 @@ export const customerSlice = createSlice({
 });
 
 export const {
-  edit,
+  update,
   addAddress,
-  editAddress,
+  updateAddress,
   setPrimaryAddress,
   removeAddress,
   setPreferPayment,
   addCard,
-  editCard,
+  updateCard,
   setPrimaryCard,
   removeCard,
 } = customerSlice.actions;

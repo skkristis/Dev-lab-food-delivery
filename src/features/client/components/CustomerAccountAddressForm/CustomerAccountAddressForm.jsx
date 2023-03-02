@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   addAddress,
-  editAddress,
+  updateAddress,
 } from '../../../../store/reducers/customerReducer';
 
 import {
@@ -43,7 +43,7 @@ function CustomerAccountAddressForm({
 
   const dispatch = useDispatch();
   const dispatchAdd = (address) => dispatch(addAddress(address));
-  const dispatchEdit = (address) => dispatch(editAddress(address));
+  const dispatchUpdate = (address) => dispatch(updateAddress(address));
 
   const addressIds = useSelector((state) =>
     state.customer.addressBook.map((address) => address.id)
@@ -54,7 +54,7 @@ function CustomerAccountAddressForm({
 
     if (address) {
       newAddress.id = address.id;
-      dispatchEdit(newAddress);
+      dispatchUpdate(newAddress);
     }
 
     if (!address) {

@@ -2,7 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCard, editCard } from '../../../../store/reducers/customerReducer';
+import {
+  addCard,
+  updateCard,
+} from '../../../../store/reducers/customerReducer';
 
 import {
   FormErrorMessage,
@@ -24,7 +27,7 @@ function CustomerAccountPaymentForm({ card, setActiveCard, setShowForm }) {
 
   const dispatch = useDispatch();
   const dispatchAdd = (card) => dispatch(addCard(card));
-  const dispatchEdit = (card) => dispatch(editCard(card));
+  const dispatchUpdate = (card) => dispatch(updateCard(card));
 
   const cardIds = useSelector((state) =>
     state.customer.payment.cards.map((card) => card.id)
@@ -35,7 +38,7 @@ function CustomerAccountPaymentForm({ card, setActiveCard, setShowForm }) {
 
     if (card) {
       newCard.id = card.id;
-      dispatchEdit(newCard);
+      dispatchUpdate(newCard);
     }
 
     if (!card) {
