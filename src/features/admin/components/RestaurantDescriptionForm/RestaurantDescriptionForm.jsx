@@ -137,7 +137,7 @@ function RestaurantDescriptionForm() {
           </CheckboxGroup>
 
           <FormErrorMessage>
-            {errors.driverLicense && errors.driverLicense.message}
+            {errors.paymentMethods && errors.paymentMethods.message}
           </FormErrorMessage>
         </FormControl>
 

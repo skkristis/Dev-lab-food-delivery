@@ -30,48 +30,56 @@ function RestaurantInspectCard({ deal, cartOpened }) {
       alignItems="center"
       _hover={{ transform: 'scale(1.01)' }}
     >
-      <Box as="button" onClick={onOpen}>
-        <Flex justifyContent="space-between">
-          <Flex flexDir="column" justifyContent="space-between">
-            <Box marginBottom="20px" textAlign="left" maxW="80%">
-              <Heading fontSize="18px">{deal.recipeName}</Heading>
+      <Flex justifyContent="space-between">
+        <Flex flexDir="column" justifyContent="space-between">
+          <Box marginBottom="20px" textAlign="left" maxW="80%">
+            <Heading fontSize="18px" mb="5px">
+              {deal.recipeName}
+            </Heading>
+            {deal?.popular && (
               <Text
-                fontSize="14px"
-                wordBreak="break-word"
-                color="lightslategray"
+                fontSize={{
+                  base: '10px',
+                  md: '12px',
+                  lg: '14px',
+                }}
+                bg="blue.400"
+                color="white"
+                padding="4px 5px"
+                rounded="md"
+                fontWeight="600"
+                display="inline-block"
               >
-                {deal.recipeBio}
+                Popular
               </Text>
-            </Box>
-            <Flex alignItems="center">
-              <Text fontSize="16px" paddingRight="20px">
-                €{deal.recipePrice}
-              </Text>
-              {deal.popular && (
-                <Text
-                  fontSize={{
-                    base: '10px',
-                    md: '12px',
-                    lg: '14px',
-                  }}
-                  bg="blue.400"
-                  color="white"
-                  padding="4px 5px"
-                  rounded="md"
-                  fontWeight="600"
-                >
-                  Popular
-                </Text>
-              )}
-            </Flex>
-          </Flex>
-          <Box overflow="hidden" rounded="md" maxW={{ base: '40%', md: '50%' }}>
-            <Image src={deal.recipeThumb} height="100%" objectFit="cover" />
+            )}
+            <Text fontSize="14px" wordBreak="break-word" color="lightslategray">
+              {deal.recipeBio}
+            </Text>
           </Box>
+          <Flex alignItems="center">
+            <Text fontSize="16px" paddingRight="20px">
+              €{deal.recipePrice}
+            </Text>
+            <Button
+              variant="outline"
+              border="2px solid #4299e1"
+              _hover={{ border: '2px solid #38A169' }}
+              onClick={() => {
+                addItemToCart(deal);
+              }}
+              mr="5px"
+              size="md"
+            >
+              Add to basket
+            </Button>
+          </Flex>
         </Flex>
-        <RestaurantInspectModal deal={deal} isOpen={isOpen} onClose={onClose} />
-      </Box>
-      <Button onClick={() => addItemToCart(deal)}>+</Button>
+        <Box overflow="hidden" rounded="md" maxW={{ base: '40%', md: '50%' }}>
+          <Image src={deal.recipeThumb} height="100%" objectFit="cover" />
+        </Box>
+      </Flex>
+      <RestaurantInspectModal deal={deal} isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 }

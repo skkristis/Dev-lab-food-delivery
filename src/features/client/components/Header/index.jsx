@@ -7,19 +7,21 @@ import {
   Button,
   useDisclosure,
   Flex,
-  Text,
+  Input,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useState } from 'react';
 
+import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
-import locationUrl from '../../../../assets/location-icon.svg';
-import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
 
 import CartDrawer from '../CartDrawer';
 import SignUpModal from '../SignupModal';
 import LoggedInUserHeader from '../LoggedInUserHeader';
+import DeliverToButton from '../DeliverToButton';
+import UserMenu from '../UserMenu';
 
 function Header() {
   const {
@@ -32,6 +34,7 @@ function Header() {
     onOpen: onSignupModalOpen,
     onClose: onSignupModalClose,
   } = useDisclosure();
+  const [smallerScreen] = useMediaQuery('(max-width: 800px)');
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
@@ -57,27 +60,11 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Flex flexWrap="wrap" gap="10px" alignItems="center">
+          <Flex flexWrap="wrap" gap="10px" alignItems="center" width="35%">
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
-            <Button variant="ghost" display="flex" gap="10px">
-              <Image
-                boxSize="30px"
-                src={locationUrl}
-                padding="5px"
-                rounded="full"
-                bg="blue.400"
-              />
-              <Text fontWeight="light">
-                Delivery to
-                <br />
-                <Box as="span" color="blue.400" fontWeight="semibold">
-                  Vilnius
-                </Box>
-              </Text>
-              <Image boxSize="20px" src={arrowDownUrl} />
-            </Button>
+            <DeliverToButton />
           </Flex>
           <Box>
             {isLoggedIn ? (
@@ -103,6 +90,40 @@ function Header() {
               </>
             )}
           </Box>
+          <Input
+            color="white"
+            bg="lightgray"
+            placeholder={
+              smallerScreen
+                ? 'Search for meal...'
+                : 'Search for cuisine, meal, restaurant...'
+            }
+            width={smallerScreen ? '40%' : '300px'}
+            borderRadius="50px"
+          />
+          {smallerScreen ? (
+            <>
+              <UserMenu
+                onLoginModalOpen={onLoginModalOpen}
+                onSignupModalOpen={onSignupModalOpen}
+              />
+            </>
+          ) : (
+            <>
+              <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
+                <Button onClick={onLoginModalOpen} variant="ghost">
+                  Log In
+                </Button>
+                <Button
+                  onClick={onSignupModalOpen}
+                  colorScheme="blue"
+                  color="white"
+                >
+                  Sign up
+                </Button>
+              </ButtonGroup>
+            </>
+          )}
         </Box>
         <Box
           display="flex"
