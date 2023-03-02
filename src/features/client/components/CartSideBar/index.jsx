@@ -7,6 +7,7 @@ import {
   Box,
   Center,
   Spacer,
+  Stack,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import {
@@ -33,15 +34,20 @@ function CartSideBar({ cartItems }) {
     <Flex height="100%" direction="column" position="relative">
       <Box bg="white" height="400px">
         <Flex direction="column" height="100%">
-          <Center>
-            <Heading>Your order</Heading>
-          </Center>
+          <Stack padding="0 20px" alignItems="left">
+            <Text fontSize="20px" color="rgb(118, 118, 118)">
+              Your order from
+            </Text>
+            <Heading mt="0" fontSize="26px">
+              BFD.LT
+            </Heading>
+          </Stack>
           <Box
             padding="0px 20px"
             mt="20px"
             mb="20px"
             maxHeight="300px"
-            overflow="scroll"
+            overflow="auto"
             overflowX="hidden"
           >
             {cartItems.map((item, i) => {
@@ -101,6 +107,8 @@ function CartSideBar({ cartItems }) {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
+              rounded="lg"
+              borderRadius="24px"
             >
               <Box as="p">
                 <Box
