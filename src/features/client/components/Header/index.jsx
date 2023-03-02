@@ -42,7 +42,7 @@ function Header() {
     <>
       <Box
         as="header"
-        height="150px"
+        height="80px"
         position="fixed"
         left="0"
         right="0"
@@ -124,60 +124,6 @@ function Header() {
               </ButtonGroup>
             </>
           )}
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="center"
-          height="60px"
-          alignItems="center"
-        >
-          <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
-            <Button
-              as={ReachLink}
-              to="/subscriptions"
-              colorScheme="blue"
-              color="white"
-              whiteSpace="normal"
-              flex="1"
-              size="md"
-              textAlign="center"
-              paddingTop="5px"
-              paddingBottom="5px"
-              height="auto"
-            >
-              Restaurant registration
-            </Button>
-            <Button
-              as={ReachLink}
-              to="/courier"
-              colorScheme="blue"
-              color="white"
-              whiteSpace="normal"
-              flex="1"
-              size="md"
-              textAlign="center"
-              paddingTop="5px"
-              paddingBottom="5px"
-              height="auto"
-            >
-              Courier registration
-            </Button>
-            <Button
-              as={ReachLink}
-              to="/admin"
-              colorScheme="blue"
-              color="white"
-              whiteSpace="normal"
-              flex="1"
-              size="md"
-              textAlign="center"
-              paddingTop="5px"
-              paddingBottom="5px"
-              height="auto"
-            >
-              Admin panel
-            </Button>
-          </ButtonGroup>
         </Box>
       </Box>
       <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
