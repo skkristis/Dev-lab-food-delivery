@@ -1,16 +1,11 @@
 import {
   Button,
-  Text,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
-  Center,
-  Flex,
   Stack,
-  Heading,
-  Image,
   Divider,
 } from '@chakra-ui/react';
 
@@ -20,7 +15,15 @@ function OrderParametersModal({
   header,
   options,
   setStateFn,
+  section,
 }) {
+  if (section === 'addresses') {
+    options = options.map(
+      (addy) =>
+        `${addy.street} ${addy.building}-${addy.apartment}, ${addy.city}`
+    );
+  }
+
   const handleClick = (e) => {
     setStateFn(e.target.innerText);
     onClose();

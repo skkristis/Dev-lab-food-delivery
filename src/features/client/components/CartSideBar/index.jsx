@@ -9,6 +9,7 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import {
   decreaseItemQuantity,
   increaseItemQuantity,
@@ -16,6 +17,7 @@ import {
 
 function CartSideBar({ cartItems }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const orderTotal = cartItems.length
     ? cartItems
@@ -101,6 +103,7 @@ function CartSideBar({ cartItems }) {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
+              onClick={() => navigate('/checkout')}
             >
               <Box as="p">
                 <Box

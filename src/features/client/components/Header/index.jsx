@@ -13,7 +13,6 @@ import {
 import React from 'react';
 import { useState } from 'react';
 
-import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
 import LogInModal from '../LogInModal';
 

@@ -1,6 +1,14 @@
-import { DeleteIcon } from '@chakra-ui/icons';
 import { Button, Flex, Text, useOutsideClick } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
+
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import {
+  decreaseItemQuantity,
+  increaseItemQuantity,
+  deleteItem,
+} from '../../../../store/reducers/cartReducer';
 
 function CheckoutItemQuantity({ dish }) {
   const ref = useRef();
@@ -10,6 +18,11 @@ function CheckoutItemQuantity({ dish }) {
     handler: () => setIsModalOpen(false),
   });
 
+  const dispatch = useDispatch();
+  const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
+  const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
+  const deleteItemFromCart = (id) => dispatch(deleteItem(id));
+
   return (
     <>
       {isModalOpen ? (
@@ -18,16 +31,35 @@ function CheckoutItemQuantity({ dish }) {
           gap="10px"
           rounded="md"
           border="1px solid lightgray"
-          padding="0px 5px"
+          padding="5px"
+          ref={ref}
         >
-          <Button bg="white" rounded="full" variant="outline">
+          <Button
+            onClick={() => decreaseQuantity(dish.id)}
+            size="sm"
+            bg="white"
+            rounded="full"
+            variant="outline"
+          >
             -
           </Button>
-          <Text>{dish.dishQuantity}</Text>
-          <Button bg="white" rounded="full" variant="outline">
+          <Text>{dish.quantity}</Text>
+          <Button
+            size="sm"
+            bg="white"
+            rounded="full"
+            variant="outline"
+            onClick={() => increaseQuantity(dish.id)}
+          >
             +
           </Button>
-          <Button bg="white" rounded="full" variant="outline">
+          <Button
+            onClick={() => deleteItemFromCart(dish.id)}
+            size="sm"
+            bg="white"
+            rounded="full"
+            variant="outline"
+          >
             <DeleteIcon />
           </Button>
         </Flex>
@@ -39,7 +71,7 @@ function CheckoutItemQuantity({ dish }) {
             border: '2px solid #4299e1',
           }}
         >
-          {dish.dishQuantity}
+          {dish.quantity}
         </Button>
       )}
     </>
