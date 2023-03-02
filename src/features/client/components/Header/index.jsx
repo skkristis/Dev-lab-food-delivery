@@ -7,22 +7,16 @@ import {
   Button,
   useDisclosure,
   Flex,
-  Text,
   Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   useMediaQuery,
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import { basket } from '../../mocks/basketMock';
 import logoUrl from '../../../../assets/application-logo.svg';
-import locationUrl from '../../../../assets/location-icon.svg';
-import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import LogInModal from '../LogInModal';
 import BasketModal from '../BasketModal';
 import SignUpModal from '../SignupModal';
+import DeliverToButton from '../DeliverToButton';
+import UserMenu from '../UserMenu';
 
 function Header() {
   const {
@@ -35,7 +29,7 @@ function Header() {
     onOpen: onSignupModalOpen,
     onClose: onSignupModalClose,
   } = useDisclosure();
-  const [smallerScreen] = useMediaQuery('(max-width: 750px)');
+  const [smallerScreen] = useMediaQuery('(max-width: 800px)');
 
   return (
     <>
@@ -59,31 +53,11 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Flex flexWrap="nowrap" gap="10px" alignItems="center">
+          <Flex flexWrap="wrap" gap="10px" alignItems="center" width="35%">
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
-            {smallerScreen ? (
-              <></>
-            ) : (
-              <Button variant="ghost" display="flex" gap="10px">
-                <Image
-                  boxSize="30px"
-                  src={locationUrl}
-                  padding="5px"
-                  rounded="full"
-                  bg="blue.400"
-                />
-                <Text fontWeight="light">
-                  Delivery to
-                  <br />
-                  <Box as="span" color="blue.400" fontWeight="semibold">
-                    Vilnius
-                  </Box>
-                </Text>
-                <Image boxSize="20px" src={arrowDownUrl} />
-              </Button>
-            )}
+            <DeliverToButton />
           </Flex>
           <Input
             color="white"
@@ -97,32 +71,15 @@ function Header() {
             borderRadius="50px"
           />
           {smallerScreen ? (
-            <Menu>
-              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                User
-              </MenuButton>
-              <MenuList>
-                <MenuItem>
-                  <Button onClick={onLoginModalOpen} variant="ghost">
-                    Log In
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <Button
-                    onClick={onSignupModalOpen}
-                    colorScheme="blue"
-                    color="white"
-                  >
-                    Sign up
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <BasketModal basket={basket} />
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <>
+              <UserMenu
+                onLoginModalOpen={onLoginModalOpen}
+                onSignupModalOpen={onSignupModalOpen}
+              />
+              <BasketModal basket={basket} />
+            </>
           ) : (
-            <Box>
+            <>
               <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
                 <Button onClick={onLoginModalOpen} variant="ghost">
                   Log In
@@ -136,30 +93,9 @@ function Header() {
                 </Button>
               </ButtonGroup>
               <BasketModal basket={basket} />
-            </Box>
+            </>
           )}
         </Box>
-        {smallerScreen ? (
-          <Button variant="ghost" display="flex" gap="10px" width="175px">
-            <Image
-              boxSize="30px"
-              src={locationUrl}
-              padding="5px"
-              rounded="full"
-              bg="blue.400"
-            />
-            <Text fontWeight="light">
-              Delivery to
-              <br />
-              <Box as="span" color="blue.400" fontWeight="semibold">
-                Vilnius
-              </Box>
-            </Text>
-            <Image boxSize="20px" src={arrowDownUrl} />
-          </Button>
-        ) : (
-          <></>
-        )}
         <Box
           display="flex"
           justifyContent="center"

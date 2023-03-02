@@ -1,32 +1,26 @@
 import { Button } from '@chakra-ui/button';
 import { Flex } from '@chakra-ui/layout';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useMediaQuery } from '@chakra-ui/media-query';
 import './index.scss';
+import ScrollButton from '../ScrollButton';
 
 function FilterByCategory({ items, bgColor, categoryId }) {
   const [smallerScreen] = useMediaQuery('(max-width: 750px)');
   return (
     <Flex alignItems="center" justifyContent="center">
-      {categoryId && smallerScreen ? (
-        <Button
+      {categoryId && smallerScreen && (
+        <ScrollButton
+          rightButton={false}
           variant="ghost"
-          onClick={() => {
-            const container = document.querySelector(`#${categoryId}`);
-            container.scrollLeft -= 80;
-          }}
-        >
-          <ChevronLeftIcon />
-        </Button>
-      ) : (
-        <></>
+          id={`#${categoryId}`}
+        />
       )}
       <Flex backgroundColor={bgColor} className="category" id={categoryId}>
-        {items.map((item, index) => (
+        {items.map((item) => (
           <Button
             borderRadius="lg"
             bg="white"
-            key={index}
+            key={item}
             p={3}
             display="block"
             minWidth="fit-content"
@@ -37,18 +31,12 @@ function FilterByCategory({ items, bgColor, categoryId }) {
         ))}
       </Flex>
 
-      {categoryId && smallerScreen ? (
-        <Button
+      {categoryId && smallerScreen && (
+        <ScrollButton
+          rightButton={true}
           variant="ghost"
-          onClick={() => {
-            const container = document.querySelector(`#${categoryId}`);
-            container.scrollLeft += 80;
-          }}
-        >
-          <ChevronRightIcon />
-        </Button>
-      ) : (
-        <></>
+          id={`#${categoryId}`}
+        />
       )}
     </Flex>
   );

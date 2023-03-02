@@ -1,51 +1,41 @@
-import { Box, Heading, Flex, Button } from '@chakra-ui/react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { Box, Heading, Flex } from '@chakra-ui/react';
 import { restaurantInspectMock } from '../../mocks/restaurantInspectMock';
-import './index.scss';
 import RestaurantInspectForLanding from '../RestaurantInspectForLanding';
+import ScrollButton from '../ScrollButton';
+import './index.scss';
 
 function Discovery() {
   return (
-    <Box as="section" className="container" position="relative">
+    <Box as="section" className="container">
       <Heading>Discover</Heading>
-      <Flex alignItems="center" mt={5}>
-        <Button
+      <Flex alignItems="center" mt={5} position="relative">
+        <ScrollButton
+          rightButton={false}
+          left="5"
           position="absolute"
-          zIndex={4}
-          onClick={() => {
-            const container = document.querySelector('#discovery-item-list');
-            container.scrollLeft -= 160;
-          }}
-        >
-          <ChevronLeftIcon />
-        </Button>
-        <Box
+          id="#discovery-item-list"
+        />
+        <Flex
+          gap="20px"
           padding="20px"
           width="100%"
           overflowX="scroll"
           id="discovery-item-list"
         >
-          <Flex gap="20px">
-            {restaurantInspectMock.restaurantMenu.map((dealSection) => {
-              {
-                return dealSection.deals.map((item, i) => (
-                  <RestaurantInspectForLanding item={item} key={i} />
-                ));
-              }
-            })}
-          </Flex>
-        </Box>
-        <Button
+          {restaurantInspectMock.restaurantMenu.map((dealSection) => {
+            {
+              return dealSection.deals.map((item, i) => (
+                <RestaurantInspectForLanding item={item} key={i} />
+              ));
+            }
+          })}
+        </Flex>
+        <ScrollButton
+          rightButton={true}
+          right="5"
           position="absolute"
-          zIndex={4}
-          right="0"
-          onClick={() => {
-            const container = document.querySelector('#discovery-item-list');
-            container.scrollLeft += 160;
-          }}
-        >
-          <ChevronRightIcon />
-        </Button>
+          id="#discovery-item-list"
+        />
       </Flex>
     </Box>
   );
