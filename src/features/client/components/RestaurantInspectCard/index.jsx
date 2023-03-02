@@ -65,7 +65,9 @@ function RestaurantInspectCard({ deal, cartOpened }) {
               variant="outline"
               border="2px solid #4299e1"
               _hover={{ border: '2px solid #38A169' }}
-              onClick={() => {}}
+              onClick={() => {
+                addItemToCart(deal);
+              }}
               mr="5px"
               size="md"
             >
