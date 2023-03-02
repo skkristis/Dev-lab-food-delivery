@@ -121,7 +121,6 @@ function CartSideBar({ cartItems }) {
           </Box>
         </Flex>
       </Box>
-      <Box></Box>
     </Flex>
   );
 }
