@@ -1,10 +1,4 @@
-export const categoryFilter = [
-  { icon: '🍝 ', name: 'Restaurants' },
-  { icon: '🛒 ', name: 'Grocery' },
-  { icon: '🎉 ', name: 'Offers' },
-];
-
-export const itemsFilter = [
+export const restaurantItems = [
   { icon: '🍟 ', name: 'Fast Food' },
   { icon: '🍰 ', name: 'Desserts' },
   { icon: '🍿 ', name: 'Snacks' },
@@ -13,4 +7,10 @@ export const itemsFilter = [
   { icon: '🥪 ', name: 'Sandwiches' },
   { icon: '🍗 ', name: 'Chicken' },
   { icon: '🍔 ', name: 'Burgers' },
+];
+
+export const groceryItems = [
+  { icon: '🛒 ', name: 'Iki' },
+  { icon: '🛒 ', name: 'Rimi' },
+  { icon: '🛒 ', name: 'Maxima' },
 ];
