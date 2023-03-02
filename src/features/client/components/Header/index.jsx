@@ -53,7 +53,13 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Flex flexWrap="wrap" gap="10px" alignItems="center" width="35%">
+          <Flex
+            flexWrap="wrap"
+            gap="10px"
+            alignItems="center"
+            width="32%"
+            justifyContent="flex-start"
+          >
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
@@ -71,13 +77,13 @@ function Header() {
             borderRadius="50px"
           />
           {smallerScreen ? (
-            <>
+            <Flex flexWrap="wrap" justifyContent="flex-end" width="25%">
               <UserMenu
                 onLoginModalOpen={onLoginModalOpen}
                 onSignupModalOpen={onSignupModalOpen}
               />
               <BasketModal basket={basket} />
-            </>
+            </Flex>
           ) : (
             <>
               <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
