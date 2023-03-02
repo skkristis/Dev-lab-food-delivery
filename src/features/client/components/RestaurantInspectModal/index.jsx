@@ -13,14 +13,26 @@ import {
   Image,
   Box,
 } from '@chakra-ui/react';
+import { addToCart } from '../../../../store/reducers/cartReducer';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 function RestaurantInspectModal({ isOpen, onClose, deal }) {
   const [dealCount, setDealCount] = useState(1);
   const itemTotal = (dealCount * deal.recipePrice).toFixed(2);
 
+  const onCloseCombined = () => {
+    onClose();
+    setDealCount(1);
+  };
+
+  const dispatch = useDispatch();
+
+  const addItemToCart = (deal) =>
+    dispatch(addToCart({ ...deal, quantity: dealCount }));
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={() => onCloseCombined()}>
       <ModalOverlay />
       <ModalContent overflow="hidden">
         <ModalHeader padding="0">
@@ -83,7 +95,11 @@ function RestaurantInspectModal({ isOpen, onClose, deal }) {
                 +
               </Button>
             </Flex>
-            <Button bg="blue.400" color="white">
+            <Button
+              bg="blue.400"
+              color="white"
+              onClick={() => addItemToCart(deal)}
+            >
               Add to order
               <Box paddingLeft="20px" as="span">
                 {itemTotal}
