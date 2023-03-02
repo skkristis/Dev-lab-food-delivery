@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .signup {
   &__wrapper {
     position: relative;
@@ -14,12 +16,12 @@
   &__message {
     flex: 2;
   }
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: $screen-xl) {
     &__wrapper {
       flex-direction: column;
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: $screen-md) {
     &__wrapper {
       margin-top: 40px;
     }

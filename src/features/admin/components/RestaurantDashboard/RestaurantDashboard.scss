@@ -1,13 +1,15 @@
+@import './src/constants/variables';
+
 .restaurant-dashboard {
   padding: 40px;
   background-color: #fff;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $screen-md) {
     padding: 20px;
   }
 
   &__tablist {
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: $screen-600p) {
       flex-direction: column !important;
       border-bottom: none !important;
     }
@@ -16,11 +18,11 @@
       font-weight: 700;
       text-transform: uppercase;
 
-      @media screen and (max-width: 991px) and (min-width: 601px) {
+      @media screen and (max-width: $screen-lg) and (min-width: $screen-600p) {
         font-size: 16px;
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: $screen-600p) {
         margin-bottom: 0 !important;
 
         &[aria-selected='true'],

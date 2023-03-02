@@ -1,9 +1,11 @@
+@import './src/constants/variables';
+
 .restaurant-dish {
   display: flex;
   align-items: flex-start;
   gap: 40px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $screen-md) {
     flex-direction: column;
   }
 
@@ -14,15 +16,11 @@
     border-radius: 10px;
     overflow: hidden;
 
-    @media screen and (max-width: 1440px) {
-      width: 300px;
+    @media screen and (max-width: $screen-xl) {
+      width: 250px;
     }
 
-    @media screen and (max-width: 1024px) {
-      width: 200px;
-    }
-
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
       width: 400px;
       max-width: 100%;
     }
