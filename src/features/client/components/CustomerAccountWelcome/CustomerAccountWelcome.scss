@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .customer-welcome {
   display: flex;
   justify-content: space-between;
@@ -7,7 +9,7 @@
   max-width: 100%;
   margin: 0 auto;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $screen-md) {
     flex-direction: column;
     gap: 30px;
   }
@@ -22,7 +24,7 @@
     font-size: 28px;
     line-height: 32px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
       font-size: 20px;
       line-height: 24px;
       text-align: center;
@@ -33,14 +35,14 @@
     display: flex;
     gap: 20px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
       flex-direction: column;
     }
 
     &__item {
       flex: 1 0 auto;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: $screen-md) {
         flex-grow: 1;
         text-align: center;
       }

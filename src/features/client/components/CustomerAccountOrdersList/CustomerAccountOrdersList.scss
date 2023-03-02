@@ -1,3 +1,5 @@
+@import './src/constants/variables';
+
 .customer-orderlist {
   display: flex;
   flex-direction: column;
@@ -15,7 +17,7 @@
     padding-bottom: 20px;
     border-bottom: 1px solid grey;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
       gap: 10px;
       margin-bottom: 10px;
       padding-bottom: 10px;
@@ -31,7 +33,7 @@
       border-radius: 50%;
       background-color: var(--chakra-colors-blue-500);
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: $screen-md) {
         width: 30px;
         height: 30px;
       }
@@ -45,7 +47,7 @@
       flex: 1 1;
       gap: 20px;
 
-      @media screen and (max-width: 450px) {
+      @media screen and (max-width: $screen-450p) {
         gap: 5px 10px;
       }
     }
@@ -61,7 +63,7 @@
       font-size: 18px;
       line-height: 24px;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: $screen-md) {
         font-size: 16px;
         line-height: 20px;
       }
@@ -77,7 +79,7 @@
       font-size: 16px;
       line-height: 20px;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: $screen-md) {
         font-size: 14px;
         line-height: 18px;
       }

@@ -1,10 +1,12 @@
+@import './src/constants/variables';
+
 .customer {
   &-prefer {
     width: 600px;
     max-width: 100%;
     margin: 0 auto 80px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md) {
       margin-bottom: 40px;
     }
 
@@ -15,7 +17,7 @@
       line-height: 30px;
       text-align: center;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: $screen-md) {
         margin-bottom: 20px;
         font-size: 18px;
         line-height: 24px;
@@ -39,7 +41,7 @@
         color: var(--chakra-colors-blue-500);
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: $screen-md) {
         font-size: 16px;
         line-height: 20px;
       }
