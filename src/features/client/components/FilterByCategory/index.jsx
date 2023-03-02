@@ -20,7 +20,7 @@ function FilterByCategory({ items, bgColor, categoryId }) {
           <Button
             borderRadius="lg"
             bg="white"
-            key={item}
+            key={item.name}
             p={3}
             display="block"
             minWidth="fit-content"
