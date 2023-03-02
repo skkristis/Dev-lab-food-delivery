@@ -1,3 +1,5 @@
+@import "./src/constants/variables";
+
 .order-status {
   &__alert {
     display: flex;
@@ -43,7 +45,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $screen-md-min) {
       grid-template-columns: 1fr;
       gap: 40px;
     }
