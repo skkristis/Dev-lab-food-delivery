@@ -1,9 +1,11 @@
+@import './src/constants/variables';
+
 .restaurant-order {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: $screen-xl) {
     grid-template-columns: 1fr;
   }
 
