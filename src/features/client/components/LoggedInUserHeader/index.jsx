@@ -21,8 +21,10 @@ import {
   CgProfile,
   FiLogOut,
 } from 'react-icons/all.js';
+import { useNavigate } from 'react-router-dom';
 
 function LoggedInUserHeader({ setIsLoggedIn }) {
+  const navigate = useNavigate();
   return (
     <HStack spacing={{ base: '0', md: '6' }}>
       <Flex alignItems={'center'}>
@@ -56,7 +58,7 @@ function LoggedInUserHeader({ setIsLoggedIn }) {
             bg={useColorModeValue('white', 'gray.900')}
             borderColor={useColorModeValue('gray.200', 'gray.700')}
           >
-            <MenuItem>
+            <MenuItem as="button" onClick={() => navigate('/account')}>
               <Icon
                 mr="4"
                 fontSize="16"

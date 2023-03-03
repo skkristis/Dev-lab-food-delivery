@@ -1,6 +1,7 @@
 import { Box, Heading, Image } from '@chakra-ui/react';
 
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import checkoutMap from '../../../../assets/checkout-map.png';
 
@@ -8,7 +9,10 @@ import CheckoutCart from '../../components/CheckoutCart';
 import OrderDetailCustomization from '../../components/OrderDetailCustomization';
 
 function Checkout() {
-  const [payMethod, setPayMethod] = useState('Swedbank');
+  const preferedPayMethod = useSelector(
+    (store) => store.customer.payment.prefer
+  );
+  const [payMethod, setPayMethod] = useState(preferedPayMethod);
 
   return (
     <Box as="section">
