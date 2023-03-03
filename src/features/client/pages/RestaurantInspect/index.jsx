@@ -1,12 +1,4 @@
-import {
-  Box,
-  Heading,
-  Image,
-  Text,
-  Flex,
-  Button,
-  Spacer,
-} from '@chakra-ui/react';
+import { Box, Heading, Image, Text, Flex, Button } from '@chakra-ui/react';
 
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -22,9 +14,14 @@ function RestaurantInspect() {
   const cartOpened = cartItems.length ? true : false;
 
   return (
-    <Flex as="section" marginTop="50px">
-      <Spacer />
-      <Box width="100%" maxW="960px" p="0 10px">
+    <Flex
+      as="section"
+      maxWidth="1240px"
+      width="100%"
+      justifyContent="space-between"
+      margin="50px auto 0 auto"
+    >
+      <Box p="0 10px">
         <Box position="relative" rounded="xl" overflow="hidden">
           <Image
             src={restaurantInfo.restaurantThumb}
@@ -102,14 +99,13 @@ function RestaurantInspect() {
           </Box>
         </Flex>
       </Box>
-      <Spacer />
       <Box
-        position="relative"
-        minWidth="340px"
         borderLeft="1px solid lightgray"
-        display={{ base: 'none', md: 'block' }}
+        display={{ base: 'none', lg: 'block' }}
+        width="100%"
+        maxWidth="380px"
       >
-        <Box position="fixed" padding="20px 10px 0 10px">
+        <Box maxWidth="380px" position="fixed" padding="20px 10px 0 10px">
           <CartSideBar cartItems={cartItems} />
         </Box>
       </Box>

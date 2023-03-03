@@ -47,7 +47,7 @@ function CartDrawer() {
         onClick={onOpen}
         variant="ghost"
         position="relative"
-        display={{ base: 'inline-block', md: 'none' }}
+        display={{ base: 'inline-block', lg: 'none' }}
       >
         <Image src={basketUrl} boxSize="30px" />
         <Text
@@ -64,7 +64,12 @@ function CartDrawer() {
         </Text>
       </Button>
 
-      <Drawer isOpen={isOpen} onClose={onClose} size="100%">
+      <Drawer
+        isOpen={isOpen}
+        onClose={onClose}
+        size="100%"
+        borderBottom="1px solid lightgrey"
+      >
         <DrawerContent>
           <DrawerHeader>
             <Heading>Your order</Heading>
@@ -76,9 +81,10 @@ function CartDrawer() {
               return (
                 <Flex
                   key={i}
-                  marginBottom="10px"
+                  padding="10px 0"
                   justifyContent="space-between"
                   minHeight="80px"
+                  borderBottom="1px solid lightgrey"
                 >
                   <Flex>
                     <Center

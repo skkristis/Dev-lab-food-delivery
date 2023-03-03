@@ -32,8 +32,8 @@ function CartSideBar({ cartItems }) {
 
   return (
     <Flex height="100%" direction="column" position="relative">
-      <Box bg="white" height="400px">
-        <Flex direction="column" height="100%">
+      <Box bg="white">
+        <Flex direction="column">
           <Stack padding="0 20px" alignItems="left">
             <Text fontSize="20px" color="rgb(118, 118, 118)">
               Your order from
@@ -46,17 +46,17 @@ function CartSideBar({ cartItems }) {
             padding="0px 20px"
             mt="20px"
             mb="20px"
-            maxHeight="300px"
+            maxHeight="500px"
             overflow="auto"
-            overflowX="hidden"
           >
             {cartItems.map((item, i) => {
               const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
               return (
                 <Flex
                   key={i}
-                  marginBottom="10px"
+                  padding="5px 0"
                   justifyContent="space-between"
+                  borderBottom="1px solid lightgrey"
                 >
                   <Flex>
                     <Center
