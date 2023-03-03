@@ -1,6 +1,4 @@
 import axios from 'axios';
-// import { useToast } from '@chakra-ui/react';
-// const toast = useToast();
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
