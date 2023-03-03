@@ -1,6 +1,4 @@
 import axios from 'axios';
-// import { useToast } from '@chakra-ui/react';
-// const toast = useToast();
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
@@ -26,17 +24,10 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     if (error.response?.status === 401) {
-      axios.post('/auth/logout').then((response) => {
-        console.log(response);
-      });
+      localStorage.removeItem('accessToken');
+      axios.post('/auth/logout');
     } else {
-      // toast({
-      //   title: `${status} toast`,
-      //   status: 'error',
-      //   isClosable: true,
-      //   duration: 9000,
-      // });
-      alert(error.response?.message);
+      console.log(error.response?.message);
       return Promise.reject(error);
     }
   }
