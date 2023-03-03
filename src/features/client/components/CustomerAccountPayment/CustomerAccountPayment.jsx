@@ -1,82 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeCard } from '../../../../store/reducers/customerReducer';
+import { setPreferPayment } from '../../../../store/reducers/customerReducer';
 
-import { Button, Tooltip } from '@chakra-ui/react';
-import CustomerAccountPaymentList from '../CustomerAccountPaymentList/CustomerAccountPaymentList';
-import CustomerAccountPaymentForm from '../CustomerAccountPaymentForm/CustomerAccountPaymentForm';
+import { RadioGroup } from '@chakra-ui/react';
+import CustomerAccountPaymentMethod from '../CustomerAccountPaymentMethod/CustomerAccountPaymentMethod';
 
 import './CustomerAccountPayment.scss';
 
-function CustomerAccountPayment({ customer }) {
-  const [activeCard, setActiveCard] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+import paymentsMethods from '../../../../constants';
 
-  const savedCards = useSelector((state) => state.customer.payment.cards);
+function CustomerAccountPayment() {
+  const paymentMethod = useSelector((state) => state.customer.payment.prefer);
 
   const dispatch = useDispatch();
-  const dispatchRemove = (card) => dispatch(removeCard(card));
+  const dispatchPreferPayment = (method) => dispatch(setPreferPayment(method));
 
-  const handleBackClick = () => {
-    setActiveCard(null);
-    setShowForm(false);
-  };
-
-  const handleRemove = () => {
-    dispatchRemove(activeCard.id);
-    setActiveCard(null);
-    setShowForm(false);
-  };
+  const handleChangePrefer = (method) => dispatchPreferPayment(method);
 
   return (
     <div className="customer-payment">
-      <div className="customer-payment__nav">
-        {showForm && (
-          <Button
-            variant="outline"
-            colorScheme="blue"
-            size="lg"
-            onClick={handleBackClick}
-          >
-            Back
-          </Button>
-        )}
-
-        {showForm && activeCard && (
-          <Tooltip
-            label="You can't remove primary card."
-            shouldWrapChildren
-            hasArrow
-            placement="bottom"
-            bg="red.500"
-            isDisabled={!activeCard.primary}
-          >
-            <Button
-              variant="outline"
-              colorScheme="red"
-              size="lg"
-              isDisabled={activeCard.primary || savedCards.length === 1}
-              onClick={handleRemove}
-            >
-              Remove
-            </Button>
-          </Tooltip>
-        )}
-      </div>
-
-      {activeCard || showForm ? (
-        <CustomerAccountPaymentForm
-          card={activeCard}
-          setActiveCard={setActiveCard}
-          setShowForm={setShowForm}
-        />
-      ) : (
-        <CustomerAccountPaymentList
-          cardList={customer.payment.cards}
-          setActiveCard={setActiveCard}
-          setShowForm={setShowForm}
-        />
-      )}
+      <RadioGroup
+        onChange={(value) => handleChangePrefer(value)}
+        value={paymentMethod}
+      >
+        {paymentsMethods.map((item) => (
+          <CustomerAccountPaymentMethod key={item} item={item} />
+        ))}
+      </RadioGroup>
     </div>
   );
 }
