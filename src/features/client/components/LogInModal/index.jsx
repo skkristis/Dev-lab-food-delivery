@@ -26,7 +26,7 @@ function LogInModal({ isOpen, onClose }) {
           <Flex flexDir="column" gap="20px">
             <Center gap="2">
               <Divider orientation="horizontal" width="30%" height="2px" />
-              <Text>Log in with email</Text>
+              <Text width="fit-content">Log in with email</Text>
               <Divider orientation="horizontal" width="30%" height="2px" />
             </Center>
             <Input placeholder="Email" />
