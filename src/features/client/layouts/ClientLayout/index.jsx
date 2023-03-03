@@ -25,7 +25,7 @@ function Layout() {
 
   return (
     <ChakraProvider>
-      {/* <div className="Layout">
+      <div className="Layout">
         <Header />
         <Box
           as="main"
