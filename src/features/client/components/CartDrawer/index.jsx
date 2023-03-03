@@ -13,6 +13,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Center,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import basketUrl from '../../../../assets/basket-icon.svg';
@@ -35,11 +36,17 @@ function CartDrawer() {
   const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
   const deleteItemFromCart = (id) => dispatch(deleteItem(id));
 
+  const [bigScreen] = useMediaQuery('(min-width: 991px)');
+
   useEffect(() => {
     location.pathname.includes('/restaurants/')
       ? setVisible(true)
       : setVisible(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    bigScreen && onClose();
+  }, [bigScreen]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cartItems = useSelector((store) => store.cart.list);
@@ -87,7 +94,7 @@ function CartDrawer() {
         size="100%"
         borderBottom="1px solid lightgrey"
       >
-        <DrawerContent display={{ base: 'block', lg: 'none' }} overflow="auto">
+        <DrawerContent overflow="auto">
           <DrawerHeader>
             <Heading>Your order</Heading>
           </DrawerHeader>
