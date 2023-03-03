@@ -20,15 +20,10 @@ function LogInModal({ isOpen, onClose }) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create an account or log in</ModalHeader>
+        <ModalHeader>Log in with email</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Flex flexDir="column" gap="20px">
-            <Center gap="2">
-              <Divider orientation="horizontal" width="30%" height="2px" />
-              <Text width="fit-content">Log in with email</Text>
-              <Divider orientation="horizontal" width="30%" height="2px" />
-            </Center>
             <Input placeholder="Email" />
             <Input placeholder="Password" />
             <Button colorScheme="blue">Next</Button>
