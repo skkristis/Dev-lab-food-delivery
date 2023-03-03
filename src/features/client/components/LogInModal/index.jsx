@@ -23,7 +23,7 @@ function LogInModal({ isOpen, onClose }) {
           <Flex flexDir="column" gap="20px">
             <Input placeholder="Email" />
             <Input placeholder="Password" />
-            <Button colorScheme="blue">Next</Button>
+            <Button colorScheme="blue">Log in</Button>
           </Flex>
         </ModalBody>
 
