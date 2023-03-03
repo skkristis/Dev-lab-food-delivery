@@ -19,3 +19,5 @@ export const categories = [
   { category: '🍝 Restaurants', value: 'restaurants' },
   { category: '🛒 Grocery', value: 'grocery' },
 ];
+
+export const paymentsMethods = ['paysera', 'swedbank', 'cash'];

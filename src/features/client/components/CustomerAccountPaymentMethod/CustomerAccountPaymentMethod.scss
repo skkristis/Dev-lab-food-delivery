@@ -1,6 +1,6 @@
 @import './src/constants/variables';
 
-.card-item {
+.payment-method {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -54,9 +54,5 @@
         margin-left: 10px;
       }
     }
-  }
-
-  &__btn {
-    flex-shrink: 0;
   }
 }
