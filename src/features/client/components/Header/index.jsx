@@ -39,7 +39,7 @@ function Header() {
     <>
       <Box
         as="header"
-        height="80px"
+        height={smallerScreen ? '120px' : '80px'}
         position="fixed"
         left="0"
         right="0"
@@ -58,16 +58,15 @@ function Header() {
           alignItems="center"
         >
           <Flex
-            flexWrap="wrap"
             gap="10px"
             alignItems="center"
-            width={smallerScreen ? '32%' : 'auto'}
+            width="auto"
             justifyContent="flex-start"
           >
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
-            <DeliverToButton />
+            {!smallerScreen && <DeliverToButton />}
           </Flex>
           <Input
             color="white"
@@ -109,6 +108,7 @@ function Header() {
           )}
           <CartDrawer />
         </Box>
+        {smallerScreen && <DeliverToButton />}
       </Box>
       <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
       <SignUpModal isOpen={isSignupModalOpen} onClose={onSignupModalClose} />

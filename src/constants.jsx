@@ -20,4 +20,4 @@ export const categories = [
   { category: '🛒 Grocery', value: 'grocery' },
 ];
 
-export const paymentsMethods = ['paysera', 'swedbank', 'cash'];
+export const paymentsMethods = ['PaySera', 'Swedbank', 'Cash'];

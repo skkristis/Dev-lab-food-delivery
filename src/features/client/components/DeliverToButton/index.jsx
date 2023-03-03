@@ -38,7 +38,7 @@ function DeliverToButton() {
         <Text fontWeight="light">
           Delivery to
           <br />
-          <Box as="span" color="blue.400" fontWeight="semibold">
+          <Box as="span" color="blue.400" fontWeight="semibold" fontSize="14px">
             {customerPrimaryAddressString}
           </Box>
         </Text>
