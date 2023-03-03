@@ -66,7 +66,7 @@ function Header() {
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
-            {!smallerScreen && <DeliverToButton />}
+            {!smallerScreen && <DeliverToButton isLoggedIn={isLoggedIn} />}
           </Flex>
           <Input
             color="white"
@@ -108,7 +108,7 @@ function Header() {
           )}
           <CartDrawer />
         </Box>
-        {smallerScreen && <DeliverToButton />}
+        {smallerScreen && <DeliverToButton isLoggedIn={isLoggedIn} />}
       </Box>
       <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
       <SignUpModal isOpen={isSignupModalOpen} onClose={onSignupModalClose} />

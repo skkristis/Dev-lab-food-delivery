@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
 
-function DeliverToButton() {
+function DeliverToButton({ isLoggedIn }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const [visible, setVisible] = useState(true);
@@ -39,12 +39,16 @@ function DeliverToButton() {
           Delivery to
           <br />
           <Box as="span" color="blue.400" fontWeight="semibold" fontSize="14px">
-            {customerPrimaryAddressString}
+            {isLoggedIn ? customerPrimaryAddressString : 'Somewhere..?'}
           </Box>
         </Text>
         <Image boxSize="20px" src={arrowDownUrl} />
       </Button>
-      <DeliverToModal isOpen={isOpen} onClose={onClose} />
+      <DeliverToModal
+        isLoggedIn={isLoggedIn}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </>
   );
 }
