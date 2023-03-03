@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 
 import SwedbankUrl from '../../../../assets/swedbank-icon.png';
+import CashUrl from '../../../../assets/cash-icon.svg';
 import PayseraUrl from '../../../../assets/paysera-icon.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -36,8 +37,18 @@ function PaymentModal({
     });
   };
 
-  const payMethodUrl = payMethod === 'Swedbank' ? SwedbankUrl : PayseraUrl;
-  const payMethodWidth = payMethod === 'Swedbank' ? '30px' : '100px';
+  const payMethodUrl = (() => {
+    switch (payMethod) {
+      case 'Swedbank':
+        return SwedbankUrl;
+      case 'PaySera':
+        return PayseraUrl;
+      case 'Cash':
+        return CashUrl;
+    }
+  })();
+
+  const payMethodWidth = payMethod === 'PaySera' ? '100px' : '30px';
 
   return (
     <Modal isOpen={paymentIsOpen} onClose={paymentOnClose} size="full">
