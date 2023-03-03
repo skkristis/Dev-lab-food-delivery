@@ -9,16 +9,22 @@ import {
   Spacer,
   Stack,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import {
   decreaseItemQuantity,
   increaseItemQuantity,
+  deleteItem,
 } from '../../../../store/reducers/cartReducer';
+import { DeleteIcon } from '@chakra-ui/icons';
 
 function CartSideBar({ cartItems }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
+  const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
+  const deleteItemFromCart = (id) => dispatch(deleteItem(id));
 
   const orderTotal = cartItems.length
     ? cartItems
@@ -28,9 +34,6 @@ function CartSideBar({ cartItems }) {
         }, 0)
         .toFixed(2)
     : '0';
-
-  const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
-  const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
 
   return (
     <Flex height="100%" direction="column" position="relative">
@@ -81,21 +84,43 @@ function CartSideBar({ cartItems }) {
                       </Box>
                     </Center>
                   </Flex>
-                  <Flex alignItems="center" gap="5px">
-                    <Button
-                      onClick={() => decreaseQuantity(item.id)}
-                      background="none"
+                  <Center>
+                    <Flex
+                      alignItems="center"
+                      gap="10px"
+                      rounded="md"
+                      padding="5px"
                     >
-                      -
-                    </Button>
-                    <Text>{item.quantity}</Text>
-                    <Button
-                      onClick={() => increaseQuantity(item.id)}
-                      background="none"
-                    >
-                      +
-                    </Button>
-                  </Flex>
+                      <Button
+                        onClick={() => decreaseQuantity(item.id)}
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                      >
+                        -
+                      </Button>
+                      <Text>{item.quantity}</Text>
+                      <Button
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                        onClick={() => increaseQuantity(item.id)}
+                      >
+                        +
+                      </Button>
+                      <Button
+                        onClick={() => deleteItemFromCart(item.id)}
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Flex>
+                  </Center>
                 </Flex>
               );
             })}

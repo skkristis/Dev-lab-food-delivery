@@ -101,11 +101,11 @@ function RestaurantInspect() {
       </Box>
       <Box
         borderLeft="1px solid lightgray"
-        display={{ base: 'none', lg: 'block' }}
+        display={cartOpened ? { base: 'none', lg: 'block' } : 'none'}
         width="100%"
-        maxWidth="380px"
+        maxWidth="450px"
       >
-        <Box maxWidth="380px" position="fixed" padding="20px 10px 0 10px">
+        <Box maxWidth="450px" position="fixed" padding="20px 10px 0 10px">
           <CartSideBar cartItems={cartItems} />
         </Box>
       </Box>
