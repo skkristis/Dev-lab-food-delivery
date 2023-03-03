@@ -58,7 +58,7 @@ function SignUpModal({ isOpen, onClose }) {
               >
                 I read and agree to the terms and conditions.
               </Checkbox>
-              <Button type="submit" colorScheme="blue" mb={4}>
+              <Button type="submit" colorScheme="blue" mt={3} mb={3}>
                 Register
               </Button>
             </form>
