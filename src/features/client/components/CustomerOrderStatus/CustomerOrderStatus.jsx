@@ -1,7 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Box, Alert, AlertIcon } from '@chakra-ui/react';
+import {
+  Box,
+  Alert,
+  AlertIcon,
+  Text,
+  UnorderedList,
+  ListItem,
+  Image,
+} from '@chakra-ui/react';
 
 import './CustomerOrderStatus.scss';
 
@@ -14,7 +22,7 @@ function CustomerOrderStatus() {
 
   const orderDishes = order.dishes.map((dish) => {
     const orderDish = allDishes.find((item) => item.id === dish.id);
-    return { ...dish, name: orderDish.name, image: orderDish.image };
+    return { ...dish, name: orderDish?.name, image: orderDish?.image };
   });
 
   return (
@@ -25,7 +33,7 @@ function CustomerOrderStatus() {
         className="order-status__alert"
       >
         <AlertIcon boxSize="50px" mr={0} />
-        <p className="order-status__title">
+        <Text className="order-status__title">
           {order.status === 'pending' &&
             `Order #${order.id} is being prepared!`}
 
@@ -33,46 +41,47 @@ function CustomerOrderStatus() {
             `Order #${order.id} is being delivered!`}
 
           {order.status === 'fulfilled' && `Order #${order.id} is fulfilled!`}
-        </p>
+        </Text>
 
-        <p className="order-status__message">
+        <Text className="order-status__message">
           Thanks for choosing our service!
-        </p>
+        </Text>
       </Alert>
 
-      <div className="order-status__details order-details">
-        <div className="order-details__info">
-          <p className="order-details__title">Order details:</p>
-          <ul className="order-details__list">
-            <li>
-              <span>Customer:</span> {order.customer.name}
-            </li>
-            <li>
-              <span>Delivery address:</span> {order.customer.address}
-            </li>
-            <li>
-              <span>Payment:</span> {order.payment.total} EUR by{' '}
+      <Box className="order-status__details order-details">
+        <Box className="order-details__info">
+          <Text className="order-details__title">Order details:</Text>
+          <UnorderedList className="order-details__list">
+            <ListItem>
+              <Box as="span">Customer:</Box> {order.customer.name}
+            </ListItem>
+            <ListItem>
+              <Box as="span">Delivery address:</Box> {order.customer.address}
+            </ListItem>
+            <ListItem>
+              <Box as="span">Payment:</Box> {order.payment.total} EUR by{' '}
               {order.payment.method}
-            </li>
-          </ul>
-        </div>
+            </ListItem>
+          </UnorderedList>
+        </Box>
 
-        <div className="order-details__dishes dish-list">
-          <p className="order-details__title">Selected dishes:</p>
-          <ul className="dish-list__values">
+        <Box className="order-details__dishes dish-list">
+          <Text className="order-details__title">Selected dishes:</Text>
+          <UnorderedList className="dish-list__values">
             {orderDishes.map((dish, index) => (
-              <li key={dish.id} className="dish-list__item">
-                <div className="dish-list__image">
-                  <img src={dish.image} alt={`${dish.name} image`} />
-                </div>
-                <p>
-                  {index + 1}. {dish.name} <span>({dish.amount} pcs.)</span>
-                </p>
-              </li>
+              <ListItem key={dish.id} className="dish-list__item">
+                <Box className="dish-list__image">
+                  <Image src={dish.image} alt={`${dish.name} image`} />
+                </Box>
+                <Text>
+                  {index + 1}. {dish.name}{' '}
+                  <Box as="span">({dish.amount} pcs.)</Box>
+                </Text>
+              </ListItem>
             ))}
-          </ul>
-        </div>
-      </div>
+          </UnorderedList>
+        </Box>
+      </Box>
     </Box>
   );
 }
