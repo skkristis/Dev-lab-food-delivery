@@ -37,7 +37,12 @@ function CartSideBar({ cartItems }) {
 
   return (
     <Flex height="100%" direction="column" position="relative">
-      <Box bg="white">
+      <Box
+        bg="white"
+        borderTop="1px solid lightgray"
+        borderBottom="1px solid lightgray"
+        padding="10px 0"
+      >
         <Flex direction="column">
           <Stack padding="0 20px" alignItems="left">
             <Text fontSize="20px" color="rgb(118, 118, 118)">
