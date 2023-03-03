@@ -1,26 +1,38 @@
-import { Button, Image, Text, Box } from '@chakra-ui/react';
+import { Button, Image, Text, Box, useDisclosure } from '@chakra-ui/react';
 import locationUrl from '../../../../assets/location-icon.svg';
 import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
+import DeliverToModal from '../DeliverToModal';
+import { useSelector } from 'react-redux';
 
 function DeliverToButton() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const customerPrimaryAddress = useSelector(
+    (state) => state.customer.addressBook.filter((addy) => addy.primary)[0]
+  );
+  const customerPrimaryAddressString = `${customerPrimaryAddress.street} ${customerPrimaryAddress.building}-${customerPrimaryAddress.apartment}, ${customerPrimaryAddress.city}`;
+
   return (
-    <Button variant="ghost" display="flex" gap="10px">
-      <Image
-        boxSize="30px"
-        src={locationUrl}
-        padding="5px"
-        rounded="full"
-        bg="blue.400"
-      />
-      <Text fontWeight="light">
-        Delivery to
-        <br />
-        <Box as="span" color="blue.400" fontWeight="semibold">
-          Vilnius
-        </Box>
-      </Text>
-      <Image boxSize="20px" src={arrowDownUrl} />
-    </Button>
+    <>
+      <Button onClick={onOpen} variant="ghost" display="flex" gap="10px">
+        <Image
+          boxSize="30px"
+          src={locationUrl}
+          padding="5px"
+          rounded="full"
+          bg="blue.400"
+        />
+        <Text fontWeight="light">
+          Delivery to
+          <br />
+          <Box as="span" color="blue.400" fontWeight="semibold">
+            {customerPrimaryAddressString}
+          </Box>
+        </Text>
+        <Image boxSize="20px" src={arrowDownUrl} />
+      </Button>
+      <DeliverToModal isOpen={isOpen} onClose={onClose} />
+    </>
   );
 }
 
