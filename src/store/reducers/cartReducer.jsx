@@ -54,10 +54,29 @@ export const cartSlice = createSlice({
           }),
       };
     },
+    deleteItem: (state, action) => {
+      return {
+        ...state,
+        list: state.list
+          .map((dish) => {
+            if (dish.id === action.payload) {
+              return { ...dish, quantity: 0 };
+            }
+            return dish;
+          })
+          .filter((dish) => {
+            return dish.quantity > 0;
+          }),
+      };
+    },
   },
 });
 
-export const { addToCart, increaseItemQuantity, decreaseItemQuantity } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  increaseItemQuantity,
+  decreaseItemQuantity,
+  deleteItem,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

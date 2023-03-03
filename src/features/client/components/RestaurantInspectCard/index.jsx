@@ -12,9 +12,16 @@ import { addToCart } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
 function RestaurantInspectCard({ deal, cartOpened }) {
-  const { isOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const addItemToCart = (deal) => dispatch(addToCart({ ...deal, quantity: 1 }));
+  const handleAddClick = () => {
+    if (deal?.hasConfigurability) {
+      onOpen();
+    }
+    addItemToCart(deal);
+  };
+
   return (
     <Flex
       gap="5px"
@@ -65,9 +72,7 @@ function RestaurantInspectCard({ deal, cartOpened }) {
               variant="outline"
               border="2px solid #4299e1"
               _hover={{ border: '2px solid #38A169' }}
-              onClick={() => {
-                addItemToCart(deal);
-              }}
+              onClick={handleAddClick}
               mr="5px"
               size="md"
             >
