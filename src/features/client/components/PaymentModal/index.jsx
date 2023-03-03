@@ -63,7 +63,13 @@ function PaymentModal({
                 <Text>Name: BestFoodDelivery, UAB</Text>
               </Stack>
               <Stack>
-                <Button onClick={() => navigate('/order-status')}>
+                <Button
+                  onClick={() =>
+                    navigate('/order-status', {
+                      state: { orderTotal, payMethod },
+                    })
+                  }
+                >
                   Accept
                 </Button>
                 <Button onClick={cancelPayment}>Decline</Button>

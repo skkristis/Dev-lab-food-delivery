@@ -12,35 +12,24 @@ import {
 } from '@chakra-ui/react';
 
 import './CustomerOrderStatus.scss';
-
-import orders from '../../../admin/mocks/orders';
+import { useLocation } from 'react-router';
 
 function CustomerOrderStatus() {
-  const order = orders[2];
-
-  const allDishes = useSelector((state) => state.dishes.list);
-
-  const orderDishes = order.dishes.map((dish) => {
-    const orderDish = allDishes.find((item) => item.id === dish.id);
-    return { ...dish, name: orderDish?.name, image: orderDish?.image };
-  });
+  const location = useLocation();
+  const { orderTotal, payMethod } = location.state;
+  const cartItems = useSelector((store) => store.cart.list);
+  const customerInfo = useSelector((store) => store.customer);
+  const primaryAddress = customerInfo.addressBook.filter(
+    (addy) => addy.primary
+  )[0];
+  const deliveryAddress = `${primaryAddress.street} ${primaryAddress.building}-${primaryAddress.apartment}, ${primaryAddress.city}`;
 
   return (
     <Box position="relative" className="container order-status">
-      <Alert
-        status={order.status === 'fulfilled' ? 'success' : 'info'}
-        variant="subtle"
-        className="order-status__alert"
-      >
+      <Alert status="info" variant="subtle" className="order-status__alert">
         <AlertIcon boxSize="50px" mr={0} />
         <Text className="order-status__title">
-          {order.status === 'pending' &&
-            `Order #${order.id} is being prepared!`}
-
-          {(order.status === 'ready' || order.status === 'delivered') &&
-            `Order #${order.id} is being delivered!`}
-
-          {order.status === 'fulfilled' && `Order #${order.id} is fulfilled!`}
+          {`Order is being prepared! Nr. 12983123789`}
         </Text>
 
         <Text className="order-status__message">
@@ -53,14 +42,14 @@ function CustomerOrderStatus() {
           <Text className="order-details__title">Order details:</Text>
           <UnorderedList className="order-details__list">
             <ListItem>
-              <Box as="span">Customer:</Box> {order.customer.name}
+              <Box as="span">Customer:</Box>
+              {`${customerInfo.firstName} ${customerInfo.lastName}`}
             </ListItem>
             <ListItem>
-              <Box as="span">Delivery address:</Box> {order.customer.address}
+              <Box as="span">Delivery address:</Box> {deliveryAddress}
             </ListItem>
             <ListItem>
-              <Box as="span">Payment:</Box> {order.payment.total} EUR by{' '}
-              {order.payment.method}
+              <Box as="span">Payment:</Box> {orderTotal} EUR by {payMethod}
             </ListItem>
           </UnorderedList>
         </Box>
@@ -68,14 +57,17 @@ function CustomerOrderStatus() {
         <Box className="order-details__dishes dish-list">
           <Text className="order-details__title">Selected dishes:</Text>
           <UnorderedList className="dish-list__values">
-            {orderDishes.map((dish, index) => (
+            {cartItems.map((dish, index) => (
               <ListItem key={dish.id} className="dish-list__item">
                 <Box className="dish-list__image">
-                  <Image src={dish.image} alt={`${dish.name} image`} />
+                  <Image
+                    src={dish.recipeThumb}
+                    alt={`${dish.recipeName} image`}
+                  />
                 </Box>
                 <Text>
-                  {index + 1}. {dish.name}{' '}
-                  <Box as="span">({dish.amount} pcs.)</Box>
+                  {index + 1}. {dish.recipeName}{' '}
+                  <Box as="span">({dish.quantity} pcs.)</Box>
                 </Text>
               </ListItem>
             ))}
