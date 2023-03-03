@@ -4,6 +4,8 @@ import { useMediaQuery } from '@chakra-ui/media-query';
 import './index.scss';
 import ScrollButton from '../ScrollButton';
 import { useState } from 'react';
+import CategoryButton from '../CategoryButton';
+import { categories } from '../../../../constants';
 
 function FilterByCategory({
   restaurantItems,
@@ -14,29 +16,20 @@ function FilterByCategory({
   const [currentCategory, setCurrentCategory] = useState('restaurants');
 
   const [smallerScreen] = useMediaQuery('(max-width: 1100px)');
+
+  const handleCategoryClick = (value) => {
+    setCurrentCategory(value);
+  };
   return (
     <>
-      <Flex flexDir="row" justifyContent="center">
-        <Button
-          onClick={() => setCurrentCategory('restaurants')}
-          display="block"
-          minWidth="fit-content"
-          fontSize="20px"
-          borderRadius="lg"
-          bg="white"
-        >
-          🍝 Restaurants
-        </Button>
-        <Button
-          onClick={() => setCurrentCategory('grocery')}
-          display="block"
-          minWidth="fit-content"
-          fontSize="20px"
-          borderRadius="lg"
-          bg="white"
-        >
-          🛒 Grocery
-        </Button>
+      <Flex justifyContent="center">
+        {categories.map((category, index) => (
+          <CategoryButton
+            key={index}
+            category={category.category}
+            onClick={() => handleCategoryClick(category.value)}
+          />
+        ))}
       </Flex>
       <Flex justifyContent="center">
         {categoryId && smallerScreen && (

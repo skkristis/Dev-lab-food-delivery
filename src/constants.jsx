@@ -14,3 +14,8 @@ export const groceryItems = [
   { icon: '🛒 ', name: 'Rimi' },
   { icon: '🛒 ', name: 'Maxima' },
 ];
+
+export const categories = [
+  { category: '🍝 Restaurants', value: 'restaurants' },
+  { category: '🛒 Grocery', value: 'grocery' },
+];
