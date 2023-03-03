@@ -1,10 +1,8 @@
 import { Link as ReachLink } from 'react-router-dom';
 import {
   Box,
-  ButtonGroup,
   Link,
   Image,
-  Button,
   useDisclosure,
   Flex,
   Input,
@@ -15,12 +13,12 @@ import { useState } from 'react';
 
 import logoUrl from '../../../../assets/application-logo.svg';
 import LogInModal from '../LogInModal';
-
+import UserMenu from '../UserMenu';
 import CartDrawer from '../CartDrawer';
 import SignUpModal from '../SignupModal';
 import LoggedInUserHeader from '../LoggedInUserHeader';
 import DeliverToButton from '../DeliverToButton';
-import UserMenu from '../UserMenu';
+import { ButtonGroup, Button } from '@chakra-ui/react';
 
 function Header() {
   const {
@@ -59,36 +57,18 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Flex flexWrap="wrap" gap="10px" alignItems="center" width="35%">
+          <Flex
+            flexWrap="wrap"
+            gap="10px"
+            alignItems="center"
+            width={smallerScreen ? '32%' : 'auto'}
+            justifyContent="flex-start"
+          >
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
             <DeliverToButton />
           </Flex>
-          <Box>
-            {isLoggedIn ? (
-              <Flex>
-                <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
-                <CartDrawer />
-              </Flex>
-            ) : (
-              <>
-                <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
-                  <Button onClick={onLoginModalOpen} variant="ghost">
-                    Log In
-                  </Button>
-                  <Button
-                    onClick={onSignupModalOpen}
-                    colorScheme="blue"
-                    color="white"
-                  >
-                    Sign up
-                  </Button>
-                </ButtonGroup>
-                <CartDrawer />
-              </>
-            )}
-          </Box>
           <Input
             color="white"
             bg="lightgray"
@@ -100,13 +80,17 @@ function Header() {
             width={smallerScreen ? '40%' : '300px'}
             borderRadius="50px"
           />
-          {smallerScreen ? (
-            <>
+          {isLoggedIn ? (
+            <Flex>
+              <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
+            </Flex>
+          ) : smallerScreen ? (
+            <Flex flexWrap="wrap" justifyContent="flex-end" width="25%">
               <UserMenu
                 onLoginModalOpen={onLoginModalOpen}
                 onSignupModalOpen={onSignupModalOpen}
               />
-            </>
+            </Flex>
           ) : (
             <>
               <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
@@ -123,6 +107,7 @@ function Header() {
               </ButtonGroup>
             </>
           )}
+          <CartDrawer />
         </Box>
       </Box>
       <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />

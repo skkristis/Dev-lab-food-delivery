@@ -20,8 +20,20 @@ import {
   decreaseItemQuantity,
   increaseItemQuantity,
 } from '../../../../store/reducers/cartReducer';
+import { useLocation } from 'react-router';
+import { useState, useEffect } from 'react';
 
 function CartDrawer() {
+  const location = useLocation();
+
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    location.pathname.includes('/restaurants/')
+      ? setVisible(true)
+      : setVisible(false);
+  }, [location.pathname]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cartItems = useSelector((store) => store.cart.list);
   const dispatch = useDispatch();
@@ -47,7 +59,9 @@ function CartDrawer() {
         onClick={onOpen}
         variant="ghost"
         position="relative"
-        display={{ base: 'inline-block', md: 'none' }}
+        display={
+          visible ? { base: 'inline-block', md: 'none' } : { base: 'none' }
+        }
       >
         <Image src={basketUrl} boxSize="30px" />
         <Text
