@@ -7,17 +7,24 @@ import {
   Box,
   Center,
   Spacer,
+  Stack,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import {
   decreaseItemQuantity,
   increaseItemQuantity,
+  deleteItem,
 } from '../../../../store/reducers/cartReducer';
+import { DeleteIcon } from '@chakra-ui/icons';
 
 function CartSideBar({ cartItems }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
+  const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
+  const deleteItemFromCart = (id) => dispatch(deleteItem(id));
 
   const orderTotal = cartItems.length
     ? cartItems
@@ -28,31 +35,38 @@ function CartSideBar({ cartItems }) {
         .toFixed(2)
     : '0';
 
-  const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
-  const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
-
   return (
     <Flex height="100%" direction="column" position="relative">
-      <Box bg="white" height="400px">
-        <Flex direction="column" height="100%">
-          <Center>
-            <Heading>Your order</Heading>
-          </Center>
+      <Box
+        bg="white"
+        borderTop="1px solid lightgray"
+        borderBottom="1px solid lightgray"
+        padding="10px 0"
+      >
+        <Flex direction="column">
+          <Stack padding="0 20px" alignItems="left">
+            <Text fontSize="20px" color="rgb(118, 118, 118)">
+              Your order from
+            </Text>
+            <Heading mt="0" fontSize="26px">
+              BFD.LT
+            </Heading>
+          </Stack>
           <Box
             padding="0px 20px"
             mt="20px"
             mb="20px"
-            maxHeight="300px"
-            overflow="scroll"
-            overflowX="hidden"
+            maxHeight="500px"
+            overflow="auto"
           >
             {cartItems.map((item, i) => {
               const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
               return (
                 <Flex
                   key={i}
-                  marginBottom="10px"
+                  padding="5px 0"
                   justifyContent="space-between"
+                  borderBottom="1px solid lightgrey"
                 >
                   <Flex>
                     <Center
@@ -75,21 +89,43 @@ function CartSideBar({ cartItems }) {
                       </Box>
                     </Center>
                   </Flex>
-                  <Flex alignItems="center" gap="5px">
-                    <Button
-                      onClick={() => decreaseQuantity(item.id)}
-                      background="none"
+                  <Center>
+                    <Flex
+                      alignItems="center"
+                      gap="10px"
+                      rounded="md"
+                      padding="5px"
                     >
-                      -
-                    </Button>
-                    <Text>{item.quantity}</Text>
-                    <Button
-                      onClick={() => increaseQuantity(item.id)}
-                      background="none"
-                    >
-                      +
-                    </Button>
-                  </Flex>
+                      <Button
+                        onClick={() => decreaseQuantity(item.id)}
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                      >
+                        -
+                      </Button>
+                      <Text>{item.quantity}</Text>
+                      <Button
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                        onClick={() => increaseQuantity(item.id)}
+                      >
+                        +
+                      </Button>
+                      <Button
+                        onClick={() => deleteItemFromCart(item.id)}
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Flex>
+                  </Center>
                 </Flex>
               );
             })}
@@ -104,6 +140,8 @@ function CartSideBar({ cartItems }) {
               justifyContent="space-between"
               alignItems="center"
               onClick={() => navigate('/checkout')}
+              rounded="lg"
+              borderRadius="24px"
             >
               <Box as="p">
                 <Box
