@@ -1,5 +1,4 @@
 import {
-  ButtonGroup,
   Button,
   Text,
   Modal,
@@ -9,8 +8,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Divider,
-  Center,
   Flex,
   Input,
 } from '@chakra-ui/react';
