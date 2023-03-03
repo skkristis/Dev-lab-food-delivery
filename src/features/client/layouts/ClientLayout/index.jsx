@@ -17,25 +17,15 @@ function Layout() {
   const sessionUser = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
 
-  const user = {
-    firstName: 'Justina',
-    lastName: 'Clark',
-    email: 'test@mail.com',
-    password: '12345678',
-    isAdult: true,
-    termsAgree: true,
-  };
-
   useEffect(() => {
-    // if (sessionUser !== null) {
-    //   dispatch(add({ email: user.email, password: user.password }));
-    // }
-    //dispatch(remove());
+    if (sessionUser !== null) {
+      // dispatch(add({ email: 'test@mail.com', password: '12345678' }));
+    }
   }, [sessionUser]);
 
   return (
     <ChakraProvider>
-      {/* <div className="Layout">
+      <div className="Layout">
         <Header />
         <Box
           as="main"
