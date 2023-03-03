@@ -7,15 +7,15 @@ import CustomerAccountPaymentMethod from '../CustomerAccountPaymentMethod/Custom
 
 import './CustomerAccountPayment.scss';
 
+import paymentsMethods from '../../../../constants';
+
 function CustomerAccountPayment() {
   const paymentMethod = useSelector((state) => state.customer.payment.prefer);
 
   const dispatch = useDispatch();
   const dispatchPreferPayment = (method) => dispatch(setPreferPayment(method));
 
-  const handleChangePrefer = (method) => {
-    dispatchPreferPayment(method);
-  };
+  const handleChangePrefer = (method) => dispatchPreferPayment(method);
 
   return (
     <div className="customer-payment">
@@ -23,7 +23,7 @@ function CustomerAccountPayment() {
         onChange={(value) => handleChangePrefer(value)}
         value={paymentMethod}
       >
-        {['paysera', 'swedbank', 'cash'].map((item) => (
+        {paymentsMethods.map((item) => (
           <CustomerAccountPaymentMethod key={item} item={item} />
         ))}
       </RadioGroup>

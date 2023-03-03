@@ -14,3 +14,5 @@ export const itemsFilter = [
   { icon: '🍗 ', name: 'Chicken' },
   { icon: '🍔 ', name: 'Burgers' },
 ];
+
+export const paymentsMethods = ['paysera', 'swedbank', 'cash'];

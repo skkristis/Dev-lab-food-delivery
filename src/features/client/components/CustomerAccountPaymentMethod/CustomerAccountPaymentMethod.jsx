@@ -13,9 +13,7 @@ function CustomerAccountPaymentCard({ item }) {
   const dispatch = useDispatch();
   const dispatchPreferPayment = (method) => dispatch(setPreferPayment(method));
 
-  const handleChangePrefer = () => {
-    dispatchPreferPayment(item);
-  };
+  const handleChangePrefer = () => dispatchPreferPayment(item);
 
   return (
     <div className="customer-payment__method payment-method">
