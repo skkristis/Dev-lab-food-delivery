@@ -24,22 +24,13 @@ function LogInModal({ isOpen, onClose }) {
         <ModalCloseButton />
         <ModalBody>
           <Flex flexDir="column" gap="20px">
-            <ButtonGroup display="flex" flexDirection="column" gap="3">
-              <Text>Log in below or create a new account.</Text>
-              <Button marginInline="0px">Continue with Google</Button>
-              <Button marginInline="0px" color="white" bg="black">
-                Continue with Apple
-              </Button>
-              <Button marginInline="0px" color="white" bg="blue">
-                Continue with Facebook
-              </Button>
-            </ButtonGroup>
             <Center gap="2">
               <Divider orientation="horizontal" width="30%" height="2px" />
-              <Text width="fit-content">or log in with email</Text>
+              <Text>Log in with email</Text>
               <Divider orientation="horizontal" width="30%" height="2px" />
             </Center>
             <Input placeholder="Email" />
+            <Input placeholder="Password" />
             <Button colorScheme="blue">Next</Button>
           </Flex>
         </ModalBody>
