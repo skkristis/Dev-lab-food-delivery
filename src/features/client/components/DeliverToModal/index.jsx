@@ -8,6 +8,8 @@ import {
   ModalCloseButton,
   Button,
   Stack,
+  Input,
+  Divider,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPrimaryAddress } from '../../../../store/reducers/customerReducer';
@@ -48,6 +50,8 @@ function DeliverToModal({ isOpen, onClose }) {
                 </Button>
               );
             })}
+            <Divider />
+            <Input placeholder="Add another address..." />
           </Stack>
         </ModalBody>
 
