@@ -3,9 +3,17 @@ import locationUrl from '../../../../assets/location-icon.svg';
 import arrowDownUrl from '../../../../assets/arrow-down-icon.svg';
 import DeliverToModal from '../DeliverToModal';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { useEffect, useState } from 'react';
 
 function DeliverToButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    location.pathname === '/checkout' ? setVisible(false) : setVisible(true);
+  }, [location.pathname]);
 
   const customerPrimaryAddress = useSelector(
     (state) => state.customer.addressBook.filter((addy) => addy.primary)[0]
@@ -14,7 +22,12 @@ function DeliverToButton() {
 
   return (
     <>
-      <Button onClick={onOpen} variant="ghost" display="flex" gap="10px">
+      <Button
+        display={visible ? 'flex' : 'none'}
+        onClick={onOpen}
+        variant="ghost"
+        gap="10px"
+      >
         <Image
           boxSize="30px"
           src={locationUrl}
