@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../../components/Header/index';
 import Footer from '../../components/Footer/index';
+import CookieModal from '../../components/CookieModal/CookieModal';
 
 import './index.scss';
 import { Box, ChakraProvider, useMediaQuery } from '@chakra-ui/react';
@@ -22,6 +23,7 @@ function Layout() {
           <Outlet />
         </Box>
         <Footer />
+        <CookieModal />
       </div>
     </ChakraProvider>
   );
