@@ -12,6 +12,7 @@ function FilterByCategory({
   groceryItems,
   bgColor,
   categoryId,
+  onSelectCategory,
 }) {
   const [currentCategory, setCurrentCategory] = useState('restaurants');
 
@@ -20,6 +21,7 @@ function FilterByCategory({
   const handleCategoryClick = (value) => {
     setCurrentCategory(value);
   };
+
   return (
     <>
       <Flex justifyContent="center">
@@ -49,6 +51,7 @@ function FilterByCategory({
                   display="block"
                   minWidth="fit-content"
                   fontSize="20px"
+                  onClick={() => onSelectCategory(item.name)}
                 >
                   {item.icon}
                   {item.name}
@@ -62,6 +65,7 @@ function FilterByCategory({
                   display="block"
                   minWidth="fit-content"
                   fontSize="20px"
+                  onClick={() => onSelectCategory(item.name)}
                 >
                   {item.icon}
                   {item.name}
