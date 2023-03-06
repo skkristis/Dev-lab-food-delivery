@@ -2,6 +2,7 @@ import {
   Button,
   Heading,
   Image,
+  Input,
   Stack,
   Text,
   useDisclosure,
@@ -21,8 +22,27 @@ import OrderParametersModal from '../../components/OrderParametersModal';
 import CheckoutItemCard from '../../components/CheckoutItemCard';
 import CheckoutContactCheck from '../../components/CheckoutContactCheck';
 import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
-function OrderDetailCustomization({ payMethod, setPayMethod }) {
+function OrderDetailCustomization({
+  payMethod,
+  setPayMethod,
+  setIsEmailValid,
+}) {
+  const {
+    register,
+    formState: { errors },
+  } = useForm({
+    mode: 'onChange',
+  });
+
+  const handleEmailChange = (e) => {
+    //epicly bad implementation, will work on it tmrrw
+    setIsEmailValid(e.target.value.match(/^\S+@\S+$/i));
+  };
+
+  const sessionUser = useSelector((state) => state.user.data);
+
   const {
     isOpen: deliveryAddressIsOpen,
     onOpen: deliveryAddressOnOpen,
@@ -72,6 +92,19 @@ function OrderDetailCustomization({ payMethod, setPayMethod }) {
           <Text>{deliveryAddress}</Text>
           <ChevronRightIcon />
         </Button>
+        {sessionUser == null && (
+          <>
+            <Input
+              type="email"
+              placeholder="Enter your email address"
+              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+              onChange={handleEmailChange}
+            />
+            {errors.email && (
+              <Text color="red.500">Please enter a valid email address</Text>
+            )}
+          </>
+        )}
 
         <CheckoutContactCheck />
 

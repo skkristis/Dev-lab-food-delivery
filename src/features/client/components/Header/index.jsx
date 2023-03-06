@@ -110,7 +110,7 @@ function Header() {
           )}
           <CartDrawer />
         </Box>
-        {smallerScreen && <DeliverToButton isLoggedIn={isLoggedIn} />}
+        {smallerScreen && <DeliverToButton />}
       </Box>
       <LogInModal
         isOpen={isLoginModalOpen}
