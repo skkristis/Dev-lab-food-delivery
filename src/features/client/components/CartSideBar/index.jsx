@@ -56,7 +56,7 @@ function CartSideBar({ cartItems }) {
             padding="0px 20px"
             mt="20px"
             mb="20px"
-            maxHeight="500px"
+            maxHeight="200px"
             overflow="auto"
           >
             {cartItems.map((item, i) => {
