@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import logoUrl from '../../../../assets/application-logo.svg';
 import LogInModal from '../LogInModal';
@@ -33,7 +33,7 @@ function Header() {
   } = useDisclosure();
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const sessionUser = useSelector((state) => state.user.data);
 
   return (
     <>
@@ -66,7 +66,9 @@ function Header() {
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
-            {!smallerScreen && <DeliverToButton isLoggedIn={isLoggedIn} />}
+            {!smallerScreen && (
+              <DeliverToButton isLoggedIn={sessionUser !== null} />
+            )}
           </Flex>
           <Input
             color="white"
@@ -79,9 +81,9 @@ function Header() {
             width={smallerScreen ? '40%' : '300px'}
             borderRadius="50px"
           />
-          {isLoggedIn ? (
+          {sessionUser ? (
             <Flex>
-              <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
+              <LoggedInUserHeader />
             </Flex>
           ) : smallerScreen ? (
             <Flex flexWrap="wrap" justifyContent="flex-end" width="25%">
@@ -113,8 +115,6 @@ function Header() {
       <LogInModal
         isOpen={isLoginModalOpen}
         onClose={onLoginModalClose}
-        setIsLoggedIn={setIsLoggedIn}
-        isLoggedIn={isLoggedIn}
         onSignupModalOpen={onSignupModalOpen}
       />
       <SignUpModal isOpen={isSignupModalOpen} onClose={onSignupModalClose} />
