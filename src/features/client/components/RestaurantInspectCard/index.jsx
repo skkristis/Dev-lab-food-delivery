@@ -45,7 +45,9 @@ function RestaurantInspectCard({ deal, cartOpened }) {
           ? { base: '100%', xl: '45%' }
           : { base: '100%', lg: '45%', xl: '30%' }
       }
-      border="1px solid lightgray"
+      border={
+        currentItem?.quantity ? '2px solid #4299e1' : '1px solid lightgray'
+      }
       rounded="md"
       padding="10px"
       alignItems="center"
