@@ -9,7 +9,7 @@ import { restaurantItems, groceryItems } from '../../../../constants';
 
 function ClientLanding() {
   return (
-    <Flex as="section" flexDir="column" gap="20px">
+    <Flex as="section" flexDir="column" gap="20px" mt="50px">
       <FilterByCategory
         restaurantItems={restaurantItems}
         groceryItems={groceryItems}
