@@ -14,7 +14,7 @@ function CustomerAccountDashboard() {
   const customer = useSelector((state) => state.customer);
 
   return (
-    <div className="customer-dashboard">
+    <div className="customer-dashboard container">
       <Tabs size={{ base: 'md', md: 'lg' }} isFitted variant="enclosed">
         <TabList className="customer-dashboard__tablist">
           <Tab>Personal Info</Tab>

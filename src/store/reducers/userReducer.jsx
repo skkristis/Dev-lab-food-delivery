@@ -5,12 +5,22 @@ const initialState = {
   data: null,
 };
 
-export const add = createAsyncThunk('user/add', async ({ email, password }) => {
-  await auth.login(email, password);
-  return await auth.me();
-});
+export const add = createAsyncThunk(
+  'user/add',
+  async ({ email, password } = {}) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      await auth.login(email, password);
+    }
+    const response = await auth.me();
+    return response;
+  }
+);
 
-export const remove = createAsyncThunk('user/remove', () => auth.logout());
+export const remove = createAsyncThunk(
+  'user/remove',
+  async () => await auth.logout()
+);
 
 export const userSlice = createSlice({
   name: 'user',

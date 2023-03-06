@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { add, remove } from '../../../../store/reducers/userReducer';
-import auth from '../../../../services/AuthService';
 
 import Header from '../../components/Header/index';
 import Footer from '../../components/Footer/index';
 import CookieModal from '../../components/CookieModal/CookieModal';
 
 import './index.scss';
-import { Box, ChakraProvider, useMediaQuery } from '@chakra-ui/react';
+import { Box, Button, ChakraProvider, useMediaQuery } from '@chakra-ui/react';
 
 function Layout() {
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
@@ -18,10 +17,19 @@ function Layout() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (sessionUser !== null) {
-      // dispatch(add({ email: 'test@mail.com', password: '12345678' }));
+    const accessToken = localStorage.getItem('accessToken');
+    if (sessionUser === null && accessToken !== null) {
+      dispatch(add());
     }
-  }, [sessionUser]);
+  }, []);
+
+  const handleLogin = () => {
+    dispatch(add({ email: 'test@test.com', password: 'secret123' }));
+  };
+
+  const handleLogout = () => {
+    dispatch(remove());
+  };
 
   return (
     <ChakraProvider>
@@ -32,6 +40,8 @@ function Layout() {
           className="Layout__main"
           padding={smallerScreen ? '120px 0 68px' : '80px 0 68px'}
         >
+          <Button onClick={handleLogin}>login</Button>
+          <Button onClick={handleLogout}>logout</Button>
           <Outlet />
         </Box>
         <Footer />

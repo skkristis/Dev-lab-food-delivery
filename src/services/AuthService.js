@@ -21,7 +21,7 @@ class Auth {
   }
 
   async logout() {
-    const response = await axios.post('/auth/logout');
+    await axios.post('/auth/logout');
     localStorage.removeItem('accessToken');
   }
 
