@@ -11,7 +11,8 @@ import {
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import logoUrl from '../../../../assets/application-logo.svg';
+import logoUrl from '../../../../assets/logo_transparent.svg';
+
 import LogInModal from '../LogInModal';
 import UserMenu from '../UserMenu';
 import CartDrawer from '../CartDrawer';
@@ -39,7 +40,7 @@ function Header() {
     <>
       <Box
         as="header"
-        height={smallerScreen ? '120px' : '80px'}
+        height={smallerScreen ? '120px' : '90px'}
         position="fixed"
         left="0"
         right="0"
@@ -64,7 +65,7 @@ function Header() {
             justifyContent="flex-start"
           >
             <Link as={ReachLink} to="/">
-              <Image boxSize="30px" src={logoUrl} />
+              <Image w={'150px'} src={logoUrl} />
             </Link>
             {!smallerScreen && (
               <DeliverToButton isLoggedIn={sessionUser !== null} />
@@ -110,7 +111,7 @@ function Header() {
           )}
           <CartDrawer />
         </Box>
-        {smallerScreen && <DeliverToButton isLoggedIn={isLoggedIn} />}
+        {smallerScreen && <DeliverToButton />}
       </Box>
       <LogInModal
         isOpen={isLoginModalOpen}
