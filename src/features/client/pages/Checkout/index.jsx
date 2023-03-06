@@ -14,7 +14,7 @@ function Checkout() {
 
   return (
     <Box as="section">
-      <Box className="container">
+      <Box className="container" paddingTop="50px">
         <Heading fontSize="40px">Checkout</Heading>
         <Heading fontSize="20px">Jammi (Tauro Kalnas)</Heading>
       </Box>
