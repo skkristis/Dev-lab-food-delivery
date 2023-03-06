@@ -28,7 +28,7 @@ import {
   FiLogOut,
 } from 'react-icons/all.js';
 
-import logoUrl from '../../../../assets/application-logo.svg';
+import logoUrl from '../../../../assets/logo_transparent.svg';
 
 export default function MobileNav({ onOpen, ...rest }) {
   return (
@@ -52,7 +52,7 @@ export default function MobileNav({ onOpen, ...rest }) {
       />
 
       <Link display={{ base: 'flex', md: 'none' }} as={ReachLink} to="/">
-        <Image boxSize="30px" src={logoUrl} />
+        <Image w="150px" src={logoUrl} />
       </Link>
 
       <HStack spacing={{ base: '0', md: '6' }}>

@@ -10,7 +10,7 @@ import React from 'react';
 import NavItem from '../NavItem/index.jsx';
 import { getAdminRoutes } from '../../../../router/index.jsx';
 import { Link as ReachLink } from 'react-router-dom';
-import logoUrl from '../../../../assets/application-logo.svg';
+import logoUrl from '../../../../assets/logo_transparent.svg';
 
 export default function Sidebar({ onClose, ...rest }) {
   return (
@@ -25,7 +25,7 @@ export default function Sidebar({ onClose, ...rest }) {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Link display="flex" as={ReachLink} to="/">
-          <Image boxSize="30px" src={logoUrl} />
+          <Image w="150px" src={logoUrl} />
         </Link>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
