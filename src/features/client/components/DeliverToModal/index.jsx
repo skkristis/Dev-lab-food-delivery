@@ -10,7 +10,10 @@ import {
   Stack,
   Input,
   Divider,
+  Icon,
+  Text,
 } from '@chakra-ui/react';
+import { BiHome } from 'react-icons/all.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPrimaryAddress } from '../../../../store/reducers/customerReducer';
 
@@ -46,8 +49,23 @@ function DeliverToModal({ isOpen, onClose, isLoggedIn }) {
                     key={addressFormated}
                     border={border}
                     variant="unstyled"
+                    position="relative"
                   >
-                    {addressFormated}
+                    {address.primary && (
+                      <Icon
+                        position="absolute"
+                        left="5px"
+                        top="2px"
+                        as={BiHome}
+                        boxSize={8}
+                        color="white"
+                        bg="blue.500"
+                        padding="5px"
+                        rounded="full"
+                      />
+                    )}
+
+                    <Text>{addressFormated}</Text>
                   </Button>
                 );
               })}
