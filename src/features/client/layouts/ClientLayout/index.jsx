@@ -8,7 +8,7 @@ import Footer from '../../components/Footer/index';
 import CookieModal from '../../components/CookieModal/CookieModal';
 
 import './index.scss';
-import { Box, Button, ChakraProvider, useMediaQuery } from '@chakra-ui/react';
+import { Box, ChakraProvider, useMediaQuery } from '@chakra-ui/react';
 
 function Layout() {
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
@@ -32,8 +32,6 @@ function Layout() {
           className="Layout__main"
           padding={smallerScreen ? '120px 0 68px' : '80px 0 68px'}
         >
-          <Button onClick={handleLogin}>login</Button>
-          <Button onClick={handleLogout}>logout</Button>
           <Outlet />
         </Box>
         <Footer />
