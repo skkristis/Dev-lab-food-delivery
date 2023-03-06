@@ -10,11 +10,14 @@ import {
   Stack,
   Input,
   Divider,
+  Icon,
+  Text,
 } from '@chakra-ui/react';
+import { BiHome } from 'react-icons/all.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPrimaryAddress } from '../../../../store/reducers/customerReducer';
 
-function DeliverToModal({ isOpen, onClose }) {
+function DeliverToModal({ isOpen, onClose, isLoggedIn }) {
   const dispatch = useDispatch();
 
   const customerAddressBook = useSelector(
@@ -33,25 +36,47 @@ function DeliverToModal({ isOpen, onClose }) {
         <ModalCloseButton />
         <ModalBody>
           <Stack>
-            {customerAddressBook?.map((address) => {
-              const addressFormated = `${address.street} ${address.building}-${address.apartment}, ${address.city}`;
-              const border = address.primary
-                ? '2px solid #4299e1'
-                : '2px solid lightgray';
+            {isLoggedIn &&
+              customerAddressBook?.map((address) => {
+                const addressFormated = `${address.street} ${address.building}-${address.apartment}, ${address.city}`;
+                const border = address.primary
+                  ? '2px solid #4299e1'
+                  : '2px solid lightgray';
 
-              return (
-                <Button
-                  onClick={() => dispatchPrimaryAddress(address.id)}
-                  key={addressFormated}
-                  border={border}
-                  variant="unstyled"
-                >
-                  {addressFormated}
-                </Button>
-              );
-            })}
+                return (
+                  <Button
+                    onClick={() => dispatchPrimaryAddress(address.id)}
+                    key={addressFormated}
+                    border={border}
+                    variant="unstyled"
+                    position="relative"
+                  >
+                    {address.primary && (
+                      <Icon
+                        position="absolute"
+                        left="5px"
+                        top="2px"
+                        as={BiHome}
+                        boxSize={8}
+                        color="white"
+                        bg="blue.500"
+                        padding="5px"
+                        rounded="full"
+                      />
+                    )}
+
+                    <Text>{addressFormated}</Text>
+                  </Button>
+                );
+              })}
             <Divider />
-            <Input placeholder="Add another address..." />
+            <Input
+              placeholder={
+                isLoggedIn
+                  ? 'Add another address...'
+                  : 'Add delivery address...'
+              }
+            />
           </Stack>
         </ModalBody>
 

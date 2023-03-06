@@ -7,7 +7,7 @@ import CustomerAccountPaymentMethod from '../CustomerAccountPaymentMethod/Custom
 
 import './CustomerAccountPayment.scss';
 
-import paymentsMethods from '../../../../constants';
+import { paymentsMethods } from '../../../../constants';
 
 function CustomerAccountPayment() {
   const paymentMethod = useSelector((state) => state.customer.payment.prefer);

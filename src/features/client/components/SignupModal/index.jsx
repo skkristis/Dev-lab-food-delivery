@@ -11,13 +11,38 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { Checkbox } from '@chakra-ui/react';
+
+import { useDispatch } from 'react-redux';
+import { add } from '../../../../store/reducers/userReducer';
+import auth from '../../../../services/AuthService';
+
 import './index.scss';
 
 function SignUpModal({ isOpen, onClose }) {
-  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   const onSubmit = (data) => {
-    return data;
+    const userdata = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      isAdult: data.ageAgreement,
+      termsAgree: data.termsAgreement,
+    };
+
+    auth.register(userdata).then(() => {
+      dispatch(add({ email: userdata.email, password: userdata.password }));
+      onClose();
+      reset();
+    });
   };
 
   return (
@@ -46,19 +71,19 @@ function SignUpModal({ isOpen, onClose }) {
               />
               <Checkbox
                 colorScheme="blue"
-                {...register('age_agreement')}
+                {...register('ageAgreement')}
                 display="block"
               >
                 I&apos;m older than <b>18</b> years old.
               </Checkbox>
               <Checkbox
                 colorScheme="blue"
-                {...register('terms_agreement')}
+                {...register('termsAgreement')}
                 display="block"
               >
                 I read and agree to the terms and conditions.
               </Checkbox>
-              <Button type="submit" colorScheme="blue" mb={4}>
+              <Button type="submit" colorScheme="blue" mt={3} mb={3}>
                 Register
               </Button>
             </form>

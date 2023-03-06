@@ -1,26 +1,24 @@
 import { Link as ReachLink } from 'react-router-dom';
 import {
   Box,
-  ButtonGroup,
   Link,
   Image,
-  Button,
   useDisclosure,
   Flex,
   Input,
   useMediaQuery,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import logoUrl from '../../../../assets/application-logo.svg';
 import LogInModal from '../LogInModal';
-
+import UserMenu from '../UserMenu';
 import CartDrawer from '../CartDrawer';
 import SignUpModal from '../SignupModal';
 import LoggedInUserHeader from '../LoggedInUserHeader';
 import DeliverToButton from '../DeliverToButton';
-import UserMenu from '../UserMenu';
+import { ButtonGroup, Button } from '@chakra-ui/react';
 
 function Header() {
   const {
@@ -35,13 +33,13 @@ function Header() {
   } = useDisclosure();
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const sessionUser = useSelector((state) => state.user.data);
 
   return (
     <>
       <Box
         as="header"
-        height="80px"
+        height={smallerScreen ? '120px' : '80px'}
         position="fixed"
         left="0"
         right="0"
@@ -59,36 +57,19 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Flex flexWrap="wrap" gap="10px" alignItems="center" width="35%">
+          <Flex
+            gap="10px"
+            alignItems="center"
+            width="auto"
+            justifyContent="flex-start"
+          >
             <Link as={ReachLink} to="/">
               <Image boxSize="30px" src={logoUrl} />
             </Link>
-            <DeliverToButton />
-          </Flex>
-          <Box>
-            {isLoggedIn ? (
-              <Flex>
-                <LoggedInUserHeader setIsLoggedIn={setIsLoggedIn} />
-                <CartDrawer />
-              </Flex>
-            ) : (
-              <>
-                <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
-                  <Button onClick={onLoginModalOpen} variant="ghost">
-                    Log In
-                  </Button>
-                  <Button
-                    onClick={onSignupModalOpen}
-                    colorScheme="blue"
-                    color="white"
-                  >
-                    Sign up
-                  </Button>
-                </ButtonGroup>
-                <CartDrawer />
-              </>
+            {!smallerScreen && (
+              <DeliverToButton isLoggedIn={sessionUser !== null} />
             )}
-          </Box>
+          </Flex>
           <Input
             color="white"
             bg="lightgray"
@@ -100,13 +81,17 @@ function Header() {
             width={smallerScreen ? '40%' : '300px'}
             borderRadius="50px"
           />
-          {smallerScreen ? (
-            <>
+          {sessionUser ? (
+            <Flex>
+              <LoggedInUserHeader />
+            </Flex>
+          ) : smallerScreen ? (
+            <Flex flexWrap="wrap" justifyContent="flex-end" width="25%">
               <UserMenu
                 onLoginModalOpen={onLoginModalOpen}
                 onSignupModalOpen={onSignupModalOpen}
               />
-            </>
+            </Flex>
           ) : (
             <>
               <ButtonGroup gap={{ base: '5px', sm: '20px' }}>
@@ -123,9 +108,15 @@ function Header() {
               </ButtonGroup>
             </>
           )}
+          <CartDrawer />
         </Box>
+        {smallerScreen && <DeliverToButton isLoggedIn={isLoggedIn} />}
       </Box>
-      <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
+      <LogInModal
+        isOpen={isLoginModalOpen}
+        onClose={onLoginModalClose}
+        onSignupModalOpen={onSignupModalOpen}
+      />
       <SignUpModal isOpen={isSignupModalOpen} onClose={onSignupModalClose} />
     </>
   );

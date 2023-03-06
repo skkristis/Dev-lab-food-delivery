@@ -1,10 +1,5 @@
-export const categoryFilter = [
-  { icon: '🍝 ', name: 'Restaurants' },
-  { icon: '🛒 ', name: 'Grocery' },
-  { icon: '🎉 ', name: 'Offers' },
-];
-
-export const itemsFilter = [
+export const restaurantItems = [
+  { icon: '🍴', name: 'All' },
   { icon: '🍟 ', name: 'Fast Food' },
   { icon: '🍰 ', name: 'Desserts' },
   { icon: '🍿 ', name: 'Snacks' },
@@ -15,4 +10,16 @@ export const itemsFilter = [
   { icon: '🍔 ', name: 'Burgers' },
 ];
 
-export const paymentsMethods = ['paysera', 'swedbank', 'cash'];
+export const groceryItems = [
+  { icon: '🛒', name: 'All' },
+  { icon: '🛒 ', name: 'Iki' },
+  { icon: '🛒 ', name: 'Rimi' },
+  { icon: '🛒 ', name: 'Maxima' },
+];
+
+export const merchantTypes = [
+  { category: '🍝 Restaurants', value: 'restaurants' },
+  { category: '🛒 Grocery', value: 'grocery' },
+];
+
+export const paymentsMethods = ['PaySera', 'Swedbank', 'Cash'];

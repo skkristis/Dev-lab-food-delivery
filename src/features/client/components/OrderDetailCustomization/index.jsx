@@ -11,9 +11,10 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-import { payingOptions } from '../../mocks/checkoutMock';
+import { paymentsMethods } from '../../../../constants';
 import SwedbankUrl from '../../../../assets/swedbank-icon.png';
 import PayseraUrl from '../../../../assets/paysera-icon.png';
+import CashUrl from '../../../../assets/cash-icon.svg';
 import bicycleUrl from '../../../../assets/bicycle-icon.svg';
 
 import OrderParametersModal from '../../components/OrderParametersModal';
@@ -46,7 +47,16 @@ function OrderDetailCustomization({ payMethod, setPayMethod }) {
     `${primaryAddress.street} ${primaryAddress.building}-${primaryAddress.apartment}, ${primaryAddress.city}`
   );
 
-  const payMethodUrl = payMethod === 'Swedbank' ? SwedbankUrl : PayseraUrl;
+  const payMethodUrl = (() => {
+    switch (payMethod) {
+      case 'Swedbank':
+        return SwedbankUrl;
+      case 'PaySera':
+        return PayseraUrl;
+      case 'Cash':
+        return CashUrl;
+    }
+  })();
 
   return (
     <Stack spacing="20px">
@@ -104,7 +114,7 @@ function OrderDetailCustomization({ payMethod, setPayMethod }) {
           isOpen={paymentOptionIsOpen}
           onClose={paymentOptionOnClose}
           header="Payment option"
-          options={payingOptions}
+          options={paymentsMethods}
           setStateFn={setPayMethod}
         />
       </Stack>

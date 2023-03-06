@@ -1,37 +1,22 @@
-import { Box, Heading, Image } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 
 import { useState } from 'react';
-
-import checkoutMap from '../../../../assets/checkout-map.png';
+import { useSelector } from 'react-redux';
 
 import CheckoutCart from '../../components/CheckoutCart';
 import OrderDetailCustomization from '../../components/OrderDetailCustomization';
 
 function Checkout() {
-  const [payMethod, setPayMethod] = useState('Swedbank');
+  const preferedPayMethod = useSelector(
+    (store) => store.customer.payment.prefer
+  );
+  const [payMethod, setPayMethod] = useState(preferedPayMethod);
 
   return (
     <Box as="section">
-      <Box height="30vw" position="relative" overflow="hidden">
-        <Image src={checkoutMap} position="absolute" width="100%" />
-        <Box className="container" position="relative" height="100%">
-          <Heading
-            position="absolute"
-            left="20px"
-            bottom="70px"
-            fontSize="40px"
-          >
-            Checkout
-          </Heading>
-          <Heading
-            position="absolute"
-            left="20px"
-            bottom="40px"
-            fontSize="20px"
-          >
-            Jammi (Tauro Kalnas)
-          </Heading>
-        </Box>
+      <Box className="container" paddingTop="50px">
+        <Heading fontSize="40px">Checkout</Heading>
+        <Heading fontSize="20px">Jammi (Tauro Kalnas)</Heading>
       </Box>
 
       <Box

@@ -1,5 +1,4 @@
 import {
-  ButtonGroup,
   Button,
   Text,
   Modal,
@@ -9,51 +8,82 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Divider,
-  Center,
   Flex,
   Input,
+  Link,
+  Stack,
 } from '@chakra-ui/react';
 
-function LogInModal({ isOpen, onClose }) {
+import { useDispatch } from 'react-redux';
+import { add } from '../../../../store/reducers/userReducer';
+import { useForm } from 'react-hook-form';
+
+function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
+  const dispatch = useDispatch();
+
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(add({ email: data.email, password: data.password }));
+    onClose();
+    reset();
+  };
+
+  const handleOpenSignup = () => {
+    onClose();
+    onSignupModalOpen();
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create an account or log in</ModalHeader>
+        <ModalHeader>Log in with email</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Flex flexDir="column" gap="20px">
-            <ButtonGroup display="flex" flexDirection="column" gap="3">
-              <Text>Log in below or create a new account.</Text>
-              <Button marginInline="0px">Continue with Google</Button>
-              <Button marginInline="0px" color="white" bg="black">
-                Continue with Apple
-              </Button>
-              <Button marginInline="0px" color="white" bg="blue">
-                Continue with Facebook
-              </Button>
-            </ButtonGroup>
-            <Center gap="2">
-              <Divider orientation="horizontal" width="30%" height="2px" />
-              <Text width="fit-content">or log in with email</Text>
-              <Divider orientation="horizontal" width="30%" height="2px" />
-            </Center>
-            <Input placeholder="Email" />
-            <Button colorScheme="blue">Next</Button>
+          <Flex
+            as="form"
+            flexDir="column"
+            gap="20px"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input placeholder="Email" {...register('email')} />
+            <Input
+              type="password"
+              placeholder="Password"
+              {...register('password')}
+            />
+            <Button type="submit" colorScheme="blue">
+              Log in
+            </Button>
           </Flex>
         </ModalBody>
 
         <ModalFooter>
-          <Text fontSize="10px">
-            Privacy & Terms of service disclaimer. Lorem ipsum dolor sit, amet
-            consectetur adipisicing elit. Nostrum ab inventore modi beatae,
-            repellat iste delectus dolorem dicta asperiores quidem quo
-            consequatur eos sapiente corporis, quas impedit sunt quibusdam!
-            Earum ratione itaque mollitia. Ea quibusdam dolorem rem consequatur
-            a aliquid suscipit, corrupti porro fuga. Obcaecati odit saepe a iure
-            at.
-          </Text>
+          <Stack>
+            <Text fontSize="10px">
+              Privacy & Terms of service disclaimer. Lorem ipsum dolor sit, amet
+              consectetur adipisicing elit. Nostrum ab inventore modi beatae,
+              repellat iste delectus dolorem dicta asperiores quidem quo
+              consequatur eos sapiente corporis, quas impedit sunt quibusdam!
+              Earum ratione itaque mollitia. Ea quibusdam dolorem rem
+              consequatur a aliquid suscipit, corrupti porro fuga. Obcaecati
+              odit saepe a iure at.
+            </Text>
+            <Link
+              fontSize="14px"
+              color="blue.400"
+              as="button"
+              onClick={handleOpenSignup}
+            >
+              Not an existing user? Sign up here!
+            </Link>
+          </Stack>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -11,9 +11,9 @@ function Discovery() {
       <Flex alignItems="center" mt={5} position="relative">
         <ScrollButton
           rightButton={false}
-          left="5"
+          left="10"
           position="absolute"
-          id="#discovery-item-list"
+          id={'#discovery-item-list'}
         />
         <Flex
           gap="20px"
@@ -32,9 +32,9 @@ function Discovery() {
         </Flex>
         <ScrollButton
           rightButton={true}
-          right="5"
+          right="10"
           position="absolute"
-          id="#discovery-item-list"
+          id={'#discovery-item-list'}
         />
       </Flex>
     </Box>

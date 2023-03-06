@@ -21,8 +21,18 @@ import {
   CgProfile,
   FiLogOut,
 } from 'react-icons/all.js';
+import { useNavigate } from 'react-router-dom';
 
-function LoggedInUserHeader({ setIsLoggedIn }) {
+import { useSelector, useDispatch } from 'react-redux';
+import { remove } from '../../../../store/reducers/userReducer';
+
+function LoggedInUserHeader() {
+  const navigate = useNavigate();
+
+  const sessionUser = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+  const handleLogout = () => dispatch(remove());
+
   return (
     <HStack spacing={{ base: '0', md: '6' }}>
       <Flex alignItems={'center'}>
@@ -45,7 +55,7 @@ function LoggedInUserHeader({ setIsLoggedIn }) {
                 spacing="1px"
                 ml="2"
               >
-                <Text fontSize="sm">Justina Clark</Text>
+                <Text fontSize="sm">{`${sessionUser.firstName} ${sessionUser.lastName}`}</Text>
               </VStack>
               <Box display={{ base: 'none', md: 'flex' }}>
                 <FiChevronDown />
@@ -56,7 +66,7 @@ function LoggedInUserHeader({ setIsLoggedIn }) {
             bg={useColorModeValue('white', 'gray.900')}
             borderColor={useColorModeValue('gray.200', 'gray.700')}
           >
-            <MenuItem>
+            <MenuItem as="button" onClick={() => navigate('/account')}>
               <Icon
                 mr="4"
                 fontSize="16"
@@ -79,7 +89,7 @@ function LoggedInUserHeader({ setIsLoggedIn }) {
               Settings
             </MenuItem>
             <MenuDivider />
-            <MenuItem onClick={() => setIsLoggedIn(false)}>
+            <MenuItem onClick={handleLogout}>
               <Icon
                 mr="4"
                 fontSize="16"

@@ -13,21 +13,43 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Center,
+  useMediaQuery,
 } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
 import basketUrl from '../../../../assets/basket-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
+import { useState, useEffect } from 'react';
 import {
   decreaseItemQuantity,
   increaseItemQuantity,
+  deleteItem,
 } from '../../../../store/reducers/cartReducer';
 
 function CartDrawer() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cartItems = useSelector((store) => store.cart.list);
-  const dispatch = useDispatch();
+  const location = useLocation();
 
+  const [visible, setVisible] = useState(true);
+
+  const dispatch = useDispatch();
   const increaseQuantity = (id) => dispatch(increaseItemQuantity(id));
   const decreaseQuantity = (id) => dispatch(decreaseItemQuantity(id));
+  const deleteItemFromCart = (id) => dispatch(deleteItem(id));
+
+  const [bigScreen] = useMediaQuery('(min-width: 991px)');
+
+  useEffect(() => {
+    location.pathname.includes('/restaurants/')
+      ? setVisible(true)
+      : setVisible(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    bigScreen && onClose();
+  }, [bigScreen]);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cartItems = useSelector((store) => store.cart.list);
 
   const orderTotal = cartItems.length
     ? cartItems
@@ -47,7 +69,9 @@ function CartDrawer() {
         onClick={onOpen}
         variant="ghost"
         position="relative"
-        display={{ base: 'inline-block', md: 'none' }}
+        display={
+          visible ? { base: 'inline-block', lg: 'none' } : { base: 'none' }
+        }
       >
         <Image src={basketUrl} boxSize="30px" />
         <Text
@@ -64,8 +88,13 @@ function CartDrawer() {
         </Text>
       </Button>
 
-      <Drawer isOpen={isOpen} onClose={onClose} size="100%">
-        <DrawerContent>
+      <Drawer
+        isOpen={isOpen}
+        onClose={onClose}
+        size="100%"
+        borderBottom="1px solid lightgrey"
+      >
+        <DrawerContent overflow="auto">
           <DrawerHeader>
             <Heading>Your order</Heading>
           </DrawerHeader>
@@ -76,9 +105,10 @@ function CartDrawer() {
               return (
                 <Flex
                   key={i}
-                  marginBottom="10px"
+                  padding="10px 0"
                   justifyContent="space-between"
                   minHeight="80px"
+                  borderBottom="1px solid lightgrey"
                 >
                   <Flex>
                     <Center
@@ -100,21 +130,43 @@ function CartDrawer() {
                       </Box>
                     </Center>
                   </Flex>
-                  <Flex alignItems="center" gap="5px">
-                    <Button
-                      onClick={() => decreaseQuantity(item.id)}
-                      background="none"
+                  <Center>
+                    <Flex
+                      alignItems="center"
+                      gap="10px"
+                      rounded="md"
+                      padding="5px"
                     >
-                      -
-                    </Button>
-                    <Text>{item.quantity}</Text>
-                    <Button
-                      onClick={() => increaseQuantity(item.id)}
-                      background="none"
-                    >
-                      +
-                    </Button>
-                  </Flex>
+                      <Button
+                        onClick={() => decreaseQuantity(item.id)}
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                      >
+                        -
+                      </Button>
+                      <Text>{item.quantity}</Text>
+                      <Button
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                        onClick={() => increaseQuantity(item.id)}
+                      >
+                        +
+                      </Button>
+                      <Button
+                        onClick={() => deleteItemFromCart(item.id)}
+                        size="sm"
+                        bg="white"
+                        rounded="full"
+                        variant="outline"
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Flex>
+                  </Center>
                 </Flex>
               );
             })}

@@ -1,3 +1,4 @@
+import React from 'react';
 import { RouterProvider } from 'react-router-dom/dist';
 import './App.scss';
 import { Provider } from 'react-redux';
