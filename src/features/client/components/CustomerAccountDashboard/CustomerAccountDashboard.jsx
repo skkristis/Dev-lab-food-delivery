@@ -10,12 +10,17 @@ import CustomerAccountSettings from '../CustomerAccountSettings/CustomerAccountS
 
 import './CustomerAccountDashboard.scss';
 
-function CustomerAccountDashboard() {
+function CustomerAccountDashboard({ activeTab = 0 }) {
   const customer = useSelector((state) => state.customer);
 
   return (
     <div className="customer-dashboard container">
-      <Tabs size={{ base: 'md', md: 'lg' }} isFitted variant="enclosed">
+      <Tabs
+        size={{ base: 'md', md: 'lg' }}
+        index={activeTab}
+        isFitted
+        variant="enclosed"
+      >
         <TabList className="customer-dashboard__tablist">
           <Tab>Personal Info</Tab>
           <Tab>Payment Methods</Tab>
