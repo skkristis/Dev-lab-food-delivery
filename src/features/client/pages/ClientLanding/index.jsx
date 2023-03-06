@@ -10,20 +10,13 @@ import { restaurantItems, groceryItems } from '../../../../constants';
 function ClientLanding() {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  function handleSelectCategory(categoryName) {
-    if (categoryName === 'All') {
-      setSelectedCategory(null);
-    } else {
-      setSelectedCategory(categoryName);
-    }
-  }
   return (
     <Flex as="section" flexDir="column" gap="20px">
       <FilterByCategory
         restaurantItems={restaurantItems}
         groceryItems={groceryItems}
         categoryId={'scroll2'}
-        onSelectCategory={handleSelectCategory}
+        setSelectedCategory={setSelectedCategory}
       />
       <Discovery />
       <RestaurantList selectedCategory={selectedCategory} />

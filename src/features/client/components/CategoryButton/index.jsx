@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react';
 
-const CategoryButton = ({ category, onClick }) => {
+const CategoryButton = ({ category, onClick, buttonColor }) => {
   return (
     <Button
       onClick={onClick}
@@ -8,7 +8,8 @@ const CategoryButton = ({ category, onClick }) => {
       minWidth="fit-content"
       fontSize="20px"
       borderRadius="lg"
-      bg="white"
+      color={buttonColor === 'blue' ? 'white' : 'black'}
+      colorScheme={buttonColor}
     >
       {category}
     </Button>

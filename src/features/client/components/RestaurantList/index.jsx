@@ -8,7 +8,7 @@ function RestaurantList({ isFeatured, selectedCategory }) {
     ? restaurants.filter((item) => item.featured)
     : restaurants;
 
-  if (selectedCategory) {
+  if (selectedCategory && selectedCategory !== 'All') {
     restaurantsList = restaurantsList.filter((restaurant) =>
       restaurant.restaurantTags.includes(selectedCategory)
     );

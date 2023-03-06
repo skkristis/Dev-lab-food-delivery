@@ -5,31 +5,41 @@ import './index.scss';
 import ScrollButton from '../ScrollButton';
 import { useState } from 'react';
 import CategoryButton from '../CategoryButton';
-import { categories } from '../../../../constants';
+import { merchantTypes } from '../../../../constants';
 
 function FilterByCategory({
   restaurantItems,
   groceryItems,
   bgColor,
   categoryId,
-  onSelectCategory,
+  setSelectedCategory,
 }) {
   const [currentCategory, setCurrentCategory] = useState('restaurants');
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+  const [activeMerchantTypeIndex, setActiveMerchantTypeIndex] = useState(0);
 
   const [smallerScreen] = useMediaQuery('(max-width: 1100px)');
 
-  const handleCategoryClick = (value) => {
+  const handleMerchantTypeClick = (value, index) => {
+    setSelectedCategory('All');
     setCurrentCategory(value);
+    setActiveCategoryIndex(index);
+    setActiveMerchantTypeIndex(0);
+  };
+
+  const handleTypeClick = (index) => {
+    setActiveMerchantTypeIndex(index);
   };
 
   return (
     <>
       <Flex justifyContent="center">
-        {categories.map((category, index) => (
+        {merchantTypes.map((category, index) => (
           <CategoryButton
             key={index}
             category={category.category}
-            onClick={() => handleCategoryClick(category.value)}
+            onClick={() => handleMerchantTypeClick(category.value, index)}
+            buttonColor={index === activeCategoryIndex ? 'blue' : 'white'}
           />
         ))}
       </Flex>
@@ -43,29 +53,41 @@ function FilterByCategory({
         )}
         <Flex backgroundColor={bgColor} className="category" id={categoryId}>
           {currentCategory === 'restaurants'
-            ? restaurantItems.map((item) => (
+            ? restaurantItems.map((item, index) => (
                 <Button
                   borderRadius="lg"
-                  bg="white"
                   key={item.name}
                   display="block"
                   minWidth="fit-content"
                   fontSize="20px"
-                  onClick={() => onSelectCategory(item.name)}
+                  onClick={() => {
+                    setSelectedCategory(item.name);
+                    handleTypeClick(index);
+                  }}
+                  color={index === activeMerchantTypeIndex ? 'white' : 'black'}
+                  colorScheme={
+                    index === activeMerchantTypeIndex ? 'blue' : 'white'
+                  }
                 >
                   {item.icon}
                   {item.name}
                 </Button>
               ))
-            : groceryItems.map((item) => (
+            : groceryItems.map((item, index) => (
                 <Button
                   borderRadius="lg"
-                  bg="white"
                   key={item.name}
                   display="block"
                   minWidth="fit-content"
                   fontSize="20px"
-                  onClick={() => onSelectCategory(item.name)}
+                  onClick={() => {
+                    setSelectedCategory(item.name);
+                    handleTypeClick(index);
+                  }}
+                  color={index === activeMerchantTypeIndex ? 'white' : 'black'}
+                  colorScheme={
+                    index === activeMerchantTypeIndex ? 'blue' : 'white'
+                  }
                 >
                   {item.icon}
                   {item.name}
