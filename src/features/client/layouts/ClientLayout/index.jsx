@@ -18,7 +18,7 @@ function Layout() {
         <Box
           as="main"
           className="Layout__main"
-          padding={smallerScreen ? '140px 0 68px' : '100px 0 68px'}
+          padding={smallerScreen ? '120px 0 68px' : '80px 0 68px'}
         >
           <Outlet />
         </Box>

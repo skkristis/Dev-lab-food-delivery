@@ -19,9 +19,9 @@ function RestaurantInspect() {
       maxWidth="1240px"
       width="100%"
       justifyContent="space-between"
-      margin="50px auto 0 auto"
+      margin="0 auto"
     >
-      <Box p="0 10px">
+      <Box p="0 10px" mt="50px">
         <Box position="relative" rounded="xl" overflow="hidden">
           <Image
             src={restaurantInfo.restaurantThumb}
