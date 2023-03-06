@@ -15,18 +15,35 @@ import {
 } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 
-function LogInModal({
-  isOpen,
-  onClose,
-  setIsLoggedIn,
-  isLoggedIn,
-  onSignupModalOpen,
-}) {
+import { useSelector, useDispatch } from 'react-redux';
+import { add } from '../../../../store/reducers/userReducer';
+import { useForm } from 'react-hook-form';
+
+function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
+  const sessionUser = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const pathnameCheckout = location.pathname === '/checkout';
-  const loggedOutCheckout = !isLoggedIn && pathnameCheckout;
+  const loggedOutCheckout = !sessionUser && pathnameCheckout;
 
-  console.log(loggedOutCheckout);
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(add({ email: data.email, password: data.password }));
+    onClose();
+    reset();
+  };
+
+  const handleOpenSignup = () => {
+    onClose();
+    onSignupModalOpen();
+  };
 
   return (
     <Modal
@@ -39,10 +56,19 @@ function LogInModal({
         <ModalHeader>Log in with email</ModalHeader>
         {!loggedOutCheckout && <ModalCloseButton />}
         <ModalBody>
-          <Flex flexDir="column" gap="20px">
-            <Input placeholder="Email" />
-            <Input type="password" placeholder="Password" />
-            <Button onClick={() => setIsLoggedIn(true)} colorScheme="blue">
+          <Flex
+            as="form"
+            flexDir="column"
+            gap="20px"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input placeholder="Email" {...register('email')} />
+            <Input
+              type="password"
+              placeholder="Password"
+              {...register('password')}
+            />
+            <Button type="submit" colorScheme="blue">
               Log in
             </Button>
           </Flex>
@@ -63,7 +89,7 @@ function LogInModal({
               fontSize="14px"
               color="blue.400"
               as="button"
-              onClick={onSignupModalOpen}
+              onClick={handleOpenSignup}
             >
               Not an existing user? Sign up here!
             </Link>
