@@ -1,4 +1,5 @@
 export const restaurantItems = [
+  { icon: '🍴', name: 'All' },
   { icon: '🍟 ', name: 'Fast Food' },
   { icon: '🍰 ', name: 'Desserts' },
   { icon: '🍿 ', name: 'Snacks' },
@@ -10,12 +11,13 @@ export const restaurantItems = [
 ];
 
 export const groceryItems = [
+  { icon: '🛒', name: 'All' },
   { icon: '🛒 ', name: 'Iki' },
   { icon: '🛒 ', name: 'Rimi' },
   { icon: '🛒 ', name: 'Maxima' },
 ];
 
-export const categories = [
+export const merchantTypes = [
   { category: '🍝 Restaurants', value: 'restaurants' },
   { category: '🛒 Grocery', value: 'grocery' },
 ];
