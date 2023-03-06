@@ -110,7 +110,13 @@ function Header() {
         </Box>
         {smallerScreen && <DeliverToButton isLoggedIn={isLoggedIn} />}
       </Box>
-      <LogInModal isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
+      <LogInModal
+        isOpen={isLoginModalOpen}
+        onClose={onLoginModalClose}
+        setIsLoggedIn={setIsLoggedIn}
+        isLoggedIn={isLoggedIn}
+        onSignupModalOpen={onSignupModalOpen}
+      />
       <SignUpModal isOpen={isSignupModalOpen} onClose={onSignupModalClose} />
     </>
   );
