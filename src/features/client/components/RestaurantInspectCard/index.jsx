@@ -7,12 +7,26 @@ import {
   useDisclosure,
   Button,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { addToCart } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
 function RestaurantInspectCard({ deal, cartOpened }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const currentItem = useSelector((store) =>
+    store.cart.list.find((item) => item.id === deal.id)
+  );
+  const [itemQuantity, setItemQuantity] = useState(
+    currentItem?.quantity ? currentItem.quantity : ''
+  );
+
+  useEffect(() => {
+    if (currentItem?.quantity) {
+      setItemQuantity(currentItem.quantity);
+    }
+  }, [currentItem]);
+
   const dispatch = useDispatch();
   const addItemToCart = (deal) => dispatch(addToCart({ ...deal, quantity: 1 }));
   const handleAddClick = () => {
@@ -41,6 +55,17 @@ function RestaurantInspectCard({ deal, cartOpened }) {
         <Flex flexDir="column" justifyContent="space-between">
           <Box marginBottom="20px" textAlign="left" maxW="80%">
             <Heading fontSize="18px" mb="5px">
+              {currentItem?.quantity && (
+                <Text
+                  as="span"
+                  rounded="xl"
+                  color="blue.400"
+                  fontSize="16px"
+                  marginRight="5px"
+                >
+                  {itemQuantity} x
+                </Text>
+              )}
               {deal.recipeName}
             </Heading>
             {deal?.popular && (
