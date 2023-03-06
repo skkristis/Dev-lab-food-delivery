@@ -13,19 +13,13 @@ import {
   Link,
   Stack,
 } from '@chakra-ui/react';
-import { useLocation } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { add } from '../../../../store/reducers/userReducer';
 import { useForm } from 'react-hook-form';
 
 function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
-  const sessionUser = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
-
-  const location = useLocation();
-  const pathnameCheckout = location.pathname === '/checkout';
-  const loggedOutCheckout = !sessionUser && pathnameCheckout;
 
   const {
     handleSubmit,
@@ -46,15 +40,11 @@ function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
   };
 
   return (
-    <Modal
-      isOpen={loggedOutCheckout ? true : isOpen}
-      onClose={onClose}
-      closeOnOverlayClick={loggedOutCheckout ? false : true}
-    >
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Log in with email</ModalHeader>
-        {!loggedOutCheckout && <ModalCloseButton />}
+        <ModalCloseButton />
         <ModalBody>
           <Flex
             as="form"
