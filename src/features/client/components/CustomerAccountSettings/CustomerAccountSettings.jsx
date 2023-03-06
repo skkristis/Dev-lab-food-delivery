@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -20,15 +21,17 @@ import CustomerAccountActionbar from '../CustomerAccountActionbar/CustomerAccoun
 import './CustomerAccountSettings.scss';
 
 function CustomerAccountSettings({ customer }) {
+  const user = useSelector((state) => state.user.data);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      firstName: customer.firstName,
-      lastName: customer.lastName,
-      email: customer.email,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
       phone: customer.phone,
       photo: customer.photo,
       birthDate: customer.birthDate,
@@ -76,7 +79,7 @@ function CustomerAccountSettings({ customer }) {
             <Center w="full">
               <Avatar
                 size="2xl"
-                name={`${customer.firstName} ${customer.lastName}`}
+                name={`${user?.firstName} ${user?.lastName}`}
                 src={customer.photo}
               >
                 <AvatarBadge
