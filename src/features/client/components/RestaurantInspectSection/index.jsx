@@ -2,6 +2,7 @@ import { Box, Heading, Flex } from '@chakra-ui/react';
 import RestaurantInspectCard from '../RestaurantInspectCard';
 
 function RestaurantInspectSection({ dealSection, cartOpened }) {
+  // console.log(dealSection);
   return (
     <Box className="container">
       <Heading fontSize="24px">{dealSection.sectionName}</Heading>

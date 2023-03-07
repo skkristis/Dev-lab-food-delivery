@@ -6,9 +6,11 @@ import { useSelector } from 'react-redux';
 import clockUrl from '../../../../assets/clock-icon.svg';
 import CartSideBar from '../../components/CartSideBar';
 import RestaurantInspectSection from '../../components/RestaurantInspectSection';
+import placeholderRestaurantUrl from '../../../../assets/placeholder-restaurant.jpg';
 
 function RestaurantInspect() {
   const restaurantInfo = useLoaderData();
+  console.log(restaurantInfo);
   const cartItems = useSelector((store) => store.cart.list);
 
   const cartOpened = cartItems.length ? true : false;
@@ -24,7 +26,7 @@ function RestaurantInspect() {
       <Box p="0 10px" mt="50px">
         <Box position="relative" rounded="xl" overflow="hidden">
           <Image
-            src={restaurantInfo.restaurantThumb}
+            src={restaurantInfo.thumbnail || placeholderRestaurantUrl}
             position="absolute"
             left="0"
             right="0"
@@ -51,8 +53,8 @@ function RestaurantInspect() {
             color="white"
             paddingInline="30px"
           >
-            <Heading>{`${restaurantInfo.restaurantName} (${restaurantInfo.restaurantAddress})`}</Heading>
-            <Text>{restaurantInfo.restaurantBio}</Text>
+            <Heading>{restaurantInfo.full_name}</Heading>
+            <Text>{restaurantInfo.bio}</Text>
           </Box>
         </Box>
         <Box bg="white" borderBottom="1px solid lightgray">
@@ -65,10 +67,10 @@ function RestaurantInspect() {
           >
             <Flex gap="10px">
               <Image src={clockUrl} width="15px" />
-              <Text>{restaurantInfo.restaurantWorkingHours}</Text>
+              <Text>{restaurantInfo.is_closed ? 'Closed' : 'Open'}</Text>
             </Flex>
             <Box gap="10px">
-              <Text>☆ {restaurantInfo.restaurantRating}</Text>
+              <Text>☆ {restaurantInfo.rating}</Text>
             </Box>
             <Button variant="ghost" color="blue.400" gap="10px">
               <Box
@@ -87,7 +89,7 @@ function RestaurantInspect() {
         </Box>
         <Flex padding={{ base: 0, sm: '0 10px' }} bg="white" gap="10px">
           <Box bg="white" paddingTop="20px" width="100%" flex="6">
-            {restaurantInfo.restaurantMenu.map((dealSection, i) => {
+            {restaurantInfo.items.map((dealSection, i) => {
               return (
                 <RestaurantInspectSection
                   key={i}
