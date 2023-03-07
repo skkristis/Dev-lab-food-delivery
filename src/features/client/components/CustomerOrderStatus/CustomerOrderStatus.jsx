@@ -70,7 +70,6 @@ function CustomerOrderStatus() {
           </UnorderedList>
         </Box>
       </Box>
-      <Box></Box>
       <Flex flexDir="column" align="center" mt="30px">
         <Box as="span" fontSize="24px" align="center">
           Your promocode for 10% discount for the upcoming order is

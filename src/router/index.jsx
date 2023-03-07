@@ -23,8 +23,6 @@ import { restaurantInspectMock } from '../features/client/mocks/restaurantInspec
 import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
 import CustomerAccountDashboard from '../features/client/components/CustomerAccountDashboard/CustomerAccountDashboard';
 import Checkout from '../features/client/pages/Checkout';
-import { ChakraProvider } from '@chakra-ui/react';
-import theme from '../themes';
 
 function getClientRoutes() {
   return [
@@ -67,11 +65,7 @@ function getClientRoutes() {
     },
     {
       path: '/order-status',
-      element: (
-        <ChakraProvider theme={theme}>
-          <CustomerOrderStatus />
-        </ChakraProvider>
-      ),
+      element: <CustomerOrderStatus />,
     },
     {
       path: '/checkout',

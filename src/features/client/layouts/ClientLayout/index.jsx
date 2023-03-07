@@ -8,7 +8,7 @@ import Footer from '../../components/Footer/index';
 import CookieModal from '../../components/CookieModal/CookieModal';
 
 import './index.scss';
-import { Box, ChakraProvider, useMediaQuery } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 
 function Layout() {
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
@@ -24,20 +24,18 @@ function Layout() {
   }, []);
 
   return (
-    <ChakraProvider>
-      <div className="Layout">
-        <Header />
-        <Box
-          as="main"
-          className="Layout__main"
-          padding={smallerScreen ? '120px 0 68px' : '80px 0 68px'}
-        >
-          <Outlet />
-        </Box>
-        <Footer />
-        <CookieModal />
-      </div>
-    </ChakraProvider>
+    <div className="Layout">
+      <Header />
+      <Box
+        as="main"
+        className="Layout__main"
+        padding={smallerScreen ? '120px 0 68px' : '80px 0 68px'}
+      >
+        <Outlet />
+      </Box>
+      <Footer />
+      <CookieModal />
+    </div>
   );
 }
 
