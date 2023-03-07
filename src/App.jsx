@@ -6,14 +6,19 @@ import router from './router/index';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './store/index';
 import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export default function App() {
+  const queryClient = new QueryClient();
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ChakraProvider>
-          <RouterProvider router={router} />
-        </ChakraProvider>
+        <QueryClientProvider client={queryClient}>
+          <ChakraProvider>
+            <RouterProvider router={router} />
+          </ChakraProvider>
+        </QueryClientProvider>
       </PersistGate>
     </Provider>
   );

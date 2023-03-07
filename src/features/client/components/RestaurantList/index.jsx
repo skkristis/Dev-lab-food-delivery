@@ -1,9 +1,16 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
+import { useQuery } from 'react-query';
 
 import { restaurants } from '../../mocks/restaurantsMock';
 import RestaurantListCard from '../RestaurantListCard';
+import RestaurantService from '../../../../services/RestaurantService';
 
 function RestaurantList({ isFeatured, selectedCategory }) {
+  const { isLoading, data } = useQuery(
+    'restaurantListLanding',
+    RestaurantService.getRestaurantList
+  );
+
   let restaurantsList = isFeatured
     ? restaurants.filter((item) => item.featured)
     : restaurants;
@@ -27,9 +34,15 @@ function RestaurantList({ isFeatured, selectedCategory }) {
         justifyContent="space-between"
         marginTop="10px"
       >
-        {restaurantsList.map((restaurant, i) => {
-          return <RestaurantListCard key={i} restaurant={restaurant} />;
-        })}
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          data?.data.map((restaurant) => {
+            return (
+              <RestaurantListCard key={restaurant.id} restaurant={restaurant} />
+            );
+          })
+        )}
       </Flex>
     </Box>
   );
