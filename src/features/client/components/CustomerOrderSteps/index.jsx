@@ -52,7 +52,12 @@ function CustomerOrderSteps() {
 
   return (
     <Flex flexDir="column" width="100%">
-      <Steps activeStep={activeStep} colorScheme="blue" mb="20px">
+      <Steps
+        activeStep={activeStep}
+        state="loading"
+        colorScheme="blue"
+        mb="20px"
+      >
         {steps.map(({ label, message, icon }) => (
           <Step label={label} key={label}>
             {content(message, icon)}
