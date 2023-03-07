@@ -9,6 +9,9 @@ import {
   UnorderedList,
   ListItem,
   Image,
+  Center,
+  CircularProgress,
+  CircularProgressLabel,
 } from '@chakra-ui/react';
 
 import './CustomerOrderStatus.scss';
@@ -24,6 +27,21 @@ function CustomerOrderStatus() {
   )[0];
   const deliveryAddress = `${primaryAddress.street} ${primaryAddress.building}-${primaryAddress.apartment}, ${primaryAddress.city}`;
 
+  const statusMessage = (status) => {
+    switch (status) {
+      case 'accepted':
+        return 'Your order has been accepted.';
+      case 'preparing':
+        return 'Your order is being prepared.';
+      case 'ready':
+        return 'Your order is prepared. A courier will pick it up soon.';
+      case 'delivering':
+        return 'Your order is out for delivery.';
+      case 'completed':
+        return 'Enjoy your meal!';
+    }
+  };
+
   return (
     <Box position="relative" className="container order-status">
       <Alert status="info" variant="subtle" className="order-status__alert">
@@ -36,8 +54,15 @@ function CustomerOrderStatus() {
           Thanks for choosing our service!
         </Text>
       </Alert>
+      <Center>
+        <CircularProgress value={80} size="240px">
+          <CircularProgressLabel fontSize="22px">
+            delivering
+          </CircularProgressLabel>
+        </CircularProgress>
+      </Center>
 
-      <Box className="order-status__details order-details">
+      <Box className="order-status__details order-details" mt="50px">
         <Box className="order-details__info">
           <Text className="order-details__title">Order details:</Text>
           <UnorderedList className="order-details__list">
