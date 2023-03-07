@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { remove } from '../../../../store/reducers/dishesReducer';
+import { addList, remove } from '../../../../store/reducers/dishesReducer';
+import axios from '../../../../../src/services/axios';
 
 import RestaurantDishesNav from '../RestaurantDishesNav/RestaurantDishesNav';
 import RestaurantDishCard from '../RestaurantDishCard/RestaurantDishCard';
@@ -9,23 +10,33 @@ import RestaurantDishForm from '../RestaurantDishForm/RestaurantDishForm';
 
 import './RestaurantDishes.scss';
 
-import restaurants from '../../mocks/restaurants';
-
 function RestaurantDishes() {
-  const restaurant = restaurants[0];
+  const restaurantId = '98a151f2-3193-40c5-993a-ad032f414317';
 
   const dishes = useSelector((state) =>
-    state.dishes.list.filter((dish) => dish.restaurantId === restaurant.id)
+    state.dishes.list.filter((dish) => dish.restaurantId === restaurantId)
   );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getMerchant = async () =>
+      await axios.get(`/api/merchants/${restaurantId}`);
+
+    getMerchant().then((response) => {
+      const dishList = response.data.data.items.map((dish) => ({
+        ...dish,
+        restaurantId,
+      }));
+      dispatch(addList(dishList));
+    });
+  }, []);
 
   const [activeDish, setActiveDish] = useState(null);
   const [formState, setFormState] = useState('idle');
 
-  const dispatch = useDispatch();
-  const dispatchRemove = (dish) => dispatch(remove(dish));
-
   const handleRemove = () => {
-    dispatchRemove(activeDish.id);
+    dispatch(remove(activeDish.id));
     setActiveDish(null);
     setFormState('idle');
   };

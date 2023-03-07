@@ -76,16 +76,6 @@ function getClientRoutes() {
 
 export function getAdminRoutes() {
   return [
-    // {
-    //   element: <AdminLanding />,
-    //   index: true,
-    //   loader: () => {
-    //     return redirect('/admin/restaurants');
-    //   },
-    //   navItemName: 'Dashboard',
-    //   navItemIcon: FiHome,
-    // },
-    //return after mvp
     {
       path: '/admin/restaurants',
       element: <RestaurantStats />,

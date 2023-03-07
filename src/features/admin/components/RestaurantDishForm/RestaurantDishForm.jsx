@@ -33,9 +33,9 @@ function RestaurantDishForm({
         name: dish.name,
         status: dish.status,
         price: dish.price,
-        description: dish.description,
+        description: dish.bio,
         ingredients: dish.ingredients.join('\n'),
-        image: dish.image,
+        image: dish.thumbnail,
       }
     : {};
 
@@ -143,8 +143,8 @@ function RestaurantDishForm({
               required: 'This field is required.',
             })}
           >
-            <option value="active">active</option>
-            <option value="draft">draft</option>
+            <option value="enabled">enabled</option>
+            <option value="disabled">disabled</option>
           </Select>
           <FormErrorMessage>
             {errors.status && errors.status.message}
