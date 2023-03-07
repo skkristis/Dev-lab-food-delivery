@@ -7,12 +7,16 @@ import {
   useDisclosure,
   Button,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
 function RestaurantInspectCard({ deal, cartOpened }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const currentItem = useSelector((store) =>
+    store.cart.list.find((item) => item.id === deal.id)
+  );
+
   const dispatch = useDispatch();
   const addItemToCart = (deal) => dispatch(addToCart({ ...deal, quantity: 1 }));
   const handleAddClick = () => {
@@ -31,7 +35,9 @@ function RestaurantInspectCard({ deal, cartOpened }) {
           ? { base: '100%', xl: '45%' }
           : { base: '100%', lg: '45%', xl: '30%' }
       }
-      border="1px solid lightgray"
+      border={
+        currentItem?.quantity ? '2px solid #4299e1' : '1px solid lightgray'
+      }
       rounded="md"
       padding="10px"
       alignItems="center"
@@ -41,6 +47,17 @@ function RestaurantInspectCard({ deal, cartOpened }) {
         <Flex flexDir="column" justifyContent="space-between">
           <Box marginBottom="20px" textAlign="left" maxW="80%">
             <Heading fontSize="18px" mb="5px">
+              {currentItem?.quantity && (
+                <Text
+                  as="span"
+                  rounded="xl"
+                  color="blue.400"
+                  fontSize="16px"
+                  marginRight="5px"
+                >
+                  {currentItem.quantity} x
+                </Text>
+              )}
               {deal.recipeName}
             </Heading>
             {deal?.popular && (
