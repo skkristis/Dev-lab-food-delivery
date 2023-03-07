@@ -3,17 +3,17 @@ import { useSelector } from 'react-redux';
 
 import {
   Box,
-  Alert,
-  AlertIcon,
   Text,
   UnorderedList,
   ListItem,
   Image,
+  Button,
+  Flex,
 } from '@chakra-ui/react';
 import CustomerOrderSteps from '../CustomerOrderSteps';
 
 import './CustomerOrderStatus.scss';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 function CustomerOrderStatus() {
   const location = useLocation();
@@ -24,21 +24,7 @@ function CustomerOrderStatus() {
     (addy) => addy.primary
   )[0];
   const deliveryAddress = `${primaryAddress.street} ${primaryAddress.building}-${primaryAddress.apartment}, ${primaryAddress.city}`;
-
-  const statusMessage = (status) => {
-    switch (status) {
-      case 'accepted':
-        return 'Your order has been accepted.';
-      case 'preparing':
-        return 'Your order is being prepared.';
-      case 'ready':
-        return 'Your order is prepared. A courier will pick it up soon.';
-      case 'delivering':
-        return 'Your order is out for delivery.';
-      case 'completed':
-        return 'Enjoy your meal!';
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <Box position="relative" className="container order-status" mt="100px">
@@ -81,6 +67,25 @@ function CustomerOrderStatus() {
           </UnorderedList>
         </Box>
       </Box>
+      <Box></Box>
+      <Flex flexDir="column" align="center" mt="30px">
+        <Box as="span" fontSize="24px" align="center">
+          Your promocode for 10% discount for the upcoming order is
+          <Text fontWeight="700" fontSize="28px" fontStyle="italic">
+            BFD37
+          </Text>
+        </Box>
+        <Button
+          size="lg"
+          mt="20px"
+          width="50%"
+          bg="#3182ce"
+          color="#ffffff"
+          onClick={() => navigate('/')}
+        >
+          Continue shopping
+        </Button>
+      </Flex>
     </Box>
   );
 }
