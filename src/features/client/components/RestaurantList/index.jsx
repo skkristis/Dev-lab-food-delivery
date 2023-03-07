@@ -1,19 +1,45 @@
-import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
-import { useQuery } from 'react-query';
+import { Box, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
+import { useInfiniteQuery } from 'react-query';
 
-import { restaurants } from '../../mocks/restaurantsMock';
+import { addToRestaurantList } from '../../../../store/reducers/restaurantsClientReducer';
 import RestaurantListCard from '../RestaurantListCard';
-import RestaurantService from '../../../../services/RestaurantService';
+import storesService from '../../../../services/storesService';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-function RestaurantList({ isFeatured, selectedCategory }) {
-  const { isLoading, data } = useQuery(
-    'restaurantListLanding',
-    RestaurantService.getRestaurantList
-  );
+function RestaurantList({ selectedCategory }) {
+  const {
+    data: fetchedRestaurantData,
+    isFetching,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery(['restaurants'], storesService.getRestaurantList, {
+    getNextPageParam: (lastPage) => lastPage.links.next ?? undefined,
+  });
 
-  let restaurantsList = isFeatured
-    ? restaurants.filter((item) => item.featured)
-    : restaurants;
+  const { ref, inView } = useInView();
+
+  let restaurantsList = useSelector((state) => state.restaurantsClient.list);
+
+  const dispatch = useDispatch();
+  const dispatchAdd = (restaurants) =>
+    dispatch(addToRestaurantList(restaurants));
+
+  useEffect(() => {
+    if (!isFetching && !isFetchingNextPage) fetchNextPage();
+  }, [inView]);
+
+  useEffect(() => {
+    const data =
+      fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]
+        .data;
+
+    if (data) dispatchAdd(data);
+  }, [
+    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]?.links
+      .next,
+  ]);
 
   if (selectedCategory && selectedCategory !== 'All') {
     restaurantsList = restaurantsList.filter((restaurant) =>
@@ -34,16 +60,30 @@ function RestaurantList({ isFeatured, selectedCategory }) {
         justifyContent="space-between"
         marginTop="10px"
       >
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          data?.data.map((restaurant) => {
+        {restaurantsList.length ? (
+          restaurantsList.map((restaurant) => {
             return (
               <RestaurantListCard key={restaurant.id} restaurant={restaurant} />
             );
           })
+        ) : (
+          <Text
+            display={isFetching ? 'none' : 'block'}
+            textAlign="center"
+            width="100%"
+          >
+            No restaurants available
+          </Text>
         )}
       </Flex>
+
+      <Box ref={ref} bg="transparent"></Box>
+
+      {(isFetching || isFetchingNextPage) && (
+        <Center marginTop="20px">
+          <Spinner size="xl" />
+        </Center>
+      )}
     </Box>
   );
 }

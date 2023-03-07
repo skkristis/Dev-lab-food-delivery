@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import restaurants from '../../features/admin/mocks/restaurants';
 
 const initialState = {
-  list: restaurants,
+  list: [],
 };
 
-export const restaurantsSlice = createSlice({
-  name: 'restaurants',
+export const restaurantsManagementSlice = createSlice({
+  name: 'restaurantsManagement',
   initialState,
   reducers: {
     add: (state, action) => {
@@ -26,6 +25,6 @@ export const restaurantsSlice = createSlice({
   extraReducers: () => {},
 });
 
-export const { add, update, remove } = restaurantsSlice.actions;
+export const { add, update, remove } = restaurantsManagementSlice.actions;
 
-export default restaurantsSlice.reducer;
+export default restaurantsManagementSlice.reducer;
