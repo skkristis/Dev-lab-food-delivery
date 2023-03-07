@@ -5,7 +5,7 @@ import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 import Subscriptions from '../features/client/pages/Subscriptions';
-import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
+import CouriersDashboard from '../features/admin/components/CouriersDashboard';
 import RestaurantDashboard from '../features/admin/components/RestaurantDashboard/RestaurantDashboard';
 import { BiRestaurant, BiCar } from 'react-icons/all.js';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
