@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from './axios';
 
 const getRestaurantList = async ({
-  pageParam = `https://70.34.250.230/api/merchants?filter_equals_type=restaurant`,
+  pageParam = `/filter_equals_type=restaurant`,
 }) => {
-  const response = await axios.get(pageParam);
+  const response = await axios.get(`/api/merchants?${pageParam}`);
   return response.data;
 };
 // const getShopList = async () => {

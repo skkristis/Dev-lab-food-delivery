@@ -15,7 +15,8 @@ function RestaurantList({ selectedCategory }) {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(['restaurants'], storesService.getRestaurantList, {
-    getNextPageParam: (lastPage) => lastPage.links.next ?? undefined,
+    getNextPageParam: (lastPage) =>
+      lastPage.links.next?.split('merchants?')[1] ?? undefined,
   });
 
   const { ref, inView } = useInView();
