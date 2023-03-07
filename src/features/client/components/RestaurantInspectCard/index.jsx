@@ -17,15 +17,6 @@ function RestaurantInspectCard({ deal, cartOpened }) {
   const currentItem = useSelector((store) =>
     store.cart.list.find((item) => item.id === deal.id)
   );
-  const [itemQuantity, setItemQuantity] = useState(
-    currentItem?.quantity ? currentItem.quantity : ''
-  );
-
-  useEffect(() => {
-    if (currentItem?.quantity) {
-      setItemQuantity(currentItem.quantity);
-    }
-  }, [currentItem]);
 
   const dispatch = useDispatch();
   const addItemToCart = (deal) => dispatch(addToCart({ ...deal, quantity: 1 }));
@@ -65,7 +56,7 @@ function RestaurantInspectCard({ deal, cartOpened }) {
                   fontSize="16px"
                   marginRight="5px"
                 >
-                  {itemQuantity} x
+                  {currentItem.quantity} x
                 </Text>
               )}
               {deal.recipeName}
