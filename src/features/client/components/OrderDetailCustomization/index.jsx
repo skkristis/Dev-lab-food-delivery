@@ -10,7 +10,7 @@ import {
 import { ChevronRightIcon } from '@chakra-ui/icons';
 
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { paymentsMethods } from '../../../../constants';
 import SwedbankUrl from '../../../../assets/swedbank-icon.png';
@@ -34,12 +34,20 @@ function OrderDetailCustomization({
     formState: { errors },
   } = useForm({
     mode: 'onChange',
+    defaultValues: {
+      email: '',
+    },
   });
 
-  const handleEmailChange = (e) => {
-    //epicly bad implementation, will work on it tmrrw
-    setIsEmailValid(e.target.value.match(/^\S+@\S+$/i));
-  };
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!errors.email && inputRef.current.value != '') {
+      setIsEmailValid(true);
+    } else {
+      setIsEmailValid(false);
+    }
+  }, [inputRef.current?.value]);
 
   const sessionUser = useSelector((state) => state.user.data);
 
@@ -98,7 +106,7 @@ function OrderDetailCustomization({
               type="email"
               placeholder="Enter your email address"
               {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-              onChange={handleEmailChange}
+              ref={inputRef}
             />
             {errors.email && (
               <Text color="red.500">Please enter a valid email address</Text>
