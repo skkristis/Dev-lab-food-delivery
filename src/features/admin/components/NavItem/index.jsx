@@ -5,7 +5,9 @@ import React from 'react';
 
 export default function NavItem({ icon, to, isIndex, children, ...rest }) {
   const { pathname } = useLocation();
-  const isActive = isIndex ? pathname === '/admin' : to === pathname;
+  const isActive = isIndex
+    ? pathname === '/admin/restaurants'
+    : to === pathname;
 
   return (
     <Link
