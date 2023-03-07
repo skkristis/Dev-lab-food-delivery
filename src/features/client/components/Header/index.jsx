@@ -71,7 +71,7 @@ function Header() {
             )}
           </Flex>
           <Input
-            color="white"
+            color="black"
             bg="lightgray"
             placeholder={
               smallerScreen
