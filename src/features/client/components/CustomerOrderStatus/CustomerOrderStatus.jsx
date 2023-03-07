@@ -21,6 +21,9 @@ function CustomerOrderStatus() {
   const { orderTotal, payMethod } = location?.state
     ? location.state
     : { orderTotal: 0, payMethod: undefined };
+  const { orderTotal, payMethod } = location?.state
+    ? location.state
+    : { orderTotal: 0, payMethod: undefined };
   const cartItems = useSelector((store) => store.cart.list);
   const customerInfo = useSelector((store) => store.customer);
   const primaryAddress = customerInfo.addressBook.filter(
@@ -44,7 +47,7 @@ function CustomerOrderStatus() {
               <Box as="span">Delivery address:</Box> {deliveryAddress}
             </ListItem>
             <ListItem>
-              <Box as="span">Payment:</Box> {`${orderTotal} EUR`}
+              <Box as="span">Payment:</Box> {`${orderTotal} EUR`}{' '}
               {payMethod && `by ${payMethod}`}
             </ListItem>
           </UnorderedList>
