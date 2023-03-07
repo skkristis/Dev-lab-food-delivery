@@ -23,6 +23,23 @@
     line-height: 18px;
   }
 
+  &__status {
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+
+    span {
+      color: green;
+    }
+
+    &.is-declined {
+      span {
+        color: red;
+      }
+    }
+  }
+
   .dish-list {
     margin-top: 20px;
     font-size: 14px;

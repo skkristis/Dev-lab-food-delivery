@@ -19,6 +19,9 @@ function RestaurantOrderCard({ order, setActive }) {
       <p className="restaurant-ordercard__payment">
         {order.payment.total} EUR by {order.payment.method}
       </p>
+      <p className={`restaurant-ordercard__status is-${order.status}`}>
+        Status: <span>{order.status}</span>
+      </p>
       <div className="restaurant-ordercard__dishes dish-list">
         <p className="dish-list__title">Dishes:</p>
         <ul className="dish-list__values">

@@ -1,6 +1,13 @@
 @import './src/constants/variables';
 
 .restaurant-dishes {
+  padding: 40px;
+  background-color: #fff;
+
+  @media screen and (max-width: $screen-md) {
+    padding: 20px;
+  }
+
   .dish-list {
     display: grid;
     grid-template-columns: 1fr 1fr;

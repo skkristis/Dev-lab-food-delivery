@@ -1,12 +1,23 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from '../../../../store/reducers/ordersReducer';
 
-import { FormControl, Checkbox, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Checkbox,
+  Button,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useDisclosure,
+} from '@chakra-ui/react';
 
 import './RestaurantOrder.scss';
 
-function RestaurantOrder({ order, ordersSort }) {
+function RestaurantOrder({ order, ordersSort, setActive, setOrdersSort }) {
   const allDishes = useSelector((state) => state.dishes.list);
 
   const orderDishes = order.dishes.map((dish) => {
@@ -14,21 +25,28 @@ function RestaurantOrder({ order, ordersSort }) {
     return { ...dish, name };
   });
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm();
+  const dispatch = useDispatch();
+  const dispatchUpdate = (order) => dispatch(update(order));
 
-  const handleCheckboxClick = () => {};
+  const handleChangeStatus = (status) => {
+    dispatchUpdate({ ...order, status: status });
+    setActive(null);
+    setOrdersSort(status === 'in-delivery' ? 'history' : status);
+  };
 
-  function onSubmit() {}
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const sureRef = React.useRef();
+
+  const handleSetReady = () => {
+    onClose();
+    handleChangeStatus('ready');
+  };
 
   return (
     <div className="restaurant-order">
       <div className="restaurant-order__info">
         <p className="restaurant-order__title">Order #{order.id}</p>
-        <p className="restaurant-order__status">
+        <p className={`restaurant-order__status is-${order.status}`}>
           Current status: <span>{order.status}</span>
         </p>
         <p className="restaurant-order__payment">
@@ -37,39 +55,100 @@ function RestaurantOrder({ order, ordersSort }) {
       </div>
 
       <div className="restaurant-order__dishes dishes-form">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {orderDishes.map((dish) => (
-            <FormControl
-              className="dishes-form__control"
-              isInvalid={errors['dish-' + dish.id]}
-              isDisabled={ordersSort !== 'pending'}
-              key={dish.id}
+        {orderDishes.map((dish) => (
+          <Box className="dishes-form__control" key={dish.id}>
+            <Checkbox
+              size="lg"
+              colorScheme="green"
+              isDisabled={ordersSort !== 'active'}
             >
-              <Checkbox
-                {...register('dish-' + dish.id)}
-                size="lg"
-                colorScheme="green"
-                defaultChecked={ordersSort !== 'pending'}
-                onClick={handleCheckboxClick}
-              >
-                {dish.name} <span>({dish.amount} pcs.)</span>
-              </Checkbox>
-            </FormControl>
-          ))}
+              {dish.name} <span>({dish.amount} pcs.)</span>
+            </Checkbox>
+          </Box>
+        ))}
 
-          {ordersSort !== 'fulfilled' && (
+        {ordersSort === 'pending' && (
+          <>
             <Button
-              type="submit"
-              className="dishes-form__submit"
+              className="dishes-form__button"
               colorScheme="green"
               size="lg"
-              isLoading={isSubmitting}
-              isDisabled={ordersSort === 'pending'}
+              onClick={() => handleChangeStatus('active')}
             >
-              {ordersSort === 'pending' ? 'Ready for delivery' : 'Finish order'}
+              Accept order
             </Button>
-          )}
-        </form>
+
+            <Button
+              className="dishes-form__button"
+              colorScheme="red"
+              size="lg"
+              onClick={() => handleChangeStatus('declined')}
+            >
+              Decline order
+            </Button>
+          </>
+        )}
+
+        {ordersSort === 'active' && (
+          <>
+            <Button
+              className="dishes-form__button"
+              colorScheme="green"
+              size="lg"
+              onClick={onOpen}
+            >
+              Ready for delivery
+            </Button>
+
+            <AlertDialog
+              isCentered={true}
+              isOpen={isOpen}
+              leastDestructiveRef={sureRef}
+              onClose={onClose}
+            >
+              <AlertDialogOverlay>
+                <AlertDialogContent className="dishes-modal">
+                  <AlertDialogHeader
+                    fontSize="2xl"
+                    fontWeight="bold"
+                    textAlign="center"
+                  >
+                    Are you sure?
+                  </AlertDialogHeader>
+
+                  <AlertDialogBody fontSize="lg" textAlign="center">
+                    You won&apos;t be able to undo this action.
+                  </AlertDialogBody>
+
+                  <AlertDialogFooter className="dishes-modal__footer">
+                    <Button colorScheme="red" onClick={onClose} w="full">
+                      No
+                    </Button>
+                    <Button
+                      colorScheme="green"
+                      ref={sureRef}
+                      onClick={handleSetReady}
+                      w="full"
+                    >
+                      Yes
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialogOverlay>
+            </AlertDialog>
+          </>
+        )}
+
+        {ordersSort === 'ready' && (
+          <Button
+            className="dishes-form__button"
+            colorScheme="green"
+            size="lg"
+            onClick={() => handleChangeStatus('in-delivery')}
+          >
+            Finish order
+          </Button>
+        )}
       </div>
     </div>
   );
