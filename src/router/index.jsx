@@ -6,8 +6,18 @@ import AdminLayout from '../features/admin/layouts/AdminLayout';
 import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 import Subscriptions from '../features/client/pages/Subscriptions';
 import CouriersDashboard from '../features/admin/components/CouriersDashboard';
-import RestaurantDashboard from '../features/admin/components/RestaurantDashboard/RestaurantDashboard';
-import { BiRestaurant, BiCar } from 'react-icons/all.js';
+import RestaurantStats from '../features/admin/components/RestaurantStats/RestaurantStats';
+import RestaurantOrders from '../features/admin/components/RestaurantOrders/RestaurantOrders';
+import RestaurantDishes from '../features/admin/components/RestaurantDishes/RestaurantDishes';
+import RestaurantDescriptionForm from '../features/admin/components/RestaurantDescriptionForm/RestaurantDescriptionForm';
+
+import {
+  BiRestaurant,
+  BiCategory,
+  BiLayer,
+  BiNotepad,
+  BiCar,
+} from 'react-icons/bi';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
@@ -77,10 +87,28 @@ export function getAdminRoutes() {
     // },
     //return after mvp
     {
-      path: '/admin',
-      element: <RestaurantDashboard />,
+      path: '/admin/restaurants',
+      element: <RestaurantStats />,
       navItemName: 'Restaurants',
       navItemIcon: BiRestaurant,
+    },
+    {
+      path: '/admin/restaurants/orders',
+      element: <RestaurantOrders />,
+      navItemName: 'Orders',
+      navItemIcon: BiLayer,
+    },
+    {
+      path: '/admin/restaurants/dishes',
+      element: <RestaurantDishes />,
+      navItemName: 'Dishes',
+      navItemIcon: BiCategory,
+    },
+    {
+      path: '/admin/restaurants/info',
+      element: <RestaurantDescriptionForm />,
+      navItemName: 'Restaurant Info',
+      navItemIcon: BiNotepad,
     },
     {
       path: '/admin/couriers',

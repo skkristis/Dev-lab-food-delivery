@@ -25,6 +25,12 @@
     span {
       color: green;
     }
+
+    &.is-declined {
+      span {
+        color: red;
+      }
+    }
   }
 
   &__payment {
@@ -37,9 +43,21 @@
       margin-bottom: 20px;
     }
 
-    &__submit {
+    &__button {
       width: 100%;
       margin-top: 20px;
+    }
+  }
+}
+
+.dishes-modal {
+  &__footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    @media screen and (max-width: $screen-xl) {
+      grid-template-columns: 1fr;
     }
   }
 }
