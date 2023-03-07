@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 
 import './index.scss';
 import CouriersOrderCard from '../CouriersOrderCard';
+import CourierTable from '../CourierTableOrders';
 
 function CouriersDashboard() {
   const orderList = useSelector((state) => state.orders.list);
@@ -31,18 +32,22 @@ function CouriersDashboard() {
         <TabPanels className="couriers-dashboard__tabpanels">
           <TabPanel p={0}>
             {readyForDeliveryOrderList.length ? (
-              readyForDeliveryOrderList.map((order) => (
-                <CouriersOrderCard key={order.id} order={order} />
-              ))
+              <CourierTable>
+                {readyForDeliveryOrderList.map((order) => (
+                  <CouriersOrderCard key={order.id} order={order} />
+                ))}
+              </CourierTable>
             ) : (
               <h3> No orders at this moment!</h3>
             )}
           </TabPanel>
           <TabPanel p={0}>
             {deliveredOrderList.length ? (
-              deliveredOrderList.map((order) => (
-                <CouriersOrderCard key={order.id} order={order} />
-              ))
+              <CourierTable>
+                {deliveredOrderList.map((order) => (
+                  <CouriersOrderCard key={order.id} order={order} />
+                ))}
+              </CourierTable>
             ) : (
               <h3> No order history available</h3>
             )}

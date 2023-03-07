@@ -45,7 +45,7 @@ function CourierSelectionModal({ isOpen, onClose }) {
                 {courierList.map((courier) => {
                   const [selected, setSelected] = useState(false);
 
-                  const courierLogic = (e) => {
+                  const courierLogic = () => {
                     setWaitingResponse(true);
                     setSelected(true);
 
@@ -79,7 +79,7 @@ function CourierSelectionModal({ isOpen, onClose }) {
                       <Td>
                         <Button
                           isDisabled={waitingResponse}
-                          onClick={(e) => courierLogic(e)}
+                          onClick={courierLogic}
                         >
                           {selected ? <Spinner /> : 'Select'}
                         </Button>
