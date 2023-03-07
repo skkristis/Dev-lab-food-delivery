@@ -26,7 +26,6 @@ function LogInModal({
   const pathnameCheckout = location.pathname === '/checkout';
   const loggedOutCheckout = !isLoggedIn && pathnameCheckout;
 
-  console.log(loggedOutCheckout);
 
   return (
     <Modal

@@ -9,7 +9,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-import './CouriersForm.scss';
+import './index.scss';
 
 import courier from '../../mocks/courier';
 
