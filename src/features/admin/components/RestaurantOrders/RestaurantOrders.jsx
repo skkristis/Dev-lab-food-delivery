@@ -10,7 +10,7 @@ import './RestaurantOrders.scss';
 import restaurants from '../../mocks/restaurants';
 
 function RestaurantOrders() {
-  const HISTORY_STATUSLIST = ['declined', 'in-delivery', 'delivered'];
+  const ORDER_STATUSES = ['declined', 'in-delivery', 'delivered'];
 
   const restaurant = restaurants[0];
 
@@ -23,7 +23,7 @@ function RestaurantOrders() {
 
   const filteredOrders = orders.filter((order) =>
     ordersSort === 'history'
-      ? HISTORY_STATUSLIST.includes(order.status)
+      ? ORDER_STATUSES.includes(order.status)
       : order.status === ordersSort
   );
 
