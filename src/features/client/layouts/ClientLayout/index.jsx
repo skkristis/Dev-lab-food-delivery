@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { add } from '../../../../store/reducers/userReducer';
 
 import Header from '../../components/Header/index';
 import Footer from '../../components/Footer/index';
@@ -10,6 +12,16 @@ import { Box, ChakraProvider, useMediaQuery } from '@chakra-ui/react';
 
 function Layout() {
   const [smallerScreen] = useMediaQuery('(max-width: 800px)');
+
+  const sessionUser = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (sessionUser === null && accessToken !== null) {
+      dispatch(add());
+    }
+  }, []);
 
   return (
     <ChakraProvider>

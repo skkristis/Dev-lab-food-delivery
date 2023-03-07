@@ -6,6 +6,7 @@ import dishesReducer from './reducers/dishesReducer';
 import restaurantsReducer from './reducers/restaurantsReducer';
 import cartReducer from './reducers/cartReducer';
 import customerReducer from './reducers/customerReducer';
+import userReducer from './reducers/userReducer';
 
 const rootReducer = combineReducers({
   dishes: dishesReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
   cart: cartReducer,
   customer: customerReducer,
+  user: userReducer,
 });
 
 const persistConfig = {

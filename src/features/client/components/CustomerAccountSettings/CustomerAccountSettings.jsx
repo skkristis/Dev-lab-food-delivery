@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -20,18 +21,19 @@ import CustomerAccountActionbar from '../CustomerAccountActionbar/CustomerAccoun
 import './CustomerAccountSettings.scss';
 
 function CustomerAccountSettings({ customer }) {
+  const user = useSelector((state) => state.user.data);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      firstName: customer.firstName,
-      lastName: customer.lastName,
-      email: customer.email,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
       phone: customer.phone,
       photo: customer.photo,
-      birthDate: customer.birthDate,
     },
   });
 
@@ -76,7 +78,7 @@ function CustomerAccountSettings({ customer }) {
             <Center w="full">
               <Avatar
                 size="2xl"
-                name={`${customer.firstName} ${customer.lastName}`}
+                name={`${user?.firstName} ${user?.lastName}`}
                 src={customer.photo}
               >
                 <AvatarBadge
@@ -166,26 +168,6 @@ function CustomerAccountSettings({ customer }) {
           />
           <FormErrorMessage>
             {errors.phone && errors.phone.message}
-          </FormErrorMessage>
-        </FormControl>
-
-        <FormControl
-          className="customer-dataform__control"
-          isInvalid={errors.birthDate}
-        >
-          <FormLabel htmlFor="birth-date">Date of Birth</FormLabel>
-          <Input
-            id="birth-date"
-            type="date"
-            min="1920-01-01"
-            max="2020-01-01"
-            {...register('birthDate', {
-              required: 'This field is required.',
-              valueAsDate: true,
-            })}
-          />
-          <FormErrorMessage>
-            {errors.birthDate && errors.birthDate.message}
           </FormErrorMessage>
         </FormControl>
 
