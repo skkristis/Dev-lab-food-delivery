@@ -10,6 +10,8 @@ import './RestaurantOrders.scss';
 import restaurants from '../../mocks/restaurants';
 
 function RestaurantOrders() {
+  const HISTORY_STATUSLIST = ['declined', 'in-delivery', 'delivered'];
+
   const restaurant = restaurants[0];
 
   const [ordersSort, setOrdersSort] = useState('pending');
@@ -19,7 +21,11 @@ function RestaurantOrders() {
     state.orders.list.filter((order) => order.restaurantId === restaurant.id)
   );
 
-  const filteredOrders = orders.filter((order) => order.status === ordersSort);
+  const filteredOrders = orders.filter((order) =>
+    ordersSort === 'history'
+      ? HISTORY_STATUSLIST.includes(order.status)
+      : order.status === ordersSort
+  );
 
   return (
     <div className="restaurant-orders">
@@ -32,7 +38,12 @@ function RestaurantOrders() {
 
       <div className="restaurant-orders__content">
         {activeOrder && (
-          <RestaurantOrder order={activeOrder} ordersSort={ordersSort} />
+          <RestaurantOrder
+            order={activeOrder}
+            ordersSort={ordersSort}
+            setActive={setActiveOrder}
+            setOrdersSort={setOrdersSort}
+          />
         )}
 
         {!activeOrder && (
