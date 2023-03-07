@@ -17,9 +17,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 function CustomerOrderStatus() {
   const location = useLocation();
-  const { orderTotal, payMethod } = location?.state
-    ? location.state
-    : { orderTotal: 0, payMethod: undefined };
+  const { orderTotal, payMethod } = location.state;
   const cartItems = useSelector((store) => store.cart.list);
   const customerInfo = useSelector((store) => store.customer);
   const primaryAddress = customerInfo.addressBook.filter(
@@ -44,12 +42,10 @@ function CustomerOrderStatus() {
               <Box as="span">Delivery address:</Box> {deliveryAddress}
             </ListItem>
             <ListItem>
-              <Box as="span">Payment:</Box> {`${orderTotal} EUR`}{' '}
-              {payMethod && `by ${payMethod}`}
+              <Box as="span">Payment:</Box> {orderTotal} EUR by {payMethod}
             </ListItem>
           </UnorderedList>
         </Box>
-
         <Box className="order-details__dishes dish-list">
           <Text className="order-details__title">Selected dishes:</Text>
           <UnorderedList className="dish-list__values">
