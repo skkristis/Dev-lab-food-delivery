@@ -23,3 +23,5 @@ export const merchantTypes = [
 ];
 
 export const paymentsMethods = ['PaySera', 'Swedbank', 'Cash'];
+
+export const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
