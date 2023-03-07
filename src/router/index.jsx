@@ -41,7 +41,17 @@ function getClientRoutes() {
     },
     {
       path: '/account',
-      element: <CustomerAccountDashboard />,
+      children: [
+        { index: true, element: <CustomerAccountDashboard /> },
+        {
+          path: 'order-history',
+          element: <CustomerAccountDashboard activeTab={3} />,
+        },
+        {
+          path: 'settings',
+          element: <CustomerAccountDashboard activeTab={4} />,
+        },
+      ],
     },
     {
       path: '/order-status',

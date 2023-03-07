@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
@@ -10,18 +10,26 @@ import CustomerAccountSettings from '../CustomerAccountSettings/CustomerAccountS
 
 import './CustomerAccountDashboard.scss';
 
-function CustomerAccountDashboard() {
+function CustomerAccountDashboard({ activeTab = 0 }) {
   const customer = useSelector((state) => state.customer);
+
+  const [currentTab, setCurrentTab] = useState(activeTab);
+  useEffect(() => setCurrentTab(activeTab), [activeTab]);
 
   return (
     <div className="customer-dashboard container">
-      <Tabs size={{ base: 'md', md: 'lg' }} isFitted variant="enclosed">
+      <Tabs
+        size={{ base: 'md', md: 'lg' }}
+        index={currentTab}
+        isFitted
+        variant="enclosed"
+      >
         <TabList className="customer-dashboard__tablist">
-          <Tab>Personal Info</Tab>
-          <Tab>Payment Methods</Tab>
-          <Tab>Addresses</Tab>
-          <Tab>Order History</Tab>
-          <Tab>Settings</Tab>
+          <Tab onClick={() => setCurrentTab(0)}>Personal Info</Tab>
+          <Tab onClick={() => setCurrentTab(1)}>Payment Methods</Tab>
+          <Tab onClick={() => setCurrentTab(2)}>Addresses</Tab>
+          <Tab onClick={() => setCurrentTab(3)}>Order History</Tab>
+          <Tab onClick={() => setCurrentTab(4)}>Settings</Tab>
         </TabList>
 
         <TabPanels className="customer-dashboard__tabpanels">

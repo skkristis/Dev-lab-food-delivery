@@ -21,12 +21,7 @@ import './index.scss';
 function SignUpModal({ isOpen, onClose }) {
   const dispatch = useDispatch();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
     const userdata = {

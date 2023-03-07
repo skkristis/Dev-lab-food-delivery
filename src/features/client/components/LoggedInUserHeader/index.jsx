@@ -18,6 +18,7 @@ import {
 import {
   FiChevronDown,
   FiSettings,
+  FiLayers,
   CgProfile,
   FiLogOut,
 } from 'react-icons/all.js';
@@ -77,7 +78,21 @@ function LoggedInUserHeader() {
               />
               Profile
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+              as="button"
+              onClick={() => navigate('/account/order-history')}
+            >
+              <Icon
+                mr="4"
+                fontSize="16"
+                _groupHover={{
+                  color: 'white',
+                }}
+                as={FiLayers}
+              />
+              Order History
+            </MenuItem>
+            <MenuItem as="button" onClick={() => navigate('/account/settings')}>
               <Icon
                 mr="4"
                 fontSize="16"
