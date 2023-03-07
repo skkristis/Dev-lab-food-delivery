@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
-import CouriersForm from '../CouriersForm';
 
 import './index.scss';
 import CouriersOrderCard from '../CouriersOrderCard';
@@ -27,7 +26,6 @@ function CouriersDashboard() {
         <TabList className="couriers-dashboard__tablist">
           <Tab>Pending orders</Tab>
           <Tab>Order history</Tab>
-          <Tab>Couriers settings</Tab>
         </TabList>
 
         <TabPanels className="couriers-dashboard__tabpanels">
@@ -48,10 +46,6 @@ function CouriersDashboard() {
             ) : (
               <h3> No order history available</h3>
             )}
-          </TabPanel>
-
-          <TabPanel p={0}>
-            <CouriersForm />
           </TabPanel>
         </TabPanels>
       </Tabs>
