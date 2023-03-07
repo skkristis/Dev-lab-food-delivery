@@ -8,7 +8,6 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
 import { addToCart } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
 
