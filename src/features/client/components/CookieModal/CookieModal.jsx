@@ -53,6 +53,7 @@ function CookieModal() {
             Deny
           </Button>
           <Button
+            className="cookie-modal__accept"
             colorScheme="green"
             w="full"
             ref={acceptRef}

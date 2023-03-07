@@ -18,4 +18,10 @@
       gap: 10px;
     }
   }
+
+  &__accept {
+    @media screen and (max-width: $screen-md) {
+      order: -1;
+    }
+  }
 }
