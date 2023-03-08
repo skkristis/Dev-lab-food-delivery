@@ -9,7 +9,6 @@ const getCategoryList = async ({ queryKey }) => {
 const getMerchantList = async ({ pageParam, queryKey }) => {
   const [_, queryParam] = queryKey;
   const response = await axios.get(`/api/merchants?${pageParam || queryParam}`);
-  console.log(response.data);
   return response.data;
 };
 

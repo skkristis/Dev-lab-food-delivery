@@ -19,7 +19,7 @@ export const groceryItems = [
 
 export const merchantTypes = [
   { category: '🍝 Restaurants', value: 'restaurant' },
-  { category: '🛒 Shop', value: 'shop' },
+  { category: '🛒 Shops', value: 'shop' },
 ];
 
 export const paymentsMethods = ['PaySera', 'Swedbank', 'Cash'];
