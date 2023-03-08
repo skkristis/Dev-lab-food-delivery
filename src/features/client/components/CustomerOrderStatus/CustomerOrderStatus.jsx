@@ -46,7 +46,6 @@ function CustomerOrderStatus() {
             </ListItem>
           </UnorderedList>
         </Box>
-
         <Box className="order-details__dishes dish-list">
           <Text className="order-details__title">Selected dishes:</Text>
           <UnorderedList className="dish-list__values">
@@ -67,7 +66,6 @@ function CustomerOrderStatus() {
           </UnorderedList>
         </Box>
       </Box>
-      <Box></Box>
       <Flex flexDir="column" align="center" mt="30px">
         <Box as="span" fontSize="24px" align="center">
           Your promocode for 10% discount for the upcoming order is

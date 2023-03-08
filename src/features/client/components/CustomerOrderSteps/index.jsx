@@ -1,45 +1,12 @@
 import React from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import { Flex, Button, Alert, Text, Box } from '@chakra-ui/react';
-import { GiCook } from 'react-icons/gi';
-import { TiTick } from 'react-icons/ti';
-import { IoFastFoodSharp, IoStar } from 'react-icons/io5';
-import { TbTruckDelivery } from 'react-icons/tb';
+import { steps } from '../../mocks/orderStepsMock';
 
 function CustomerOrderSteps() {
   const { nextStep, prevStep, reset, activeStep } = useSteps({
     initialStep: 0,
   });
-
-  const steps = [
-    {
-      label: 'Accepted',
-      message: 'Your order has been accepted! Nr. 12983123789.',
-      comment: 'We will immediately start preparing it!',
-      icon: <TiTick style={{ width: '100%', height: '100%' }} />,
-    },
-    {
-      label: 'Preparing',
-      message: 'Your order is being prepared.',
-      icon: <GiCook style={{ width: '100%', height: '100%' }} />,
-      comment: 'We will immediately start preparing it!',
-    },
-    {
-      label: 'Ready',
-      message: 'Your order is ready. A courier will pick it up soon.',
-      icon: <IoFastFoodSharp style={{ width: '100%', height: '100%' }} />,
-    },
-    {
-      label: 'Delivering',
-      message: 'Your order is out for delivery.',
-      icon: <TbTruckDelivery style={{ width: '100%', height: '100%' }} />,
-    },
-    {
-      label: 'Completed',
-      message: 'Order has been delivered. Enjoy your meal!',
-      icon: <IoStar style={{ width: '100%', height: '100%' }} />,
-    },
-  ];
 
   const content = (message, icon) => (
     <Alert status="info" variant="subtle" className="order-status__alert">
@@ -52,7 +19,12 @@ function CustomerOrderSteps() {
 
   return (
     <Flex flexDir="column" width="100%">
-      <Steps activeStep={activeStep} colorScheme="blue" mb="20px">
+      <Steps
+        activeStep={activeStep}
+        state="loading"
+        colorScheme="blue"
+        mb="20px"
+      >
         {steps.map(({ label, message, icon }) => (
           <Step label={label} key={label}>
             {content(message, icon)}
