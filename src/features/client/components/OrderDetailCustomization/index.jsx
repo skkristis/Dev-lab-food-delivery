@@ -10,7 +10,7 @@ import {
 import { ChevronRightIcon } from '@chakra-ui/icons';
 
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 import { paymentsMethods } from '../../../../constants';
 import SwedbankUrl from '../../../../assets/swedbank-icon.png';
