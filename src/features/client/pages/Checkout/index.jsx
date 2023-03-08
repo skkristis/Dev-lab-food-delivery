@@ -7,6 +7,7 @@ import CheckoutCart from '../../components/CheckoutCart';
 import OrderDetailCustomization from '../../components/OrderDetailCustomization';
 
 function Checkout() {
+  const [isEmailValid, setIsEmailValid] = useState(false);
   const preferedPayMethod = useSelector(
     (store) => store.customer.payment.prefer
   );
@@ -29,9 +30,10 @@ function Checkout() {
         <OrderDetailCustomization
           payMethod={payMethod}
           setPayMethod={setPayMethod}
+          setIsEmailValid={setIsEmailValid}
         />
 
-        <CheckoutCart payMethod={payMethod} />
+        <CheckoutCart payMethod={payMethod} isEmailValid={isEmailValid} />
       </Box>
     </Box>
   );
