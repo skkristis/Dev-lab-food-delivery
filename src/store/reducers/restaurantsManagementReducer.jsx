@@ -13,7 +13,9 @@ export const restaurantsManagementSlice = createSlice({
     },
     update: (state, action) => {
       state.list = state.list.map((merchant) =>
-        merchant.id === action.payload.id ? action.payload : merchant
+        merchant.id === action.payload.merchant
+          ? { ...merchant, ...action.payload.data }
+          : merchant
       );
     },
     remove: (state, action) => {
@@ -28,7 +30,7 @@ export const restaurantsManagementSlice = createSlice({
         }
         return {
           ...merchant,
-          items: [...merchant.items, action.payload],
+          items: [action.payload, ...merchant.items],
         };
       });
     },
@@ -53,7 +55,7 @@ export const restaurantsManagementSlice = createSlice({
         }
         return {
           ...merchant,
-          items: merchant.items.filter((item) => item.id !== action.payload),
+          items: merchant.items.filter((item) => item.id !== action.payload.id),
         };
       });
     },

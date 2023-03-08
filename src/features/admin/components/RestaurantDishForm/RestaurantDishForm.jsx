@@ -27,7 +27,7 @@ function RestaurantDishForm({
   formState,
   setFormState,
 }) {
-  const merchantId = '98a151f2-3193-40c5-993a-ad032f414317';
+  const merchantId = '98a38bca-c1d0-4c9f-8c35-9574579b3937';
 
   const defaultFormValues = dish
     ? {
