@@ -9,16 +9,18 @@ import { Spinner } from '@chakra-ui/react';
 
 function Discovery() {
   const [restaurantItem, setRestaurantItem] = useState({ data: [] });
-  const { isLoading, data } = useQuery(
+  const { isLoading } = useQuery(
     'restaurantItem',
     discoveryService.getRestaurantItem
   );
 
   useEffect(() => {
-    if (data) {
+    const fetchData = async () => {
+      const data = await discoveryService.getRestaurantItem();
       setRestaurantItem(data);
-    }
-  }, [data]);
+    };
+    fetchData();
+  }, []);
 
   console.log(restaurantItem);
   return (
