@@ -14,13 +14,25 @@ function RadioButtonsForPayment({ setStateFn, options }) {
   const renderImage = (paymentMethod) => {
     switch (paymentMethod) {
       case 'Swedbank':
-        return <Image src={SwedbankUrl} width="30px" mr={1} />;
+        return (
+          <Image
+            src={SwedbankUrl}
+            width="50px"
+            maxHeight="35px"
+            objectFit="contain"
+          />
+        );
       case 'PaySera':
         return (
-          <Image src={PayseraUrl} width="45px" objectFit="contain" mr={1} />
+          <Image
+            src={PayseraUrl}
+            width="50px"
+            objectFit="contain"
+            maxHeight="35px"
+          />
         );
       case 'Cash':
-        return <Image src={CashUrl} width="30px" mr={1} />;
+        return <Image src={CashUrl} width="50px" maxHeight="35px" />;
       default:
         return null;
     }
