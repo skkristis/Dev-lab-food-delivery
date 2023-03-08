@@ -9,6 +9,8 @@ import { restaurantItems, groceryItems } from '../../../../constants';
 
 function ClientLanding() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [currentMerchantType, setCurrentMerchantCategory] =
+    useState('restaurants');
 
   return (
     <Flex as="section" flexDir="column" gap="20px" mt="50px">
@@ -17,9 +19,14 @@ function ClientLanding() {
         groceryItems={groceryItems}
         categoryId={'scroll2'}
         setSelectedCategory={setSelectedCategory}
+        setCurrentMerchantCategory={setCurrentMerchantCategory}
+        currentMerchantType={currentMerchantType}
       />
       <Discovery />
-      <RestaurantList selectedCategory={selectedCategory} />
+      <RestaurantList
+        selectedCategory={selectedCategory}
+        currentMerchantType={currentMerchantType}
+      />
     </Flex>
   );
 }

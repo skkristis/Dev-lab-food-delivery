@@ -3,7 +3,7 @@ import { Box, Flex, Heading } from '@chakra-ui/react';
 import { restaurants } from '../../mocks/restaurantsMock';
 import RestaurantListCard from '../RestaurantListCard';
 
-function RestaurantList({ isFeatured, selectedCategory }) {
+function RestaurantList({ isFeatured, selectedCategory, currentMerchantType }) {
   let restaurantsList = isFeatured
     ? restaurants.filter((item) => item.featured)
     : restaurants;
@@ -16,10 +16,10 @@ function RestaurantList({ isFeatured, selectedCategory }) {
 
   return (
     <Box as="section" className="container">
-      {selectedCategory ? (
-        <Heading>{selectedCategory} restaurants</Heading>
-      ) : (
-        <Heading>All restaurants</Heading>
+      {selectedCategory && (
+        <Heading>
+          {selectedCategory} {currentMerchantType}
+        </Heading>
       )}
       <Flex
         flexWrap="wrap"

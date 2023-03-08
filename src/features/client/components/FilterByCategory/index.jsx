@@ -13,10 +13,9 @@ function FilterByCategory({
   bgColor,
   categoryId,
   setSelectedCategory,
+  setCurrentMerchantCategory,
+  currentMerchantType,
 }) {
-  const [currentMerchantType, setCurrentMerchantCategory] =
-    useState('restaurants');
-
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const [activeMerchantTypeIndex, setActiveMerchantTypeIndex] = useState(0);
 
