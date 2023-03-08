@@ -12,6 +12,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import logoUrl from '../../../../assets/logo_transparent.svg';
+import smallLogoUrl from '../../../../assets/bentoboxlogo.svg';
 
 import LogInModal from '../LogInModal';
 import UserMenu from '../UserMenu';
@@ -58,14 +59,13 @@ function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Flex
-            gap="10px"
-            alignItems="center"
-            width="auto"
-            justifyContent="flex-start"
-          >
+          <Flex gap="10px" alignItems="center">
             <Link as={ReachLink} to="/">
-              <Image w={'150px'} src={logoUrl} />
+              {smallerScreen ? (
+                <Image w="30px" src={smallLogoUrl} />
+              ) : (
+                <Image w="150px" src={logoUrl} />
+              )}
             </Link>
             {!smallerScreen && (
               <DeliverToButton isLoggedIn={sessionUser !== null} />
