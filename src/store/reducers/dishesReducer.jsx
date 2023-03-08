@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import dishes from '../../features/admin/mocks/dishes';
 
 const initialState = {
-  list: [],
+  list: dishes,
 };
 
 export const dishesSlice = createSlice({
@@ -25,6 +25,6 @@ export const dishesSlice = createSlice({
   extraReducers: () => {},
 });
 
-export const { add, addList, update, remove } = dishesSlice.actions;
+export const { add, update, remove } = dishesSlice.actions;
 
 export default dishesSlice.reducer;
