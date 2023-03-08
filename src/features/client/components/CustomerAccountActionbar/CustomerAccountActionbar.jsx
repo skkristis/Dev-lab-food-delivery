@@ -13,7 +13,6 @@ import {
   AlertDialogFooter,
   useDisclosure,
 } from '@chakra-ui/react';
-import { remove } from '../../../../store/reducers/userReducer';
 
 import './CustomerAccountActionbar.scss';
 
