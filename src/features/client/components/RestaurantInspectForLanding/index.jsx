@@ -15,7 +15,7 @@ function RestaurantInspectForLanding({ item }) {
       rounded="md"
       _hover={{ transform: 'scale(1.01)' }}
       position="relative"
-      backgroundImage={item.recipeThumb}
+      backgroundImage={item.thumbnail}
       backgroundSize="cover"
     >
       <Box
@@ -27,13 +27,13 @@ function RestaurantInspectForLanding({ item }) {
       >
         <Flex flexDirection="column">
           <Heading color="white" textAlign="left" fontSize="1xl">
-            {item.recipeName}
+            {item.name}
           </Heading>
           <Flex flexDirection="row" justifyContent="space-between">
             <Box display="inline-block" width="auto" color="white">
-              {restaurantInspectMock.restaurantName}
+              {item.bio}
             </Box>
-            <Box color="white">{item.recipePrice}</Box>
+            <Box color="white">{item.price}</Box>
           </Flex>
         </Flex>
       </Box>
