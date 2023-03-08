@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/layout';
+import { Center, Flex } from '@chakra-ui/layout';
 import { useMediaQuery } from '@chakra-ui/media-query';
 import './index.scss';
 import ScrollButton from '../ScrollButton';
@@ -6,32 +6,38 @@ import { useState } from 'react';
 import CategoryButton from '../CategoryButton';
 import { merchantTypes } from '../../../../constants';
 import MerchantTypeButton from '../../MerchantTypeButton';
+import { useQuery } from 'react-query';
+import merchantService from '../../../../services/merchantService';
+import { Spinner } from '@chakra-ui/react';
 
 function FilterByCategory({
-  restaurantItems,
-  groceryItems,
   bgColor,
   categoryId,
   setSelectedCategory,
+  currentMerchantType,
+  setCurrentMerchantCategory,
 }) {
-  const [currentMerchantType, setCurrentMerchantCategory] =
-    useState('restaurants');
+  const { isLoading, data: fetchedCategoryData } = useQuery(
+    ['categories', currentMerchantType],
+    merchantService.getCategoryList
+  );
 
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
-  const [activeMerchantTypeIndex, setActiveMerchantTypeIndex] = useState(0);
+  const [activeMerchantTypeIndex, setActiveMerchantTypeIndex] = useState(null);
 
   const [smallerScreen] = useMediaQuery('(max-width: 1100px)');
 
   const handleMerchantTypeClick = (value, index) => {
-    setSelectedCategory('All');
     setCurrentMerchantCategory(value);
+    setActiveMerchantTypeIndex(null);
+
+    setSelectedCategory(null);
     setActiveCategoryIndex(index);
-    setActiveMerchantTypeIndex(0);
   };
 
-  const handleCategoryTypeClick = (item, index) => {
+  const handleCategoryTypeClick = (id, name, index) => {
     setActiveMerchantTypeIndex(index);
-    setSelectedCategory(item);
+    setSelectedCategory({ id, name });
   };
 
   return (
@@ -55,25 +61,20 @@ function FilterByCategory({
           />
         )}
         <Flex backgroundColor={bgColor} className="category" id={categoryId}>
-          {currentMerchantType === 'restaurants'
-            ? restaurantItems.map((item, index) => (
-                <MerchantTypeButton
-                  item={item}
-                  key={item.name}
-                  index={index}
-                  activeMerchantTypeIndex={activeMerchantTypeIndex}
-                  handleCategoryTypeClick={handleCategoryTypeClick}
-                />
-              ))
-            : groceryItems.map((item, index) => (
-                <MerchantTypeButton
-                  item={item}
-                  key={item.name}
-                  index={index}
-                  activeMerchantTypeIndex={activeMerchantTypeIndex}
-                  handleCategoryTypeClick={handleCategoryTypeClick}
-                />
-              ))}
+          {fetchedCategoryData?.data.map((item, index) => (
+            <MerchantTypeButton
+              item={item}
+              key={item.name}
+              index={index}
+              activeMerchantTypeIndex={activeMerchantTypeIndex}
+              handleCategoryTypeClick={handleCategoryTypeClick}
+            />
+          ))}
+          {isLoading && (
+            <Center marginTop="20px">
+              <Spinner size="md" />
+            </Center>
+          )}
         </Flex>
         {categoryId && smallerScreen && (
           <ScrollButton

@@ -3,21 +3,27 @@ import { useInfiniteQuery } from 'react-query';
 
 import { addToRestaurantList } from '../../../../store/reducers/restaurantsClientReducer';
 import RestaurantListCard from '../RestaurantListCard';
-import storesService from '../../../../services/storesService';
+import merchantService from '../../../../services/merchantService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 function RestaurantList({ selectedCategory }) {
+  console.log(selectedCategory);
   const {
     data: fetchedRestaurantData,
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery(['restaurants'], storesService.getRestaurantList, {
-    getNextPageParam: (lastPage) =>
-      lastPage.links.next?.split('merchants?')[1] ?? undefined,
-  });
+    hasNextPage,
+  } = useInfiniteQuery(
+    ['restaurants', '/filter_equals_type=restaurant'],
+    merchantService.getRestaurantList,
+    {
+      getNextPageParam: (lastPage) =>
+        lastPage.links.next?.split('merchants?')[1] ?? 'no-next-page',
+    }
+  );
 
   const { ref, inView } = useInView();
 
@@ -28,21 +34,21 @@ function RestaurantList({ selectedCategory }) {
     dispatch(addToRestaurantList(restaurants));
 
   useEffect(() => {
-    if (!isFetching && !isFetchingNextPage) fetchNextPage();
+    if (!isFetching && !isFetchingNextPage && hasNextPage) fetchNextPage();
   }, [inView]);
 
   useEffect(() => {
     const data =
       fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]
         .data;
+    const existCheck = restaurantsList.filter(
+      (restaurant) => restaurant.id === data[0].id
+    );
 
-    if (data) dispatchAdd(data);
-  }, [
-    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]?.links
-      .next,
-  ]);
+    if (data && !existCheck.length) dispatchAdd(data);
+  }, [fetchedRestaurantData?.pages.length]);
 
-  if (selectedCategory && selectedCategory !== 'All') {
+  if (selectedCategory) {
     restaurantsList = restaurantsList.filter((restaurant) =>
       restaurant.restaurantTags.includes(selectedCategory)
     );
@@ -51,7 +57,7 @@ function RestaurantList({ selectedCategory }) {
   return (
     <Box as="section" className="container">
       {selectedCategory ? (
-        <Heading>{selectedCategory} restaurants</Heading>
+        <Heading>{selectedCategory.name} restaurants</Heading>
       ) : (
         <Heading>All restaurants</Heading>
       )}

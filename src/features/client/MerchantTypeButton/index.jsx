@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Box, Button, Image } from '@chakra-ui/react';
 
 function MerchantTypeButton({
   item,
@@ -9,14 +9,18 @@ function MerchantTypeButton({
   return (
     <Button
       borderRadius="lg"
-      display="block"
+      display="flex"
+      alignItems="center"
+      gap="5px"
       minWidth="fit-content"
       fontSize="20px"
-      onClick={() => handleCategoryTypeClick(item.name, index)}
+      onClick={() => handleCategoryTypeClick(item.id, item.name, index)}
       color={index === activeMerchantTypeIndex ? 'white' : 'black'}
       colorScheme={index === activeMerchantTypeIndex ? 'blue' : 'white'}
     >
-      {item.icon}
+      <Box maxW="20px" display="inline-block">
+        <Image src={item.thumbnail} />
+      </Box>
       {item.name}
     </Button>
   );

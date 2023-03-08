@@ -1,8 +1,13 @@
 import axios from './axios';
 
-const getRestaurantList = async ({
-  pageParam = `/filter_equals_type=restaurant`,
-}) => {
+const getCategoryList = async ({ queryKey }) => {
+  const [_, type] = queryKey;
+  const response = await axios.get(`/api/merchants/${type}/categories`);
+  return response.data;
+};
+
+const getRestaurantList = async ({ pageParam }, queryKey) => {
+  console.log(queryKey);
   const response = await axios.get(`/api/merchants?${pageParam}`);
   return response.data;
 };
@@ -13,6 +18,7 @@ const getRestaurantList = async ({
 
 const storesService = {
   getRestaurantList,
+  getCategoryList,
   // getShopList,
 };
 
