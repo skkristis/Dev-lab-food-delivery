@@ -44,7 +44,7 @@ function OrderDetailCustomization({
 
   useEffect(() => {
     setIsEmailValid(!errors.email && email);
-  }, [email]);
+  }, [email, errors.email]);
 
   const sessionUser = useSelector((state) => state.user.data);
 
