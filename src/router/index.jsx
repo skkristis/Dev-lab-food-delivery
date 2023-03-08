@@ -54,7 +54,7 @@ function getClientRoutes() {
       loader: () => {
         const hasToken = localStorage.getItem('accessToken');
         if (!hasToken) {
-          redirect('/');
+          return redirect('/');
         }
         return null;
       },
