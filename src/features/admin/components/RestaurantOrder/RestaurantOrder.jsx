@@ -20,10 +20,8 @@ import './RestaurantOrder.scss';
 import dishes from '../../mocks/dishes';
 
 function RestaurantOrder({ order, ordersSort, setActive, setOrdersSort }) {
-  const allDishes = dishes;
-
   const orderDishes = order.dishes.map((dish) => {
-    const name = allDishes.find((item) => item.id === dish.id).name;
+    const name = dishes.find((item) => item.id === dish.id).name;
     return { ...dish, name };
   });
 
