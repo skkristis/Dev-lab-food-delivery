@@ -90,7 +90,7 @@ function OrderDetailCustomization({ payMethod, setPayMethod }) {
         <Stack>
           {cartItems &&
             cartItems.map((dish) => {
-              return <CheckoutItemCard dish={dish} key={dish.recipeName} />;
+              return <CheckoutItemCard dish={dish} key={dish.id} />;
             })}
           <Button onClick={goBack}>Add more items</Button>
         </Stack>
