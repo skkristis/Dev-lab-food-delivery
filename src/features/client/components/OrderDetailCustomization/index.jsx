@@ -22,7 +22,7 @@ import OrderParametersModal from '../../components/OrderParametersModal';
 import CheckoutItemCard from '../../components/CheckoutItemCard';
 import CheckoutContactCheck from '../../components/CheckoutContactCheck';
 import { useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 function OrderDetailCustomization({
   payMethod,
@@ -32,6 +32,7 @@ function OrderDetailCustomization({
   const {
     register,
     formState: { errors },
+    control,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -39,15 +40,11 @@ function OrderDetailCustomization({
     },
   });
 
-  const inputRef = useRef(null);
+  const email = useWatch({ control, name: 'email' });
 
   useEffect(() => {
-    if (!errors.email && inputRef.current.value != '') {
-      setIsEmailValid(true);
-    } else {
-      setIsEmailValid(false);
-    }
-  }, [inputRef.current?.value]);
+    setIsEmailValid(!errors.email && email);
+  }, [email]);
 
   const sessionUser = useSelector((state) => state.user.data);
 
@@ -106,7 +103,6 @@ function OrderDetailCustomization({
               type="email"
               placeholder="Enter your email address"
               {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-              ref={inputRef}
             />
             {errors.email && (
               <Text color="red.500">Please enter a valid email address</Text>
