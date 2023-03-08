@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import {
   Button,
   AlertDialog,
@@ -10,6 +11,7 @@ import {
   AlertDialogFooter,
   useDisclosure,
 } from '@chakra-ui/react';
+import { remove } from '../../../../store/reducers/userReducer';
 
 import './CustomerAccountActionbar.scss';
 
@@ -17,7 +19,13 @@ function CustomerAccountActionbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
 
-  const handleLogout = async () => {};
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(remove());
+    navigate('/');
+  };
 
   const handleDelete = () => {
     onClose();
