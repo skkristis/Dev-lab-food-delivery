@@ -1,4 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { remove } from '../../../../store/reducers/userReducer';
 
 import {
   Button,
@@ -17,7 +20,12 @@ function CustomerAccountActionbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
 
-  const handleLogout = async () => {};
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(remove());
+    navigate('/');
+  };
 
   const handleDelete = () => {
     onClose();
