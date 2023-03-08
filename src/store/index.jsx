@@ -7,12 +7,10 @@ import cartReducer from './reducers/cartReducer';
 import customerReducer from './reducers/customerReducer';
 import userReducer from './reducers/userReducer';
 import restaurantsManagementReducer from './reducers/restaurantsManagementReducer';
-import restaurantsClientReducer from './reducers/restaurantsClientReducer';
 
 const rootReducer = combineReducers({
   dishes: dishesReducer,
   restaurantsManagement: restaurantsManagementReducer,
-  restaurantsClient: restaurantsClientReducer,
   orders: ordersReducer,
   cart: cartReducer,
   customer: customerReducer,
@@ -22,7 +20,6 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['restaurantsClient'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

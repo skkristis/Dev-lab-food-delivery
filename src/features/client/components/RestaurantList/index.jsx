@@ -1,20 +1,13 @@
 import { Box, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import { useInfiniteQuery } from 'react-query';
 
-import { addToRestaurantList } from '../../../../store/reducers/restaurantsClientReducer';
 import RestaurantListCard from '../RestaurantListCard';
 import merchantService from '../../../../services/merchantService';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { clearRestaurantList } from '../../../../store/reducers/restaurantsClientReducer';
 
 function RestaurantList({ selectedCategory, currentMerchantType }) {
   const { ref, inView } = useInView();
-  const dispatch = useDispatch();
-  const dispatchAdd = (restaurants) =>
-    dispatch(addToRestaurantList(restaurants));
-  let restaurantsList = useSelector((state) => state.restaurantsClient.list);
   const [queryURL, setQueryURL] = useState(null);
 
   const {
@@ -31,38 +24,42 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
         lastPage.links.next?.split('merchants?')[1] ?? undefined,
     }
   );
-  console.log(fetchedRestaurantData?.pages[0]);
+
+  const [restaurantsList, setRestaurantsList] = useState(
+    fetchedRestaurantData?.pages.reduce((acc, cur) => {
+      return [...acc, ...cur.data];
+    }, []) || []
+  );
+  const latestFetchedRestaurantList =
+    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages?.length - 1].data;
 
   useEffect(() => {
     if (!isFetching && !isFetchingNextPage && hasNextPage) fetchNextPage();
   }, [inView]);
 
   useEffect(() => {
-    const data =
-      fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]
-        .data;
-
-    const existCheck = selectedCategory
-      ? []
-      : restaurantsList?.filter(
-          (restaurant) => restaurant?.id === data?.[0]?.id
-        );
-
-    if (data && !existCheck.length) dispatchAdd(data);
-  }, [
-    fetchedRestaurantData?.pages.length,
-    currentMerchantType,
-    selectedCategory,
-  ]);
-
-  useEffect(() => {
-    dispatch(clearRestaurantList());
+    setRestaurantsList([]);
     setQueryURL(
       selectedCategory
         ? `${currentMerchantType}&filter_equals_categoryId=${selectedCategory?.id}`
         : currentMerchantType
     );
   }, [selectedCategory, currentMerchantType]);
+
+  useEffect(() => {
+    const existCheck = restaurantsList?.filter(
+      (restaurant) => restaurant?.id === latestFetchedRestaurantList?.[0]?.id
+    );
+
+    setRestaurantsList((prevList = []) => {
+      if (existCheck) return latestFetchedRestaurantList;
+
+      return [...prevList, ...latestFetchedRestaurantList];
+    });
+  }, [
+    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages?.length - 1]
+      .data[0],
+  ]);
 
   return (
     <Box as="section" className="container">
@@ -77,7 +74,7 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
         justifyContent="space-between"
         marginTop="10px"
       >
-        {restaurantsList.length ? (
+        {restaurantsList?.length ? (
           restaurantsList.map((restaurant) => {
             return (
               <RestaurantListCard
@@ -87,23 +84,26 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
             );
           })
         ) : (
-          <Text
-            display={isFetching ? 'none' : 'block'}
-            textAlign="center"
-            width="100%"
-          >
-            No {currentMerchantType}s available
-          </Text>
+          <>
+            {(isFetching || isFetchingNextPage) && (
+              <Center marginTop="20px" width="100%">
+                <Spinner size="xl" />
+              </Center>
+            )}
+            {!latestFetchedRestaurantList?.length && (
+              <Text
+                display={isFetching ? 'none' : 'block'}
+                textAlign="center"
+                width="100%"
+              >
+                No {currentMerchantType}s available
+              </Text>
+            )}
+          </>
         )}
       </Flex>
 
       <Box ref={ref} bg="transparent"></Box>
-
-      {(isFetching || isFetchingNextPage) && (
-        <Center marginTop="20px">
-          <Spinner size="xl" />
-        </Center>
-      )}
     </Box>
   );
 }
