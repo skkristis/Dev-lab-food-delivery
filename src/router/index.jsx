@@ -1,13 +1,23 @@
 import React from 'react';
-import { createHashRouter } from 'react-router-dom/dist';
+import { createHashRouter, redirect } from 'react-router-dom/dist';
 import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
 import RestaurantInspect from '../features/client/pages/RestaurantInspect';
 import Subscriptions from '../features/client/pages/Subscriptions';
-import CouriersDashboard from '../features/admin/components/CouriersDashboard/CouriersDashboard';
-import RestaurantDashboard from '../features/admin/components/RestaurantDashboard/RestaurantDashboard';
-import { BiRestaurant, BiCar } from 'react-icons/all.js';
+import CouriersDashboard from '../features/admin/components/CouriersDashboard';
+import RestaurantStats from '../features/admin/components/RestaurantStats/RestaurantStats';
+import RestaurantOrders from '../features/admin/components/RestaurantOrders/RestaurantOrders';
+import RestaurantDishes from '../features/admin/components/RestaurantDishes/RestaurantDishes';
+import RestaurantDescriptionForm from '../features/admin/components/RestaurantDescriptionForm/RestaurantDescriptionForm';
+
+import {
+  BiRestaurant,
+  BiCategory,
+  BiLayer,
+  BiNotepad,
+  BiCar,
+} from 'react-icons/bi';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
@@ -41,7 +51,24 @@ function getClientRoutes() {
     },
     {
       path: '/account',
-      element: <CustomerAccountDashboard />,
+      loader: () => {
+        const hasToken = localStorage.getItem('accessToken');
+        if (!hasToken) {
+          return redirect('/');
+        }
+        return null;
+      },
+      children: [
+        { index: true, element: <CustomerAccountDashboard /> },
+        {
+          path: 'order-history',
+          element: <CustomerAccountDashboard activeTab={3} />,
+        },
+        {
+          path: 'settings',
+          element: <CustomerAccountDashboard activeTab={4} />,
+        },
+      ],
     },
     {
       path: '/order-status',
@@ -56,21 +83,29 @@ function getClientRoutes() {
 
 export function getAdminRoutes() {
   return [
-    // {
-    //   element: <AdminLanding />,
-    //   index: true,
-    //   loader: () => {
-    //     return redirect('/admin/restaurants');
-    //   },
-    //   navItemName: 'Dashboard',
-    //   navItemIcon: FiHome,
-    // },
-    //return after mvp
     {
-      path: '/admin',
-      element: <RestaurantDashboard />,
+      path: '/admin/restaurants',
+      element: <RestaurantStats />,
       navItemName: 'Restaurants',
       navItemIcon: BiRestaurant,
+    },
+    {
+      path: '/admin/restaurants/orders',
+      element: <RestaurantOrders />,
+      navItemName: 'Orders',
+      navItemIcon: BiLayer,
+    },
+    {
+      path: '/admin/restaurants/dishes',
+      element: <RestaurantDishes />,
+      navItemName: 'Dishes',
+      navItemIcon: BiCategory,
+    },
+    {
+      path: '/admin/restaurants/info',
+      element: <RestaurantDescriptionForm />,
+      navItemName: 'Restaurant Info',
+      navItemIcon: BiNotepad,
     },
     {
       path: '/admin/couriers',

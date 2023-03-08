@@ -33,6 +33,15 @@ function RestaurantOrdersNav({
           </Button>
 
           <Button
+            variant={ordersSort === 'active' ? 'solid' : 'outline'}
+            colorScheme="green"
+            size="lg"
+            onClick={() => setOrdersSort('active')}
+          >
+            Active
+          </Button>
+
+          <Button
             variant={ordersSort === 'ready' ? 'solid' : 'outline'}
             colorScheme="green"
             size="lg"
@@ -42,10 +51,10 @@ function RestaurantOrdersNav({
           </Button>
 
           <Button
-            variant={ordersSort === 'fulfilled' ? 'solid' : 'outline'}
+            variant={ordersSort === 'history' ? 'solid' : 'outline'}
             colorScheme="green"
             size="lg"
-            onClick={() => setOrdersSort('fulfilled')}
+            onClick={() => setOrdersSort('history')}
           >
             History
           </Button>

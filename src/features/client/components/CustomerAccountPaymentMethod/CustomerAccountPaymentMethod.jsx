@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setPreferPayment } from '../../../../store/reducers/customerReducer';
 
 import { Icon, Button, Tag, Radio, Tooltip } from '@chakra-ui/react';
-import { BiCreditCard } from 'react-icons/all.js';
+import { BiCreditCard, BiMoney } from 'react-icons/all.js';
 
 import './CustomerAccountPaymentMethod.scss';
 
@@ -34,7 +34,11 @@ function CustomerAccountPaymentCard({ item }) {
       </Tooltip>
 
       <div className="payment-method__icon">
-        <Icon as={BiCreditCard} boxSize={5} color="white" />
+        <Icon
+          as={item === 'Cash' ? BiMoney : BiCreditCard}
+          boxSize={5}
+          color="white"
+        />
       </div>
       <div className="payment-method__value">
         <p>{item}</p>

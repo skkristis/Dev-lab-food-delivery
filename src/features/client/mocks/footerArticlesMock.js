@@ -11,7 +11,7 @@ export const footerArticles = [
   {
     footerArticleHeading: 'For partners',
     footerArticleListItems: [
-      { to: '/admin', content: 'For restaurants' },
+      { to: '/admin/restaurants', content: 'For restaurants' },
       { to: '/admin/couriers', content: 'For couriers' },
       { to: '', content: 'Integer molestie' },
       { to: '', content: 'Facilisis in' },

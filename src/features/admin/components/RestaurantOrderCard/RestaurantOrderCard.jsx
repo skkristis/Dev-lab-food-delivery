@@ -1,15 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import './RestaurantOrderCard.scss';
+
+import dishes from '../../mocks/dishes';
 
 function RestaurantOrderCard({ order, setActive }) {
   const handleClick = () => setActive(order);
 
-  const allDishes = useSelector((state) => state.dishes.list);
-
   const orderDishes = order.dishes.map((dish) => {
-    const name = allDishes.find((item) => item.id === dish.id).name;
+    const name = dishes.find((item) => item.id === dish.id).name;
     return { ...dish, name };
   });
 
@@ -18,6 +17,9 @@ function RestaurantOrderCard({ order, setActive }) {
       <p className="restaurant-ordercard__title">Order #{order.id}</p>
       <p className="restaurant-ordercard__payment">
         {order.payment.total} EUR by {order.payment.method}
+      </p>
+      <p className={`restaurant-ordercard__status is-${order.status}`}>
+        Status: <span>{order.status}</span>
       </p>
       <div className="restaurant-ordercard__dishes dish-list">
         <p className="dish-list__title">Dishes:</p>

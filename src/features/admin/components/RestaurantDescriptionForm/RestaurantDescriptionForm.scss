@@ -3,6 +3,12 @@
 .restaurant-dataform {
   display: flex;
   justify-content: center;
+  padding: 40px;
+  background-color: #fff;
+
+  @media screen and (max-width: $screen-md) {
+    padding: 20px;
+  }
 
   &__row {
     display: flex;

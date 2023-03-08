@@ -71,7 +71,7 @@ function Header() {
             )}
           </Flex>
           <Input
-            color="white"
+            color="black"
             bg="lightgray"
             placeholder={
               smallerScreen
@@ -110,7 +110,7 @@ function Header() {
           )}
           <CartDrawer />
         </Box>
-        {smallerScreen && <DeliverToButton />}
+        {smallerScreen && <DeliverToButton isLoggedIn={sessionUser !== null} />}
       </Box>
       <LogInModal
         isOpen={isLoginModalOpen}

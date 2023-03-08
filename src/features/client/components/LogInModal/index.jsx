@@ -21,12 +21,7 @@ import { useForm } from 'react-hook-form';
 function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
   const dispatch = useDispatch();
 
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm();
+  const { handleSubmit, register, reset } = useForm();
 
   const onSubmit = (data) => {
     dispatch(add({ email: data.email, password: data.password }));
