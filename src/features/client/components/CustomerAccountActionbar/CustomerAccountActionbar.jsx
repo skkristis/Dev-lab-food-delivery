@@ -1,6 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { remove } from '../../../../store/reducers/userReducer';
+
 import {
   Button,
   AlertDialog,
@@ -21,7 +23,6 @@ function CustomerAccountActionbar() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleLogout = () => {
     dispatch(remove());
     navigate('/');
