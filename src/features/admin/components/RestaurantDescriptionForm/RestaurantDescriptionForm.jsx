@@ -10,7 +10,10 @@ import {
   Checkbox,
   CheckboxGroup,
   Button,
+  Text,
 } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
+import { weekdays } from '../../../../constants';
 
 import './RestaurantDescriptionForm.scss';
 
@@ -34,7 +37,23 @@ function RestaurantDescriptionForm() {
     defaultValues: defaultFormValues,
   });
 
-  function onSubmit() {}
+  const onSubmit = (data) => {
+    weekdays.forEach((day) => {
+      const startValue = data.schedule[day].start;
+      const endValue = data.schedule[day].end;
+      const startSeconds = startValue
+        ? parseInt(startValue.split(':')[0], 10) * 3600 +
+          parseInt(startValue.split(':')[1], 10) * 60
+        : '';
+      const endSeconds = endValue
+        ? parseInt(endValue.split(':')[0], 10) * 3600 +
+          parseInt(endValue.split(':')[1], 10) * 60
+        : '';
+      data.schedule[day] = { start: startSeconds, end: endSeconds };
+    });
+
+    return data;
+  };
 
   return (
     <div className="restaurant-dataform">
@@ -73,41 +92,21 @@ function RestaurantDescriptionForm() {
           </FormErrorMessage>
         </FormControl>
 
-        <div className="restaurant-dataform__row">
-          <FormControl
-            className="restaurant-dataform__control"
-            isInvalid={errors.hoursFrom}
-          >
-            <FormLabel htmlFor="restaurant-hours-from">
-              Working hours (from)
-            </FormLabel>
-            <Input
-              id="restaurant-hours-from"
-              type="time"
-              {...register('hoursFrom')}
-            />
-            <FormErrorMessage>
-              {errors.hoursFrom && errors.hoursFrom.message}
-            </FormErrorMessage>
-          </FormControl>
-
-          <FormControl
-            className="restaurant-dataform__control"
-            isInvalid={errors.hoursTill}
-          >
-            <FormLabel htmlFor="restaurant-hours-till">
-              Working hours (till)
-            </FormLabel>
-            <Input
-              id="restaurant-hours-till"
-              type="time"
-              {...register('hoursTill')}
-            />
-            <FormErrorMessage>
-              {errors.hoursTill && errors.hoursTill.message}
-            </FormErrorMessage>
-          </FormControl>
-        </div>
+        <FormControl className="restaurant-dataform__control">
+          <FormLabel htmlFor="restaurant-schedule">
+            Restaurant schedule
+          </FormLabel>
+          {weekdays.map((day) => (
+            <HStack key={day} alignItems="center">
+              <Text w={{ base: '130px', md: '100px' }}>{`${day
+                .charAt(0)
+                .toUpperCase()}${day.slice(1)}:`}</Text>
+              <Input type="time" {...register(`schedule.${day}.start`)} />
+              <Text>to</Text>
+              <Input type="time" {...register(`schedule.${day}.end`)} />
+            </HStack>
+          ))}
+        </FormControl>
 
         <FormControl
           className="restaurant-dataform__control"
