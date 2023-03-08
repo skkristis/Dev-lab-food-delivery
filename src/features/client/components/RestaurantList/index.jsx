@@ -8,7 +8,6 @@ import { useInView } from 'react-intersection-observer';
 
 function RestaurantList({ selectedCategory, currentMerchantType }) {
   const { ref, inView } = useInView();
-  const [queryURL, setQueryURL] = useState(null);
 
   const {
     data: fetchedRestaurantData,
@@ -17,42 +16,46 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    ['merchants', `filter_equals_type=${queryURL || 'restaurant'}`],
+    [
+      'merchants',
+      {
+        filter_equals_type: currentMerchantType,
+        filter_equals_categoryId: selectedCategory?.id || null,
+      },
+    ],
     merchantService.getMerchantList,
     {
       getNextPageParam: (lastPage) =>
-        lastPage.links.next?.split('merchants?')[1] ?? undefined,
+        lastPage?.links.next?.split('merchants?')[1] ?? undefined,
     }
   );
 
   const [restaurantsList, setRestaurantsList] = useState(
     fetchedRestaurantData?.pages.reduce((acc, cur) => {
-      return [...acc, ...cur.data];
+      return [...acc, ...[cur.data ? cur.data : []]];
     }, []) || []
   );
   const latestFetchedRestaurantList =
     fetchedRestaurantData?.pages[fetchedRestaurantData?.pages?.length - 1].data;
 
+  // check if in view
   useEffect(() => {
     if (!isFetching && !isFetchingNextPage && hasNextPage) fetchNextPage();
   }, [inView]);
 
+  // clear list on change of query params
   useEffect(() => {
     setRestaurantsList([]);
-    setQueryURL(
-      selectedCategory
-        ? `${currentMerchantType}&filter_equals_categoryId=${selectedCategory?.id}`
-        : currentMerchantType
-    );
   }, [selectedCategory, currentMerchantType]);
 
+  // save on successful fetch
   useEffect(() => {
-    const existCheck = restaurantsList?.filter(
+    const restaurantDoesExist = restaurantsList?.filter(
       (restaurant) => restaurant?.id === latestFetchedRestaurantList?.[0]?.id
     );
 
     setRestaurantsList((prevList = []) => {
-      if (existCheck) return latestFetchedRestaurantList;
+      if (restaurantDoesExist) return latestFetchedRestaurantList;
 
       return [...prevList, ...latestFetchedRestaurantList];
     });

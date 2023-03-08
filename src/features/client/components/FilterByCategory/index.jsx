@@ -9,7 +9,6 @@ import MerchantTypeButton from '../../MerchantTypeButton';
 import { useQuery } from 'react-query';
 import merchantService from '../../../../services/merchantService';
 import { Spinner } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
 
 function FilterByCategory({
   bgColor,
@@ -22,7 +21,6 @@ function FilterByCategory({
     ['categories', currentMerchantType],
     merchantService.getCategoryList
   );
-  const dispatch = useDispatch();
 
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const [activeMerchantTypeIndex, setActiveMerchantTypeIndex] = useState(null);

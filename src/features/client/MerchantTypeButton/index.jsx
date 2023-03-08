@@ -5,7 +5,6 @@ function MerchantTypeButton({
   index,
   activeMerchantTypeIndex,
   handleCategoryTypeClick,
-  isDisabled,
 }) {
   return (
     <Button
