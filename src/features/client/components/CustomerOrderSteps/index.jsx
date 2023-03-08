@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
-import { Flex, Button, Alert, Text, Box } from '@chakra-ui/react';
+import { Flex, Alert, Text, Box } from '@chakra-ui/react';
 import { steps } from '../../mocks/orderStepsMock';
 
 function CustomerOrderSteps() {
-  const { nextStep, prevStep, reset, activeStep } = useSteps({
+  const { nextStep, reset, activeStep } = useSteps({
     initialStep: 0,
   });
 
