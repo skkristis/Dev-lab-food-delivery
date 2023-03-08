@@ -29,7 +29,6 @@ function CustomerOrderStatus() {
   return (
     <Box position="relative" className="container order-status" mt="100px">
       <CustomerOrderSteps />
-
       <Box className="order-status__details order-details" mt="50px">
         <Box className="order-details__info">
           <Text className="order-details__title">Order details:</Text>
