@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  add,
-  removeItem,
-} from '../../../../store/reducers/restaurantsManagementReducer';
+import { addList } from '../../../../store/reducers/restaurantsManagementReducer';
 import axios from '../../../../../src/services/axios';
 
 import { Spinner } from '@chakra-ui/react';
@@ -30,7 +27,7 @@ function RestaurantDishes() {
       const getMerchant = async () =>
         await axios.get(`/api/merchants/${merchantId}`);
 
-      getMerchant().then((response) => dispatch(add(response.data.data)));
+      getMerchant().then((response) => dispatch(addList(response.data.data)));
     }
   }, []);
 

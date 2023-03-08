@@ -17,6 +17,7 @@ import RestaurantStats from '../features/admin/components/RestaurantStats/Restau
 import RestaurantOrders from '../features/admin/components/RestaurantOrders/RestaurantOrders';
 import RestaurantDishes from '../features/admin/components/RestaurantDishes/RestaurantDishes';
 import RestaurantDescriptionForm from '../features/admin/components/RestaurantDescriptionForm/RestaurantDescriptionForm';
+import RestaurantsList from '../features/admin/components/RestaurantsList/RestaurantsList';
 import PartnerSignIn from '../features/client/pages/PartnerSignIn';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
 import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
@@ -120,6 +121,12 @@ export function getAdminRoutes() {
       element: <CouriersDashboard />,
       navItemName: 'Couriers',
       navItemIcon: BiCar,
+    },
+    {
+      path: '/admin',
+      element: <RestaurantsList />,
+      navItemName: 'Merchants',
+      navItemIcon: BiCategory,
     },
   ];
 }
