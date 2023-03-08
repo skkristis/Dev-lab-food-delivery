@@ -22,4 +22,8 @@ export const merchantTypes = [
   { category: '🛒 Shops', value: 'shop' },
 ];
 
+export const merchantStatuses = ['draft', 'active', 'published'];
+
 export const paymentsMethods = ['PaySera', 'Swedbank', 'Cash'];
+
+export const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
