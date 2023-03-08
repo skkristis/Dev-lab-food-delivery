@@ -16,7 +16,7 @@ function RadioButtonsForPayment({ setStateFn, options }) {
       case 'Swedbank':
         return <Image src={SwedbankUrl} width="30px" />;
       case 'PaySera':
-        return <Image src={PayseraUrl} width="45px" />;
+        return <Image src={PayseraUrl} width="45px" objectFit="contain" />;
       case 'Cash':
         return <Image src={CashUrl} width="30px" />;
       default:
@@ -34,7 +34,7 @@ function RadioButtonsForPayment({ setStateFn, options }) {
               onChange={() => handleClick(paymentMethod)}
               value={paymentMethod}
             >
-              <Flex gap={1}>
+              <Flex gap={1} alignItems="center">
                 {renderImage(paymentMethod)}
                 {paymentMethod}
               </Flex>
