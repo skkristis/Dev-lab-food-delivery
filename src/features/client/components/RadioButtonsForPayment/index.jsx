@@ -38,7 +38,7 @@ function RadioButtonsForPayment({ setStateFn, options }) {
     }
   };
   return (
-    <RadioGroup defaultValue="1">
+    <RadioGroup defaultValue={options[0]}>
       <Stack spacing={5} direction="column">
         {options?.map((paymentMethod) => {
           return (
