@@ -23,12 +23,7 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    [
-      'merchants',
-      `filter_equals_type=${
-        queryURL ? currentMerchantType + queryURL : currentMerchantType
-      }`,
-    ],
+    ['merchants', `filter_equals_type=${queryURL || 'restaurant'}`],
     merchantService.getMerchantList,
     {
       getNextPageParam: (lastPage) =>
@@ -58,10 +53,10 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
   useEffect(() => {
     setQueryURL(
       selectedCategory
-        ? `&filter_equals_categoryId=${selectedCategory?.id}`
-        : null
+        ? `${currentMerchantType}&filter_equals_categoryId=${selectedCategory?.id}`
+        : currentMerchantType
     );
-  }, [selectedCategory]);
+  }, [selectedCategory, currentMerchantType]);
 
   return (
     <Box as="section" className="container">
