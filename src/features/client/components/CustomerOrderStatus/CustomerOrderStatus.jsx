@@ -9,6 +9,7 @@ import {
   Image,
   Button,
   Flex,
+  Spacer,
 } from '@chakra-ui/react';
 import CustomerOrderSteps from '../CustomerOrderSteps';
 
@@ -28,8 +29,8 @@ function CustomerOrderStatus() {
 
   return (
     <Box position="relative" className="container order-status" mt="100px">
+      {/* <Spacer /> */}
       <CustomerOrderSteps />
-
       <Box className="order-status__details order-details" mt="50px">
         <Box className="order-details__info">
           <Text className="order-details__title">Order details:</Text>

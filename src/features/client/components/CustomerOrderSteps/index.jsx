@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import { Flex, Button, Alert, Text, Box } from '@chakra-ui/react';
 import { steps } from '../../mocks/orderStepsMock';
@@ -6,6 +6,13 @@ import { steps } from '../../mocks/orderStepsMock';
 function CustomerOrderSteps() {
   const { nextStep, prevStep, reset, activeStep } = useSteps({
     initialStep: 0,
+  });
+
+  useEffect(() => {
+    const stepInterval = setInterval(() => {
+      return activeStep === steps.length - 1 ? reset() : nextStep();
+    }, 3000);
+    return () => clearInterval(stepInterval);
   });
 
   const content = (message, icon) => (
@@ -31,28 +38,6 @@ function CustomerOrderSteps() {
           </Step>
         ))}
       </Steps>
-      {activeStep === steps.length ? (
-        <Flex p={4}>
-          <Button mx="auto" size="sm" onClick={reset}>
-            Reset
-          </Button>
-        </Flex>
-      ) : (
-        <Flex width="100%" justify="center">
-          <Button
-            isDisabled={activeStep === 0}
-            mr={4}
-            onClick={prevStep}
-            size="sm"
-            variant="ghost"
-          >
-            Prev
-          </Button>
-          <Button size="sm" onClick={nextStep}>
-            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-          </Button>
-        </Flex>
-      )}
     </Flex>
   );
 }
