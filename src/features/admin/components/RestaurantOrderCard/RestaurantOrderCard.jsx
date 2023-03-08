@@ -1,12 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import './RestaurantOrderCard.scss';
+
+import dishes from '../../mocks/dishes';
 
 function RestaurantOrderCard({ order, setActive }) {
   const handleClick = () => setActive(order);
 
-  const allDishes = useSelector((state) => state.dishes.list);
+  const allDishes = dishes;
 
   const orderDishes = order.dishes.map((dish) => {
     const name = allDishes.find((item) => item.id === dish.id).name;

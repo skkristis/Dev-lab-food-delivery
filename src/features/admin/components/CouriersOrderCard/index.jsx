@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { Button, Spinner, Td, Tr, useDisclosure } from '@chakra-ui/react';
 
 import './index.scss';
 import CourierSelectionModal from '../CourierSelectionModal';
 
+import restaurants from '../../mocks/restaurants';
+
 function CouriersOrderCard({ order }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [selected, setSelected] = useState(false);
 
-  const restaurant = useSelector((state) =>
-    state.restaurants.list.find(
-      (restaurant) => restaurant.id === order.restaurantId
-    )
-  );
+  const restaurant = restaurants[0];
 
   const handleClickAssign = () => {
     onOpen();
