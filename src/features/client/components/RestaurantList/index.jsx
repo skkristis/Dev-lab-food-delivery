@@ -7,6 +7,7 @@ import merchantService from '../../../../services/merchantService';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { clearRestaurantList } from '../../../../store/reducers/restaurantsClientReducer';
 
 function RestaurantList({ selectedCategory, currentMerchantType }) {
   const { ref, inView } = useInView();
@@ -30,6 +31,7 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
         lastPage.links.next?.split('merchants?')[1] ?? undefined,
     }
   );
+  console.log(fetchedRestaurantData?.pages[0]);
 
   useEffect(() => {
     if (!isFetching && !isFetchingNextPage && hasNextPage) fetchNextPage();
@@ -39,9 +41,12 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
     const data =
       fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]
         .data;
-    const existCheck = restaurantsList?.filter(
-      (restaurant) => restaurant?.id === data?.[0]?.id
-    );
+
+    const existCheck = selectedCategory
+      ? []
+      : restaurantsList?.filter(
+          (restaurant) => restaurant?.id === data?.[0]?.id
+        );
 
     if (data && !existCheck.length) dispatchAdd(data);
   }, [
@@ -51,6 +56,7 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
   ]);
 
   useEffect(() => {
+    dispatch(clearRestaurantList());
     setQueryURL(
       selectedCategory
         ? `${currentMerchantType}&filter_equals_categoryId=${selectedCategory?.id}`

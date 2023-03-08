@@ -10,7 +10,6 @@ import { useQuery } from 'react-query';
 import merchantService from '../../../../services/merchantService';
 import { Spinner } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { clearRestaurantList } from '../../../../store/reducers/restaurantsClientReducer';
 
 function FilterByCategory({
   bgColor,
@@ -31,8 +30,6 @@ function FilterByCategory({
   const [smallerScreen] = useMediaQuery('(max-width: 1100px)');
 
   const handleMerchantTypeClick = (value, index) => {
-    dispatch(clearRestaurantList());
-
     setCurrentMerchantCategory(value);
     setActiveMerchantTypeIndex(null);
 
@@ -41,8 +38,6 @@ function FilterByCategory({
   };
 
   const handleCategoryTypeClick = (id, name, index) => {
-    dispatch(clearRestaurantList());
-
     setActiveMerchantTypeIndex(index);
     setSelectedCategory({ id, name });
   };
