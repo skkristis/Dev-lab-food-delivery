@@ -5,11 +5,17 @@ import { addToRestaurantList } from '../../../../store/reducers/restaurantsClien
 import RestaurantListCard from '../RestaurantListCard';
 import merchantService from '../../../../services/merchantService';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-function RestaurantList({ selectedCategory }) {
-  console.log(selectedCategory);
+function RestaurantList({ selectedCategory, currentMerchantType }) {
+  const { ref, inView } = useInView();
+  const dispatch = useDispatch();
+  const dispatchAdd = (restaurants) =>
+    dispatch(addToRestaurantList(restaurants));
+  let restaurantsList = useSelector((state) => state.restaurantsClient.list);
+  const [queryURL, setQueryURL] = useState(null);
+
   const {
     data: fetchedRestaurantData,
     isFetching,
@@ -17,21 +23,18 @@ function RestaurantList({ selectedCategory }) {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    ['restaurants', '/filter_equals_type=restaurant'],
-    merchantService.getRestaurantList,
+    [
+      'merchants',
+      `filter_equals_type=${
+        queryURL ? currentMerchantType + queryURL : currentMerchantType
+      }`,
+    ],
+    merchantService.getMerchantList,
     {
       getNextPageParam: (lastPage) =>
-        lastPage.links.next?.split('merchants?')[1] ?? 'no-next-page',
+        lastPage.links.next?.split('merchants?')[1] ?? undefined,
     }
   );
-
-  const { ref, inView } = useInView();
-
-  let restaurantsList = useSelector((state) => state.restaurantsClient.list);
-
-  const dispatch = useDispatch();
-  const dispatchAdd = (restaurants) =>
-    dispatch(addToRestaurantList(restaurants));
 
   useEffect(() => {
     if (!isFetching && !isFetchingNextPage && hasNextPage) fetchNextPage();
@@ -41,18 +44,24 @@ function RestaurantList({ selectedCategory }) {
     const data =
       fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]
         .data;
-    const existCheck = restaurantsList.filter(
-      (restaurant) => restaurant.id === data[0].id
+    const existCheck = restaurantsList?.filter(
+      (restaurant) => restaurant?.id === data?.[0]?.id
     );
 
     if (data && !existCheck.length) dispatchAdd(data);
-  }, [fetchedRestaurantData?.pages.length]);
+  }, [
+    fetchedRestaurantData?.pages.length,
+    currentMerchantType,
+    selectedCategory,
+  ]);
 
-  if (selectedCategory) {
-    restaurantsList = restaurantsList.filter((restaurant) =>
-      restaurant.restaurantTags.includes(selectedCategory)
+  useEffect(() => {
+    setQueryURL(
+      selectedCategory
+        ? `&filter_equals_categoryId=${selectedCategory?.id}`
+        : null
     );
-  }
+  }, [selectedCategory]);
 
   return (
     <Box as="section" className="container">
@@ -70,7 +79,10 @@ function RestaurantList({ selectedCategory }) {
         {restaurantsList.length ? (
           restaurantsList.map((restaurant) => {
             return (
-              <RestaurantListCard key={restaurant.id} restaurant={restaurant} />
+              <RestaurantListCard
+                key={restaurant?.id}
+                restaurant={restaurant}
+              />
             );
           })
         ) : (
@@ -79,7 +91,7 @@ function RestaurantList({ selectedCategory }) {
             textAlign="center"
             width="100%"
           >
-            No restaurants available
+            No {currentMerchantType}s available
           </Text>
         )}
       </Flex>

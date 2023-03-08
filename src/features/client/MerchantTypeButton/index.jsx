@@ -5,6 +5,7 @@ function MerchantTypeButton({
   index,
   activeMerchantTypeIndex,
   handleCategoryTypeClick,
+  isDisabled,
 }) {
   return (
     <Button
@@ -17,6 +18,9 @@ function MerchantTypeButton({
       onClick={() => handleCategoryTypeClick(item.id, item.name, index)}
       color={index === activeMerchantTypeIndex ? 'white' : 'black'}
       colorScheme={index === activeMerchantTypeIndex ? 'blue' : 'white'}
+      isDisabled={index === activeMerchantTypeIndex}
+      opacity="1 !important"
+      cursor="pointer !important"
     >
       <Box maxW="20px" display="inline-block">
         <Image src={item.thumbnail} />

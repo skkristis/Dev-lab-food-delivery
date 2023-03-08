@@ -6,20 +6,16 @@ const getCategoryList = async ({ queryKey }) => {
   return response.data;
 };
 
-const getRestaurantList = async ({ pageParam }, queryKey) => {
-  console.log(queryKey);
-  const response = await axios.get(`/api/merchants?${pageParam}`);
+const getMerchantList = async ({ pageParam, queryKey }) => {
+  const [_, queryParam] = queryKey;
+  const response = await axios.get(`/api/merchants?${pageParam || queryParam}`);
+  console.log(response.data);
   return response.data;
 };
-// const getShopList = async () => {
-//   const response = await axios.get(`/api/merchants?filter_equals_type=shop`);
-//   return response.data;
-// };
 
 const storesService = {
-  getRestaurantList,
+  getMerchantList,
   getCategoryList,
-  // getShopList,
 };
 
 export default storesService;

@@ -11,9 +11,13 @@ export const restaurantsClientSlice = createSlice({
     addToRestaurantList: (state, action) => {
       state.list = [...state.list, ...action.payload];
     },
+    clearRestaurantList: (state) => {
+      state.list = [];
+    },
   },
 });
 
-export const { addToRestaurantList } = restaurantsClientSlice.actions;
+export const { addToRestaurantList, clearRestaurantList } =
+  restaurantsClientSlice.actions;
 
 export default restaurantsClientSlice.reducer;
