@@ -21,9 +21,6 @@ function CustomerOrderStatus() {
   const { orderTotal, payMethod } = location?.state
     ? location.state
     : { orderTotal: 0, payMethod: undefined };
-  const { orderTotal, payMethod } = location?.state
-    ? location.state
-    : { orderTotal: 0, payMethod: undefined };
   const cartItems = useSelector((store) => store.cart.list);
   const customerInfo = useSelector((store) => store.customer);
   const primaryAddress = customerInfo.addressBook.filter(

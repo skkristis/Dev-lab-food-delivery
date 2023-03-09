@@ -20,7 +20,7 @@ function CheckoutCart({ deliveryFee, payMethod, isEmailValid }) {
   } = useDisclosure();
 
   const cartItems = useSelector((store) => store.cart.list);
-  deliveryFee = deliveryFee === 'FREE' ? 0 : deliveryFee.match(/[\d\.]+/)[0];
+  deliveryFee = deliveryFee === 'FREE' ? 0 : deliveryFee.match(/[\d.]+/)[0];
 
   const orderSubtotal = cartItems
     .reduce((acc, cur) => {
