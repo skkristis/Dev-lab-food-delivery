@@ -10,6 +10,7 @@ import RestaurantStats from '../features/admin/components/RestaurantStats/Restau
 import RestaurantOrders from '../features/admin/components/RestaurantOrders/RestaurantOrders';
 import RestaurantDishes from '../features/admin/components/RestaurantDishes/RestaurantDishes';
 import RestaurantDescriptionForm from '../features/admin/components/RestaurantDescriptionForm/RestaurantDescriptionForm';
+import PartnerSignIn from '../features/client/pages/PartnerSignIn';
 
 import {
   BiRestaurant,
@@ -77,6 +78,10 @@ function getClientRoutes() {
     {
       path: '/checkout',
       element: <Checkout />,
+    },
+    {
+      path: '/partner-sign-in',
+      element: <PartnerSignIn />,
     },
   ];
 }
