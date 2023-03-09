@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../../store/reducers/cartReducer';
 import RestaurantInspectModal from '../RestaurantInspectModal';
+import placeholderRestaurantUrl from '../../../../assets/placeholder-restaurant.jpg';
 
 function RestaurantInspectCard({ deal, cartOpened }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,7 +59,7 @@ function RestaurantInspectCard({ deal, cartOpened }) {
                   {currentItem.quantity} x
                 </Text>
               )}
-              {deal.recipeName}
+              {deal.name}
             </Heading>
             {deal?.popular && (
               <Text
@@ -78,12 +79,12 @@ function RestaurantInspectCard({ deal, cartOpened }) {
               </Text>
             )}
             <Text fontSize="14px" wordBreak="break-word" color="lightslategray">
-              {deal.recipeBio}
+              {deal.bio}
             </Text>
           </Box>
           <Flex alignItems="center">
             <Text fontSize="16px" paddingRight="20px">
-              €{deal.recipePrice}
+              {deal.price}€
             </Text>
             <Button
               variant="outline"
@@ -98,7 +99,11 @@ function RestaurantInspectCard({ deal, cartOpened }) {
           </Flex>
         </Flex>
         <Box overflow="hidden" rounded="md" maxW={{ base: '40%', md: '50%' }}>
-          <Image src={deal.recipeThumb} height="100%" objectFit="cover" />
+          <Image
+            src={deal.thumbnail || placeholderRestaurantUrl}
+            height="100%"
+            objectFit="cover"
+          />
         </Box>
       </Flex>
       <RestaurantInspectModal deal={deal} isOpen={isOpen} onClose={onClose} />
