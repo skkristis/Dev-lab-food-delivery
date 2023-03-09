@@ -38,7 +38,7 @@ function RestaurantDishes() {
   const [formState, setFormState] = useState('idle');
 
   const handleRemove = () => {
-    dispatch(removeItem(activeDish));
+    dispatch(removeItem({ id: activeDish.id, merchant_id: merchantId }));
     setActiveDish(null);
     setFormState('idle');
   };

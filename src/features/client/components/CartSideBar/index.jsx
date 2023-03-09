@@ -17,8 +17,9 @@ import {
   deleteItem,
 } from '../../../../store/reducers/cartReducer';
 import { DeleteIcon } from '@chakra-ui/icons';
+import placeholderRestaurantUrl from '../../../../assets/placeholder-restaurant.jpg';
 
-function CartSideBar({ cartItems }) {
+function CartSideBar({ restaurantInfo, cartItems }) {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function CartSideBar({ cartItems }) {
   const orderTotal = cartItems.length
     ? cartItems
         .reduce((acc, curr) => {
-          const currValue = +curr.recipePrice;
+          const currValue = +curr.price;
           return acc + currValue * curr.quantity;
         }, 0)
         .toFixed(2)
@@ -46,11 +47,8 @@ function CartSideBar({ cartItems }) {
         <Flex direction="column">
           <Stack padding="0 20px" alignItems="left">
             <Text fontSize="20px" color="rgb(118, 118, 118)">
-              Your order from
+              Your order:
             </Text>
-            <Heading mt="0" fontSize="26px">
-              BFD.LT
-            </Heading>
           </Stack>
           <Box
             padding="0px 20px"
@@ -60,7 +58,7 @@ function CartSideBar({ cartItems }) {
             overflow="auto"
           >
             {cartItems.map((item, i) => {
-              const itemTotal = (+item.recipePrice * item.quantity).toFixed(2);
+              const itemTotal = (+item.price * item.quantity).toFixed(2);
               return (
                 <Flex
                   key={i}
@@ -78,13 +76,16 @@ function CartSideBar({ cartItems }) {
                       width="30%"
                       maxHeight="150px"
                     >
-                      <Image src={item.recipeThumb} rounded="md" />
+                      <Image
+                        src={item.thumbnail || placeholderRestaurantUrl}
+                        rounded="md"
+                      />
                     </Center>
                     <Center>
                       <Box>
-                        <Heading fontSize="16px">{item.recipeName}</Heading>
+                        <Heading fontSize="16px">{item.name}</Heading>
                         <Text fontSize="14px" marginTop="10px" color="blue.400">
-                          €{itemTotal}
+                          {itemTotal} €
                         </Text>
                       </Box>
                     </Center>
@@ -139,7 +140,9 @@ function CartSideBar({ cartItems }) {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              onClick={() => navigate('/checkout')}
+              onClick={() =>
+                navigate('/checkout', { state: { restaurantInfo } })
+              }
               rounded="lg"
               borderRadius="24px"
             >

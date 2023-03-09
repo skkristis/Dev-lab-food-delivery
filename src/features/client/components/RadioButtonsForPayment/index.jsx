@@ -6,7 +6,7 @@ import CashUrl from '../../../../assets/cash-icon.svg';
 import { Image } from '@chakra-ui/image';
 import { Flex } from '@chakra-ui/layout';
 
-function RadioButtonsForPayment({ setStateFn, options }) {
+function RadioButtonsForPayment({ payMethod, setStateFn, options }) {
   const handleClick = (value) => {
     setStateFn(value);
   };
@@ -38,7 +38,7 @@ function RadioButtonsForPayment({ setStateFn, options }) {
     }
   };
   return (
-    <RadioGroup defaultValue={options[0]}>
+    <RadioGroup defaultValue={payMethod}>
       <Stack spacing={5} direction="column">
         {options?.map((paymentMethod) => {
           return (

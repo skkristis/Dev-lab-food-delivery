@@ -14,6 +14,7 @@ import CustomerOrderSteps from '../CustomerOrderSteps';
 
 import './CustomerOrderStatus.scss';
 import { useLocation, useNavigate } from 'react-router';
+import placeholderRestaurantUrl from '../../../../assets/placeholder-restaurant.jpg';
 
 function CustomerOrderStatus() {
   const location = useLocation();
@@ -55,12 +56,12 @@ function CustomerOrderStatus() {
               <ListItem key={dish.id} className="dish-list__item">
                 <Box className="dish-list__image">
                   <Image
-                    src={dish.recipeThumb}
-                    alt={`${dish.recipeName} image`}
+                    src={dish.thumbnail || placeholderRestaurantUrl}
+                    alt={`${dish.name} image`}
                   />
                 </Box>
                 <Text>
-                  {index + 1}. {dish.recipeName}{' '}
+                  {index + 1}. {dish.name}
                   <Box as="span">({dish.quantity} pcs.)</Box>
                 </Text>
               </ListItem>

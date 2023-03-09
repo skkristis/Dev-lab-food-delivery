@@ -2,6 +2,7 @@ import { Box, Heading } from '@chakra-ui/react';
 
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 
 import CheckoutCart from '../../components/CheckoutCart';
 import OrderDetailCustomization from '../../components/OrderDetailCustomization';
@@ -13,11 +14,14 @@ function Checkout() {
   );
   const [payMethod, setPayMethod] = useState(preferedPayMethod);
 
+  const location = useLocation();
+  const { restaurantInfo } = location.state;
+
   return (
     <Box as="section">
       <Box className="container" paddingTop="50px">
         <Heading fontSize="40px">Checkout</Heading>
-        <Heading fontSize="20px">Jammi (Tauro Kalnas)</Heading>
+        <Heading fontSize="20px">{restaurantInfo.full_name}</Heading>
       </Box>
 
       <Box
@@ -33,7 +37,11 @@ function Checkout() {
           setIsEmailValid={setIsEmailValid}
         />
 
-        <CheckoutCart payMethod={payMethod} isEmailValid={isEmailValid} />
+        <CheckoutCart
+          deliveryFee={restaurantInfo.delivery_cost}
+          payMethod={payMethod}
+          isEmailValid={isEmailValid}
+        />
       </Box>
     </Box>
   );

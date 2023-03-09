@@ -1,4 +1,11 @@
-import React from 'react';
+import {
+  BiRestaurant,
+  BiCategory,
+  BiLayer,
+  BiNotepad,
+  BiCar,
+} from 'react-icons/bi';
+
 import { createHashRouter, redirect } from 'react-router-dom/dist';
 import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
@@ -10,19 +17,14 @@ import RestaurantStats from '../features/admin/components/RestaurantStats/Restau
 import RestaurantOrders from '../features/admin/components/RestaurantOrders/RestaurantOrders';
 import RestaurantDishes from '../features/admin/components/RestaurantDishes/RestaurantDishes';
 import RestaurantDescriptionForm from '../features/admin/components/RestaurantDescriptionForm/RestaurantDescriptionForm';
-
-import {
-  BiRestaurant,
-  BiCategory,
-  BiLayer,
-  BiNotepad,
-  BiCar,
-} from 'react-icons/bi';
+import RestaurantsList from '../features/admin/components/RestaurantsList/RestaurantsList';
+import PartnerSignIn from '../features/client/pages/PartnerSignIn';
 import CourierRegisterLanding from '../features/client/pages/CourierRegisterLanding';
-import { restaurantInspectMock } from '../features/client/mocks/restaurantInspectMock';
 import CustomerOrderStatus from '../features/client/components/CustomerOrderStatus/CustomerOrderStatus';
 import CustomerAccountDashboard from '../features/client/components/CustomerAccountDashboard/CustomerAccountDashboard';
 import Checkout from '../features/client/pages/Checkout';
+
+import restaurantInspectService from '../services/restaurantInspectService';
 
 function getClientRoutes() {
   return [
@@ -36,8 +38,11 @@ function getClientRoutes() {
     },
     {
       path: '/restaurants/:id',
-      loader: async () => {
-        return restaurantInspectMock;
+      loader: async ({ params }) => {
+        const response = await restaurantInspectService.getRestaurantMenu(
+          params.id
+        );
+        return response;
       },
       element: <RestaurantInspect />,
     },
@@ -78,6 +83,10 @@ function getClientRoutes() {
       path: '/checkout',
       element: <Checkout />,
     },
+    {
+      path: '/partner-sign-in',
+      element: <PartnerSignIn />,
+    },
   ];
 }
 
@@ -112,6 +121,12 @@ export function getAdminRoutes() {
       element: <CouriersDashboard />,
       navItemName: 'Couriers',
       navItemIcon: BiCar,
+    },
+    {
+      path: '/admin',
+      element: <RestaurantsList />,
+      navItemName: 'Merchants',
+      navItemIcon: BiCategory,
     },
   ];
 }

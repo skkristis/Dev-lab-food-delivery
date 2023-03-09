@@ -17,7 +17,7 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
     hasNextPage,
   } = useInfiniteQuery(
     [
-      'merchants',
+      currentMerchantType,
       {
         filter_equals_type: currentMerchantType,
         filter_equals_categoryId: selectedCategory?.id || null,
@@ -25,8 +25,14 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
     ],
     merchantService.getMerchantList,
     {
-      getNextPageParam: (lastPage) =>
-        lastPage?.links.next?.split('merchants?')[1] ?? undefined,
+      getNextPageParam: (lastPage) => lastPage?.meta.next_cursor ?? undefined,
+      onSuccess: (data) => {
+        setRestaurantsList(
+          data?.pages.reduce((acc, cur) => {
+            return [...acc, ...(cur.data || [])];
+          }, []) || []
+        );
+      },
     }
   );
 
@@ -35,8 +41,6 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
       return [...acc, ...[cur.data ? cur.data : []]];
     }, []) || []
   );
-  const latestFetchedRestaurantList =
-    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages?.length - 1].data;
 
   // check if in view
   useEffect(() => {
@@ -48,28 +52,12 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
     setRestaurantsList([]);
   }, [selectedCategory, currentMerchantType]);
 
-  // save on successful fetch
-  useEffect(() => {
-    const restaurantDoesExist = restaurantsList?.filter(
-      (restaurant) => restaurant?.id === latestFetchedRestaurantList?.[0]?.id
-    );
-
-    setRestaurantsList((prevList = []) => {
-      if (restaurantDoesExist) return latestFetchedRestaurantList;
-
-      return [...prevList, ...latestFetchedRestaurantList];
-    });
-  }, [
-    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages?.length - 1]
-      .data[0],
-  ]);
-
   return (
     <Box as="section" className="container">
       {selectedCategory ? (
-        <Heading>{selectedCategory.name} restaurants</Heading>
+        <Heading>{`${selectedCategory.name} ${currentMerchantType}s`}</Heading>
       ) : (
-        <Heading>All restaurants</Heading>
+        <Heading>{`All ${currentMerchantType}s`}</Heading>
       )}
       <Flex
         flexWrap="wrap"
@@ -78,22 +66,30 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
         marginTop="10px"
       >
         {restaurantsList?.length ? (
-          restaurantsList.map((restaurant) => {
-            return (
-              <RestaurantListCard
-                key={restaurant?.id}
-                restaurant={restaurant}
-              />
-            );
-          })
-        ) : (
           <>
-            {(isFetching || isFetchingNextPage) && (
+            {restaurantsList.map((restaurant) => {
+              return (
+                <RestaurantListCard
+                  key={restaurant?.id}
+                  restaurant={restaurant}
+                />
+              );
+            })}
+
+            {isFetchingNextPage && (
               <Center marginTop="20px" width="100%">
                 <Spinner size="xl" />
               </Center>
             )}
-            {!latestFetchedRestaurantList?.length && (
+          </>
+        ) : (
+          <>
+            {isFetching && (
+              <Center marginTop="20px" width="100%">
+                <Spinner size="xl" />
+              </Center>
+            )}
+            {!fetchedRestaurantData?.pages[0].data.length && (
               <Text
                 display={isFetching ? 'none' : 'block'}
                 textAlign="center"

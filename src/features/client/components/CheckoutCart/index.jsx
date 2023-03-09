@@ -9,11 +9,11 @@ import {
 } from '@chakra-ui/react';
 
 import { useSelector } from 'react-redux';
-
 import PaymentModal from '../../components/PaymentModal';
 import { mockFess } from '../../mocks/checkoutMock';
 
-function CheckoutCart({ payMethod }) {
+function CheckoutCart({ deliveryFee, payMethod, isEmailValid }) {
+  const sessionUser = useSelector((state) => state.user.data);
   const {
     isOpen: paymentIsOpen,
     onOpen: paymentOnOpen,
@@ -21,16 +21,17 @@ function CheckoutCart({ payMethod }) {
   } = useDisclosure();
 
   const cartItems = useSelector((store) => store.cart.list);
+  deliveryFee = deliveryFee === 'FREE' ? 0 : deliveryFee.match(/[\d.]+/)[0];
 
   const orderSubtotal = cartItems
     .reduce((acc, cur) => {
-      return +cur.recipePrice * +cur.quantity + acc;
+      return +cur.price * +cur.quantity + acc;
     }, 0)
     .toFixed(2);
 
   const orderTotal = (
     +orderSubtotal +
-    +mockFess.deliveryFee +
+    +deliveryFee +
     +mockFess.serviceFee +
     +mockFess.smallOrderFee
   ).toFixed(2);
@@ -72,7 +73,7 @@ function CheckoutCart({ payMethod }) {
       </Flex>
       <Flex justifyContent="space-between">
         <Text>Delivery (4.77 km)</Text>
-        <Text>{mockFess.deliveryFee}</Text>
+        <Text>{deliveryFee}</Text>
       </Flex>
       <Flex justifyContent="space-between">
         <Text>Service fee</Text>
@@ -92,6 +93,7 @@ function CheckoutCart({ payMethod }) {
         color="white"
         bg="blue.400"
         onClick={handleOrderClick}
+        isDisabled={!isEmailValid && !sessionUser}
       >
         Click to order
       </Button>

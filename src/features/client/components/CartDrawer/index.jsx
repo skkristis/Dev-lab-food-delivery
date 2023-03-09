@@ -125,7 +125,7 @@ function CartDrawer() {
                       <Box>
                         <Heading fontSize="16px">{item.recipeName}</Heading>
                         <Text fontSize="14px" marginTop="10px" color="blue.400">
-                          €{itemTotal}
+                          {itemTotal} €
                         </Text>
                       </Box>
                     </Center>

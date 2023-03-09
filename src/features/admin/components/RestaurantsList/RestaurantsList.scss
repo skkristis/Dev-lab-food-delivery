@@ -1,0 +1,28 @@
+@import './src/constants/variables';
+
+.merchants {
+  &-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #fff;
+
+    @media screen and (max-width: $screen-md) {
+      padding: 20px;
+    }
+
+    &__nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-self: flex-end;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      margin-top: 0;
+    }
+  }
+}
