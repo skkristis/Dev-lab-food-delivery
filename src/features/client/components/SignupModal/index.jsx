@@ -11,7 +11,8 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { Checkbox } from '@chakra-ui/react';
-
+import { useRef } from 'react';
+import { Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { add } from '../../../../store/reducers/userReducer';
 import auth from '../../../../services/AuthService';
@@ -21,7 +22,11 @@ import './index.scss';
 function SignUpModal({ isOpen, onClose }) {
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, watch, setError, formState: {errors} } = useForm();
+
+  const password = useRef();
+  password.current = watch("password");
+  password.confirm = watch('confirmPassword');
 
   const onSubmit = (data) => {
     const userdata = {
@@ -29,15 +34,29 @@ function SignUpModal({ isOpen, onClose }) {
       lastName: data.lastName,
       email: data.email,
       password: data.password,
-      isAdult: data.ageAgreement,
       termsAgree: data.termsAgreement,
     };
 
+    const isPasswordMatch = validatePasswordMatch();
+    if(!isPasswordMatch) {
+      return;
+    }
     auth.register(userdata).then(() => {
       dispatch(add({ email: userdata.email, password: userdata.password }));
       onClose();
       reset();
     });
+  };
+
+  const validatePasswordMatch = () => {
+    if (password.current !== password.confirm) {
+      setError('confirmPassword', {
+        type: 'manual',
+        message: 'Passwords do not match',
+      });
+      return false
+    }
+    return true
   };
 
   return (
@@ -64,13 +83,15 @@ function SignUpModal({ isOpen, onClose }) {
                 {...register('password')}
                 mb={2}
               />
-              <Checkbox
-                colorScheme="blue"
-                {...register('ageAgreement')}
-                display="block"
-              >
-                I&apos;m older than <b>18</b> years old.
-              </Checkbox>
+              <Input
+                type="password"
+                placeholder="Confirm password"
+                {...register('confirmPassword')}
+                mb={2}
+              />
+              {errors.confirmPassword && (
+                <Text color="red">Passwords do not match</Text>
+              )}
               <Checkbox
                 colorScheme="blue"
                 {...register('termsAgreement')}
