@@ -34,6 +34,7 @@ function SignUpModal({ isOpen, onClose }) {
       lastName: data.lastName,
       email: data.email,
       password: data.password,
+      confirmPassword: data.confirmPassword,
       termsAgree: data.termsAgreement,
     };
 
