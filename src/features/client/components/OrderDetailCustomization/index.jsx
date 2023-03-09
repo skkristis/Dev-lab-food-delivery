@@ -23,7 +23,7 @@ import { useSelector } from 'react-redux';
 
 import RadioButtonsForPayment from '../RadioButtonsForPayment';
 
-function OrderDetailCustomization({ setPayMethod, setIsEmailValid }) {
+function OrderDetailCustomization({ payMethod, setPayMethod, setIsEmailValid }) {
   const {
     register,
     formState: { errors },
@@ -100,7 +100,7 @@ function OrderDetailCustomization({ setPayMethod, setIsEmailValid }) {
         <Stack>
           {cartItems &&
             cartItems.map((dish) => {
-              return <CheckoutItemCard dish={dish} key={dish.recipeName} />;
+              return <CheckoutItemCard dish={dish} key={dish.id} />;
             })}
           <Button onClick={goBack}>Add more items</Button>
         </Stack>
@@ -109,6 +109,7 @@ function OrderDetailCustomization({ setPayMethod, setIsEmailValid }) {
       <Stack spacing={3}>
         <Heading fontSize="28px">Payment details</Heading>
         <RadioButtonsForPayment
+          payMethod={payMethod}
           options={paymentsMethods}
           setStateFn={setPayMethod}
         />
