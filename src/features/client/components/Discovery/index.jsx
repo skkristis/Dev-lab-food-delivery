@@ -22,7 +22,7 @@ function Discovery() {
     fetchData();
   }, []);
 
-  console.log(restaurantItem);
+  console.log(isLoading);
   return (
     <Box as="section" className="container">
       <Heading>Discover</Heading>
@@ -39,6 +39,7 @@ function Discovery() {
           width="100%"
           overflowX="scroll"
           id="discovery-item-list"
+          justifyContent={isLoading && 'center'}
         >
           {restaurantItem.data.length > 0 && !isLoading ? (
             restaurantItem.data.map((item) => (

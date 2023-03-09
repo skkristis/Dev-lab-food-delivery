@@ -30,17 +30,10 @@ function RestaurantInspectForLanding({ item }) {
             {item.name}
           </Heading>
           <Flex flexDirection="row" justifyContent="space-between">
-            <Box
-              display="inline-block"
-              color="white"
-              height="20px"
-              whiteSpace="nowrap"
-              overflow="hidden"
-              textOverflow="ellipsis"
-            >
-              {item.bio}
+            <Box display="inline-block" color="white" height="20px">
+              {item.merchant.name}
             </Box>
-            <Box color="white">{item.price}</Box>
+            <Box color="white">{item.price}€</Box>
           </Flex>
         </Flex>
       </Box>
