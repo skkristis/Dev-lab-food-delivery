@@ -13,6 +13,9 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { paymentsMethods } from '../../../../constants';
+import SwedbankUrl from '../../../../assets/swedbank-icon.png';
+import PayseraUrl from '../../../../assets/paysera-icon.png';
+import CashUrl from '../../../../assets/cash-icon.svg';
 import bicycleUrl from '../../../../assets/bicycle-icon.svg';
 
 import OrderParametersModal from '../../components/OrderParametersModal';
@@ -31,10 +34,7 @@ function OrderDetailCustomization({
     formState: { errors },
     control,
   } = useForm({
-    mode: 'onChange',
-    defaultValues: {
-      email: '',
-    },
+    mode: 'onChange'
   });
 
   const email = useWatch({ control, name: 'email' });
@@ -45,13 +45,16 @@ function OrderDetailCustomization({
 
   const sessionUser = useSelector((state) => state.user.data);
 
-import RadioButtonsForPayment from '../RadioButtonsForPayment';
-
-function OrderDetailCustomization({ setPayMethod }) {
   const {
     isOpen: deliveryAddressIsOpen,
     onOpen: deliveryAddressOnOpen,
     onClose: deliveryAddressOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: paymentOptionIsOpen,
+    onOpen: paymentOptionOnOpen,
+    onClose: paymentOptionOnClose,
   } = useDisclosure();
 
   const navigate = useNavigate();
@@ -65,6 +68,17 @@ function OrderDetailCustomization({ setPayMethod }) {
   const [deliveryAddress, setDeliveryAddress] = useState(
     `${primaryAddress.street} ${primaryAddress.building}-${primaryAddress.apartment}, ${primaryAddress.city}`
   );
+
+  const payMethodUrl = (() => {
+    switch (payMethod) {
+      case 'Swedbank':
+        return SwedbankUrl;
+      case 'PaySera':
+        return PayseraUrl;
+      case 'Cash':
+        return CashUrl;
+    }
+  })();
 
   return (
     <Stack spacing="20px">
@@ -85,7 +99,7 @@ function OrderDetailCustomization({ setPayMethod }) {
             <Input
               type="email"
               placeholder="Enter your email address"
-              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+              {...register('email', { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i })}
             />
             {errors.email && (
               <Text color="red.500">Please enter a valid email address</Text>
@@ -119,7 +133,21 @@ function OrderDetailCustomization({ setPayMethod }) {
       <Stack spacing={3}>
         <Heading fontSize="28px">Payment details</Heading>
 
-        <RadioButtonsForPayment
+        <Button
+          variant="outline"
+          onClick={paymentOptionOnOpen}
+          display="flex"
+          justifyContent="space-between"
+        >
+          <Image src={payMethodUrl} width="30px" />
+          <Text>{payMethod}</Text>
+          <ChevronRightIcon />
+        </Button>
+
+        <OrderParametersModal
+          isOpen={paymentOptionIsOpen}
+          onClose={paymentOptionOnClose}
+          header="Payment option"
           options={paymentsMethods}
           setStateFn={setPayMethod}
         />
