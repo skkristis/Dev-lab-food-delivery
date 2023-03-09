@@ -25,8 +25,10 @@ import { weekdays } from '../../../../constants';
 
 import './RestaurantDescriptionForm.scss';
 
-function RestaurantDescriptionForm() {
-  const merchantId = '98a38bca-c1d0-4c9f-8c35-9574579b3937';
+function RestaurantDescriptionForm({ propMerchant = null, action = 'update' }) {
+  const merchantId = propMerchant
+    ? propMerchant
+    : '98a38bca-c1d0-4c9f-8c35-9574579b3937';
 
   const merchant = useSelector((state) =>
     state.restaurantsManagement.list.find((item) => item.id === merchantId)
@@ -34,7 +36,7 @@ function RestaurantDescriptionForm() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!merchant) {
+    if (!merchant && action === 'update') {
       const getMerchant = async () =>
         await axios.get(`/api/merchants/${merchantId}`);
 
@@ -49,7 +51,7 @@ function RestaurantDescriptionForm() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const decodeInputTime = (ms) => {
+  const decodeInputTime = (ms = 0) => {
     const hours = parseInt(ms / 3600);
     const minutes = (ms % 3600) / 60;
     return `${hours > 9 ? hours : '0' + hours}:${
@@ -59,7 +61,7 @@ function RestaurantDescriptionForm() {
 
   const toast = useToast();
   useEffect(() => {
-    if (merchant) {
+    if (merchant && action === 'update') {
       const merchantData = {
         name: merchant.name,
         name_tag: merchant.name_tag,
@@ -100,12 +102,22 @@ function RestaurantDescriptionForm() {
       data.schedule[day] = { start: startSeconds, end: endSeconds };
     });
 
-    dispatch(update({ data, merchant: merchantId }));
-    const response = await axios.put(`/api/merchants/${merchantId}`, data);
+    let response = {};
+    if (action === 'update') {
+      dispatch(update({ data, merchant: merchantId }));
+      response = await axios.put(`/api/merchants/${merchantId}`, data);
+    } else {
+      response = await axios.post('/api/merchants', data);
+      if (response.status === 201) {
+        dispatch(add({ data, merchant: response.data.id }));
+      }
+    }
 
     toast({
-      title: response.status === 200 ? 'Info updated' : 'Error on update',
-      status: response.status === 200 ? 'success' : 'error',
+      title: [200, 201].includes(response.status)
+        ? 'Info was updated'
+        : 'Something went wrong',
+      status: [200, 201].includes(response.status) ? 'success' : 'error',
       duration: 6000,
       isClosable: true,
     });
@@ -161,7 +173,7 @@ function RestaurantDescriptionForm() {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl className="restaurant-dataform__control" isDisabled>
+        <FormControl className="restaurant-dataform__control">
           <FormLabel htmlFor="restaurant-status">Restaurant status</FormLabel>
           <Select id="restaurant-status" {...register('status')}>
             {merchantStatuses.map((status) => (
@@ -172,7 +184,7 @@ function RestaurantDescriptionForm() {
           </Select>
         </FormControl>
 
-        <FormControl className="restaurant-dataform__control" isDisabled>
+        <FormControl className="restaurant-dataform__control">
           <FormLabel htmlFor="restaurant-type">Restaurant type</FormLabel>
           <Select id="restaurant-type" {...register('type')}>
             <option value="restaurant">restaurant</option>
@@ -249,7 +261,7 @@ function RestaurantDescriptionForm() {
           size="lg"
           isLoading={isSubmitting}
         >
-          Update
+          {action === 'update' ? 'Update' : 'Add'}
         </Button>
       </form>
     </div>

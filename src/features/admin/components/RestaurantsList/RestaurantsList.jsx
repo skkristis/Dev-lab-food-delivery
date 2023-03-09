@@ -17,6 +17,7 @@ import {
   ModalBody,
   Button,
   useDisclosure,
+  Spinner,
 } from '@chakra-ui/react';
 import RestaurantDescriptionForm from '../RestaurantDescriptionForm/RestaurantDescriptionForm';
 
@@ -24,16 +25,31 @@ import './RestaurantsList.scss';
 
 function RestaurantsList() {
   const [merchants, setMerchants] = useState([]);
-  const [nextFetchPage, setNextFetchPage] = useState(true);
+  const [loadingStatus, setLoadingStatus] = useState('empty');
+  const [cursorNext, setCursorNext] = useState(null);
 
-  useEffect(() => {
-    if (nextFetchPage) {
-      axios.get('/api/merchants').then((response) => {
-        setMerchants(response.data.data);
-        setNextFetchPage(response.data.links.next !== null);
-      });
-    }
-  }, []);
+  const [activeMerchant, setActiveMerchant] = useState(null);
+  const [formAction, setFormAction] = useState('update');
+
+  const handleViewMerchant = (id = null) => {
+    setFormAction(id ? 'update' : 'add');
+    setActiveMerchant(id);
+    onOpen();
+  };
+
+  const loadMerchants = () => {
+    setLoadingStatus('loading');
+    const fetchLink = cursorNext
+      ? `/api/merchants?cursor=${cursorNext}`
+      : '/api/merchants';
+    axios.get(fetchLink).then((response) => {
+      setMerchants([...merchants, ...response.data.data]);
+      setCursorNext(response.data.meta.next_cursor);
+      setLoadingStatus('idle');
+    });
+  };
+
+  useEffect(() => loadMerchants(), []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -45,6 +61,16 @@ function RestaurantsList() {
 
   return (
     <div className="merchants-dashboard">
+      <div className="merchants-dashboard__nav">
+        <Button
+          colorScheme="green"
+          size="lg"
+          onClick={() => handleViewMerchant()}
+        >
+          Add new
+        </Button>
+      </div>
+
       {merchants.length ? (
         <>
           <TableContainer w="full">
@@ -60,11 +86,15 @@ function RestaurantsList() {
               <Tbody>
                 {merchants.map((merchant) => (
                   <Tr key={merchant.id}>
-                    <Td>{merchant.name}</Td>
-                    <Td>{merchant.type}</Td>
-                    <Td>{truncate(merchant.bio, 30)}</Td>
                     <Td>
-                      <Button onClick={onOpen}>View</Button>
+                      <strong>{merchant.name}</strong>
+                    </Td>
+                    <Td>{merchant.type}</Td>
+                    <Td>{merchant.bio && truncate(merchant.bio, 30)}</Td>
+                    <Td>
+                      <Button onClick={() => handleViewMerchant(merchant.id)}>
+                        View
+                      </Button>
                     </Td>
                   </Tr>
                 ))}
@@ -75,16 +105,34 @@ function RestaurantsList() {
           <Modal isOpen={isOpen} onClose={onClose} size="3xl">
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Form</ModalHeader>
+              <ModalHeader textAlign="center">Merchant Info</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <RestaurantDescriptionForm />
+                <RestaurantDescriptionForm
+                  propMerchant={activeMerchant}
+                  action={formAction}
+                />
               </ModalBody>
             </ModalContent>
           </Modal>
+
+          {loadingStatus !== 'loading' && cursorNext && merchants.length && (
+            <Button
+              colorScheme="green"
+              size="lg"
+              mt={10}
+              onClick={loadMerchants}
+            >
+              Load more
+            </Button>
+          )}
         </>
       ) : (
-        <h3> No merchants added.</h3>
+        loadingStatus === 'idle' && <h3>No merchants added.</h3>
+      )}
+
+      {loadingStatus === 'loading' && (
+        <Spinner size="xl" alignSelf="center" mt={10} />
       )}
     </div>
   );

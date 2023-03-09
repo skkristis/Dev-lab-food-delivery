@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addList } from '../../../../store/reducers/restaurantsManagementReducer';
+import {
+  add,
+  removeItem,
+} from '../../../../store/reducers/restaurantsManagementReducer';
 import axios from '../../../../../src/services/axios';
 
 import { Spinner } from '@chakra-ui/react';
@@ -27,7 +30,7 @@ function RestaurantDishes() {
       const getMerchant = async () =>
         await axios.get(`/api/merchants/${merchantId}`);
 
-      getMerchant().then((response) => dispatch(addList(response.data.data)));
+      getMerchant().then((response) => dispatch(add(response.data.data)));
     }
   }, []);
 
@@ -35,7 +38,7 @@ function RestaurantDishes() {
   const [formState, setFormState] = useState('idle');
 
   const handleRemove = () => {
-    dispatch(removeItem(activeDish));
+    dispatch(removeItem({ id: activeDish.id, merchant_id: merchantId }));
     setActiveDish(null);
     setFormState('idle');
   };

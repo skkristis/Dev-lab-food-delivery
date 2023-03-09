@@ -31,7 +31,9 @@ function RestaurantOrder({ order, ordersSort, setActive, setOrdersSort }) {
   const handleChangeStatus = (status) => {
     dispatchUpdate({ ...order, status: status });
     setActive(null);
-    setOrdersSort(status === 'in-delivery' ? 'history' : status);
+    setOrdersSort(
+      status === 'in-delivery' || status === 'declined' ? 'history' : status
+    );
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
