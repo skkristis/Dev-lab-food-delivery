@@ -89,7 +89,7 @@ function RestaurantListCard({ restaurant }) {
       </Flex>
       <Flex gap="2" p="2" borderTop="1px dashed lightgray">
         <Image src={bicycleUrl} width="20px" />
-        {`€ ${restaurant.delivery_cost} ☆ ${restaurant.rating}`}
+        {`${restaurant.delivery_cost}  ${restaurant.rating} ☆`}
       </Flex>
     </LinkBox>
   );

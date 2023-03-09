@@ -84,7 +84,7 @@ function RestaurantInspectCard({ deal, cartOpened }) {
           </Box>
           <Flex alignItems="center">
             <Text fontSize="16px" paddingRight="20px">
-              €{deal.price}
+              {deal.price}€
             </Text>
             <Button
               variant="outline"

@@ -121,7 +121,7 @@ function RestaurantInspect() {
         maxWidth="450px"
       >
         <Box maxWidth="450px" position="fixed" padding="20px 10px 0 10px">
-          <CartSideBar cartItems={cartItems} />
+          <CartSideBar restaurantInfo={restaurantInfo} cartItems={cartItems} />
         </Box>
       </Box>
     </Flex>

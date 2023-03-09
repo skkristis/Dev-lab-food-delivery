@@ -19,7 +19,7 @@ import {
 import { DeleteIcon } from '@chakra-ui/icons';
 import placeholderRestaurantUrl from '../../../../assets/placeholder-restaurant.jpg';
 
-function CartSideBar({ cartItems }) {
+function CartSideBar({ restaurantInfo, cartItems }) {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ function CartSideBar({ cartItems }) {
                       <Box>
                         <Heading fontSize="16px">{item.name}</Heading>
                         <Text fontSize="14px" marginTop="10px" color="blue.400">
-                          €{itemTotal}
+                          {itemTotal} €
                         </Text>
                       </Box>
                     </Center>
@@ -143,7 +143,9 @@ function CartSideBar({ cartItems }) {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              onClick={() => navigate('/checkout')}
+              onClick={() =>
+                navigate('/checkout', { state: { restaurantInfo } })
+              }
               rounded="lg"
               borderRadius="24px"
             >

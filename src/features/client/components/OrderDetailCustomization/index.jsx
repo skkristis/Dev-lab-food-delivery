@@ -21,7 +21,7 @@ import { useSelector } from 'react-redux';
 
 import RadioButtonsForPayment from '../RadioButtonsForPayment';
 
-function OrderDetailCustomization({ setPayMethod }) {
+function OrderDetailCustomization({ payMethod, setPayMethod }) {
   const {
     isOpen: deliveryAddressIsOpen,
     onOpen: deliveryAddressOnOpen,
@@ -82,6 +82,7 @@ function OrderDetailCustomization({ setPayMethod }) {
         <Heading fontSize="28px">Payment details</Heading>
 
         <RadioButtonsForPayment
+          payMethod={payMethod}
           options={paymentsMethods}
           setStateFn={setPayMethod}
         />
