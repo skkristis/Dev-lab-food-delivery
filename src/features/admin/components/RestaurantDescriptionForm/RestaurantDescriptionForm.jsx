@@ -85,6 +85,19 @@ function RestaurantDescriptionForm({ propMerchant = null, action = 'update' }) {
     }
   }, [merchant]);
 
+  const getResponse = async (action, data) => {
+    if (action === 'update') {
+      dispatch(update({ data, merchant: merchantId }));
+      return await axios.put(`/api/merchants/${merchantId}`, data);
+    }
+
+    const response = await axios.post('/api/merchants', data);
+    if (response.status === 201) {
+      dispatch(add({ data, merchant: response.data.id }));
+    }
+    return response;
+  };
+
   const onSubmit = async (data) => {
     data.media = [];
 
@@ -102,16 +115,7 @@ function RestaurantDescriptionForm({ propMerchant = null, action = 'update' }) {
       data.schedule[day] = { start: startSeconds, end: endSeconds };
     });
 
-    let response = {};
-    if (action === 'update') {
-      dispatch(update({ data, merchant: merchantId }));
-      response = await axios.put(`/api/merchants/${merchantId}`, data);
-    } else {
-      response = await axios.post('/api/merchants', data);
-      if (response.status === 201) {
-        dispatch(add({ data, merchant: response.data.id }));
-      }
-    }
+    const response = getResponse(action, data);
 
     toast({
       title: [200, 201].includes(response.status)

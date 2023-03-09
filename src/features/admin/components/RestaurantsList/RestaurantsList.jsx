@@ -39,14 +39,13 @@ function RestaurantsList() {
 
   const loadMerchants = () => {
     setLoadingStatus('loading');
-    const fetchLink = cursorNext
-      ? `/api/merchants?cursor=${cursorNext}`
-      : '/api/merchants';
-    axios.get(fetchLink).then((response) => {
-      setMerchants([...merchants, ...response.data.data]);
-      setCursorNext(response.data.meta.next_cursor);
-      setLoadingStatus('idle');
-    });
+    axios
+      .get('/api/merchants', { params: { cursor: cursorNext } })
+      .then((response) => {
+        setMerchants([...merchants, ...response.data.data]);
+        setCursorNext(response.data.meta.next_cursor);
+        setLoadingStatus('idle');
+      });
   };
 
   useEffect(() => loadMerchants(), []);
