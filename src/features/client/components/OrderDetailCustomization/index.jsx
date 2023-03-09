@@ -12,9 +12,6 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import { paymentsMethods } from '../../../../constants';
-import SwedbankUrl from '../../../../assets/swedbank-icon.png';
-import PayseraUrl from '../../../../assets/paysera-icon.png';
-import CashUrl from '../../../../assets/cash-icon.svg';
 import bicycleUrl from '../../../../assets/bicycle-icon.svg';
 
 import OrderParametersModal from '../../components/OrderParametersModal';
@@ -22,17 +19,13 @@ import CheckoutItemCard from '../../components/CheckoutItemCard';
 import CheckoutContactCheck from '../../components/CheckoutContactCheck';
 import { useSelector } from 'react-redux';
 
-function OrderDetailCustomization({ payMethod, setPayMethod }) {
+import RadioButtonsForPayment from '../RadioButtonsForPayment';
+
+function OrderDetailCustomization({ setPayMethod }) {
   const {
     isOpen: deliveryAddressIsOpen,
     onOpen: deliveryAddressOnOpen,
     onClose: deliveryAddressOnClose,
-  } = useDisclosure();
-
-  const {
-    isOpen: paymentOptionIsOpen,
-    onOpen: paymentOptionOnOpen,
-    onClose: paymentOptionOnClose,
   } = useDisclosure();
 
   const navigate = useNavigate();
@@ -46,17 +39,6 @@ function OrderDetailCustomization({ payMethod, setPayMethod }) {
   const [deliveryAddress, setDeliveryAddress] = useState(
     `${primaryAddress.street} ${primaryAddress.building}-${primaryAddress.apartment}, ${primaryAddress.city}`
   );
-
-  const payMethodUrl = (() => {
-    switch (payMethod) {
-      case 'Swedbank':
-        return SwedbankUrl;
-      case 'PaySera':
-        return PayseraUrl;
-      case 'Cash':
-        return CashUrl;
-    }
-  })();
 
   return (
     <Stack spacing="20px">
@@ -99,21 +81,7 @@ function OrderDetailCustomization({ payMethod, setPayMethod }) {
       <Stack spacing={3}>
         <Heading fontSize="28px">Payment details</Heading>
 
-        <Button
-          variant="outline"
-          onClick={paymentOptionOnOpen}
-          display="flex"
-          justifyContent="space-between"
-        >
-          <Image src={payMethodUrl} width="30px" />
-          <Text>{payMethod}</Text>
-          <ChevronRightIcon />
-        </Button>
-
-        <OrderParametersModal
-          isOpen={paymentOptionIsOpen}
-          onClose={paymentOptionOnClose}
-          header="Payment option"
+        <RadioButtonsForPayment
           options={paymentsMethods}
           setStateFn={setPayMethod}
         />

@@ -1,7 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { add, update } from '../../../../store/reducers/dishesReducer';
+import {
+  addItem,
+  updateItem,
+} from '../../../../store/reducers/restaurantsManagementReducer';
 
 import {
   FormErrorMessage,
@@ -17,8 +20,6 @@ import {
 
 import './RestaurantDishForm.scss';
 
-import restaurants from '../../mocks/restaurants';
-
 function RestaurantDishForm({
   dish = null,
   allDishes,
@@ -26,16 +27,16 @@ function RestaurantDishForm({
   formState,
   setFormState,
 }) {
-  const restaurant = restaurants[0];
+  const merchantId = '98a38bca-c1d0-4c9f-8c35-9574579b3937';
 
   const defaultFormValues = dish
     ? {
         name: dish.name,
         status: dish.status,
         price: dish.price,
-        description: dish.description,
-        ingredients: dish.ingredients.join('\n'),
-        image: dish.image,
+        bio: dish.bio,
+        ingredients: dish.ingredients?.join('\n'),
+        thumbnail: dish.thumbnail,
       }
     : {};
 
@@ -48,18 +49,18 @@ function RestaurantDishForm({
   });
 
   const dispatch = useDispatch();
-  const dispatchAdd = (dish) => dispatch(add(dish));
-  const dispatchUpdate = (dish) => dispatch(update(dish));
+  const dispatchAdd = (dish) => dispatch(addItem(dish));
+  const dispatchUpdate = (dish) => dispatch(updateItem(dish));
 
   const onSubmit = (data) => {
-    const newDish = { ...data, price: Number(data.price) };
-    newDish.restaurantId = Number(restaurant.id);
+    const newDish = { ...data, price: Number(data.price).toFixed(2) };
     newDish.ingredients = data.ingredients
       .split('\n')
       .filter((line) => line.length);
 
     if (formState === 'edit') {
-      newDish.id = Number(dish.id);
+      newDish.id = dish.id;
+      newDish.merchant_id = dish.merchant_id;
       dispatchUpdate(newDish);
       setActiveDish(newDish);
       setFormState('idle');
@@ -70,13 +71,14 @@ function RestaurantDishForm({
       while (attempts > 0) {
         let newId = Math.floor(Math.random() * 900000) + 100000;
         if (!allDishes.find((item) => item.id === newId)) {
-          newDish.id = newId;
+          newDish.id = newId.toString();
           break;
         }
         attempts--;
       }
 
       if (newDish.id) {
+        newDish.merchant_id = merchantId;
         dispatchAdd(newDish);
         setActiveDish(newDish);
         setFormState('idle');
@@ -143,8 +145,8 @@ function RestaurantDishForm({
               required: 'This field is required.',
             })}
           >
-            <option value="active">active</option>
-            <option value="draft">draft</option>
+            <option value="enabled">enabled</option>
+            <option value="disabled">disabled</option>
           </Select>
           <FormErrorMessage>
             {errors.status && errors.status.message}
@@ -153,18 +155,18 @@ function RestaurantDishForm({
 
         <FormControl
           className="restaurant-dishform__control"
-          isInvalid={errors.description}
+          isInvalid={errors.bio}
         >
           <FormLabel htmlFor="dish-description">Dish description</FormLabel>
           <Textarea
             id="dish-description"
             placeholder="Some words here..."
-            {...register('description', {
+            {...register('bio', {
               required: 'This field is required.',
             })}
           />
           <FormErrorMessage>
-            {errors.description && errors.description.message}
+            {errors.bio && errors.bio.message}
           </FormErrorMessage>
         </FormControl>
 
@@ -185,18 +187,16 @@ function RestaurantDishForm({
 
         <FormControl
           className="restaurant-dishform__control"
-          isInvalid={errors.image}
+          isInvalid={errors.thumbnail}
         >
           <FormLabel htmlFor="dish-image">Image link</FormLabel>
           <Input
             id="dish-image"
             placeholder="Dish image"
-            {...register('image', {
-              required: 'This field is required.',
-            })}
+            {...register('thumbnail')}
           />
           <FormErrorMessage>
-            {errors.image && errors.image.message}
+            {errors.thumbnail && errors.thumbnail.message}
           </FormErrorMessage>
         </FormControl>
 

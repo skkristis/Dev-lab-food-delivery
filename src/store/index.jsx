@@ -3,16 +3,14 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import ordersReducer from './reducers/ordersReducer';
 import dishesReducer from './reducers/dishesReducer';
+import restaurantsManagementReducer from './reducers/restaurantsManagementReducer';
 import cartReducer from './reducers/cartReducer';
 import customerReducer from './reducers/customerReducer';
 import userReducer from './reducers/userReducer';
-import restaurantsManagementReducer from './reducers/restaurantsManagementReducer';
-import restaurantsClientReducer from './reducers/restaurantsClientReducer';
 
 const rootReducer = combineReducers({
   dishes: dishesReducer,
   restaurantsManagement: restaurantsManagementReducer,
-  restaurantsClient: restaurantsClientReducer,
   orders: ordersReducer,
   cart: cartReducer,
   customer: customerReducer,
@@ -22,7 +20,6 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['restaurantsClient'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

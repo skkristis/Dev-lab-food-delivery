@@ -3,41 +3,35 @@ import { useSelector } from 'react-redux';
 
 import {
   Box,
-  Alert,
-  AlertIcon,
   Text,
   UnorderedList,
   ListItem,
   Image,
+  Button,
+  Flex,
 } from '@chakra-ui/react';
+import CustomerOrderSteps from '../CustomerOrderSteps';
 
 import './CustomerOrderStatus.scss';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 function CustomerOrderStatus() {
   const location = useLocation();
-  const { orderTotal, payMethod } = location.state;
+  const { orderTotal, payMethod } = location?.state
+    ? location.state
+    : { orderTotal: 0, payMethod: undefined };
   const cartItems = useSelector((store) => store.cart.list);
   const customerInfo = useSelector((store) => store.customer);
   const primaryAddress = customerInfo.addressBook.filter(
     (addy) => addy.primary
   )[0];
   const deliveryAddress = `${primaryAddress.street} ${primaryAddress.building}-${primaryAddress.apartment}, ${primaryAddress.city}`;
+  const navigate = useNavigate();
 
   return (
-    <Box position="relative" className="container order-status">
-      <Alert status="info" variant="subtle" className="order-status__alert">
-        <AlertIcon boxSize="50px" mr={0} />
-        <Text className="order-status__title">
-          {`Order is being prepared! Nr. 12983123789`}
-        </Text>
-
-        <Text className="order-status__message">
-          Thanks for choosing our service!
-        </Text>
-      </Alert>
-
-      <Box className="order-status__details order-details">
+    <Box position="relative" className="container order-status" mt="100px">
+      <CustomerOrderSteps />
+      <Box className="order-status__details order-details" mt="50px">
         <Box className="order-details__info">
           <Text className="order-details__title">Order details:</Text>
           <UnorderedList className="order-details__list">
@@ -49,11 +43,11 @@ function CustomerOrderStatus() {
               <Box as="span">Delivery address:</Box> {deliveryAddress}
             </ListItem>
             <ListItem>
-              <Box as="span">Payment:</Box> {orderTotal} EUR by {payMethod}
+              <Box as="span">Payment:</Box> {`${orderTotal} EUR`}{' '}
+              {payMethod && `by ${payMethod}`}
             </ListItem>
           </UnorderedList>
         </Box>
-
         <Box className="order-details__dishes dish-list">
           <Text className="order-details__title">Selected dishes:</Text>
           <UnorderedList className="dish-list__values">
@@ -74,6 +68,24 @@ function CustomerOrderStatus() {
           </UnorderedList>
         </Box>
       </Box>
+      <Flex flexDir="column" align="center" mt="30px">
+        <Box as="span" fontSize="24px" align="center">
+          Your promocode for 10% discount for the upcoming order is
+          <Text fontWeight="700" fontSize="28px" fontStyle="italic">
+            BFD37
+          </Text>
+        </Box>
+        <Button
+          size="lg"
+          mt="20px"
+          width="50%"
+          bg="#3182ce"
+          color="#ffffff"
+          onClick={() => navigate('/')}
+        >
+          Continue shopping
+        </Button>
+      </Flex>
     </Box>
   );
 }

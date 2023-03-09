@@ -1,57 +1,73 @@
 import { Box, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import { useInfiniteQuery } from 'react-query';
 
-import { addToRestaurantList } from '../../../../store/reducers/restaurantsClientReducer';
 import RestaurantListCard from '../RestaurantListCard';
-import storesService from '../../../../services/storesService';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import merchantService from '../../../../services/merchantService';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-function RestaurantList({ selectedCategory }) {
+function RestaurantList({ selectedCategory, currentMerchantType }) {
+  const { ref, inView } = useInView();
+
   const {
     data: fetchedRestaurantData,
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery(['restaurants'], storesService.getRestaurantList, {
-    getNextPageParam: (lastPage) =>
-      lastPage.links.next?.split('merchants?')[1] ?? undefined,
-  });
+    hasNextPage,
+  } = useInfiniteQuery(
+    [
+      'merchants',
+      {
+        filter_equals_type: currentMerchantType,
+        filter_equals_categoryId: selectedCategory?.id || null,
+      },
+    ],
+    merchantService.getMerchantList,
+    {
+      getNextPageParam: (lastPage) =>
+        lastPage?.links.next?.split('merchants?')[1] ?? undefined,
+    }
+  );
 
-  const { ref, inView } = useInView();
+  const [restaurantsList, setRestaurantsList] = useState(
+    fetchedRestaurantData?.pages.reduce((acc, cur) => {
+      return [...acc, ...[cur.data ? cur.data : []]];
+    }, []) || []
+  );
+  const latestFetchedRestaurantList =
+    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages?.length - 1].data;
 
-  let restaurantsList = useSelector((state) => state.restaurantsClient.list);
-
-  const dispatch = useDispatch();
-  const dispatchAdd = (restaurants) =>
-    dispatch(addToRestaurantList(restaurants));
-
+  // check if in view
   useEffect(() => {
-    if (!isFetching && !isFetchingNextPage) fetchNextPage();
+    if (!isFetching && !isFetchingNextPage && hasNextPage) fetchNextPage();
   }, [inView]);
 
+  // clear list on change of query params
   useEffect(() => {
-    const data =
-      fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]
-        .data;
+    setRestaurantsList([]);
+  }, [selectedCategory, currentMerchantType]);
 
-    if (data) dispatchAdd(data);
-  }, [
-    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages.length - 1]?.links
-      .next,
-  ]);
-
-  if (selectedCategory && selectedCategory !== 'All') {
-    restaurantsList = restaurantsList.filter((restaurant) =>
-      restaurant.restaurantTags.includes(selectedCategory)
+  // save on successful fetch
+  useEffect(() => {
+    const restaurantDoesExist = restaurantsList?.filter(
+      (restaurant) => restaurant?.id === latestFetchedRestaurantList?.[0]?.id
     );
-  }
+
+    setRestaurantsList((prevList = []) => {
+      if (restaurantDoesExist) return latestFetchedRestaurantList;
+
+      return [...prevList, ...latestFetchedRestaurantList];
+    });
+  }, [
+    fetchedRestaurantData?.pages[fetchedRestaurantData?.pages?.length - 1]
+      .data[0],
+  ]);
 
   return (
     <Box as="section" className="container">
       {selectedCategory ? (
-        <Heading>{selectedCategory} restaurants</Heading>
+        <Heading>{selectedCategory.name} restaurants</Heading>
       ) : (
         <Heading>All restaurants</Heading>
       )}
@@ -61,30 +77,36 @@ function RestaurantList({ selectedCategory }) {
         justifyContent="space-between"
         marginTop="10px"
       >
-        {restaurantsList.length ? (
+        {restaurantsList?.length ? (
           restaurantsList.map((restaurant) => {
             return (
-              <RestaurantListCard key={restaurant.id} restaurant={restaurant} />
+              <RestaurantListCard
+                key={restaurant?.id}
+                restaurant={restaurant}
+              />
             );
           })
         ) : (
-          <Text
-            display={isFetching ? 'none' : 'block'}
-            textAlign="center"
-            width="100%"
-          >
-            No restaurants available
-          </Text>
+          <>
+            {(isFetching || isFetchingNextPage) && (
+              <Center marginTop="20px" width="100%">
+                <Spinner size="xl" />
+              </Center>
+            )}
+            {!latestFetchedRestaurantList?.length && (
+              <Text
+                display={isFetching ? 'none' : 'block'}
+                textAlign="center"
+                width="100%"
+              >
+                No {currentMerchantType}s available
+              </Text>
+            )}
+          </>
         )}
       </Flex>
 
       <Box ref={ref} bg="transparent"></Box>
-
-      {(isFetching || isFetchingNextPage) && (
-        <Center marginTop="20px">
-          <Spinner size="xl" />
-        </Center>
-      )}
     </Box>
   );
 }

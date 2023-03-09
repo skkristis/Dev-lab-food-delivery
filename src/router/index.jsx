@@ -6,7 +6,7 @@ import {
   BiCar,
 } from 'react-icons/bi';
 
-import { createHashRouter } from 'react-router-dom/dist';
+import { createHashRouter, redirect } from 'react-router-dom/dist';
 import ClientLanding from '../features/client/pages/ClientLanding';
 import ClientLayout from '../features/client/layouts/ClientLayout';
 import AdminLayout from '../features/admin/layouts/AdminLayout';
@@ -54,6 +54,13 @@ function getClientRoutes() {
     },
     {
       path: '/account',
+      loader: () => {
+        const hasToken = localStorage.getItem('accessToken');
+        if (!hasToken) {
+          return redirect('/');
+        }
+        return null;
+      },
       children: [
         { index: true, element: <CustomerAccountDashboard /> },
         {
@@ -79,16 +86,6 @@ function getClientRoutes() {
 
 export function getAdminRoutes() {
   return [
-    // {
-    //   element: <AdminLanding />,
-    //   index: true,
-    //   loader: () => {
-    //     return redirect('/admin/restaurants');
-    //   },
-    //   navItemName: 'Dashboard',
-    //   navItemIcon: FiHome,
-    // },
-    //return after mvp
     {
       path: '/admin/restaurants',
       element: <RestaurantStats />,

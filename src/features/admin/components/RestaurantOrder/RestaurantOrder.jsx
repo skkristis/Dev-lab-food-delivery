@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { update } from '../../../../store/reducers/ordersReducer';
 
 import {
@@ -17,11 +17,11 @@ import {
 
 import './RestaurantOrder.scss';
 
-function RestaurantOrder({ order, ordersSort, setActive, setOrdersSort }) {
-  const allDishes = useSelector((state) => state.dishes.list);
+import dishes from '../../mocks/dishes';
 
+function RestaurantOrder({ order, ordersSort, setActive, setOrdersSort }) {
   const orderDishes = order.dishes.map((dish) => {
-    const name = allDishes.find((item) => item.id === dish.id).name;
+    const name = dishes.find((item) => item.id === dish.id).name;
     return { ...dish, name };
   });
 
