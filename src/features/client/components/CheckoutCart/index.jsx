@@ -13,6 +13,7 @@ import PaymentModal from '../../components/PaymentModal';
 import { mockFess } from '../../mocks/checkoutMock';
 
 function CheckoutCart({ deliveryFee, payMethod, isEmailValid }) {
+  const sessionUser = useSelector((state) => state.user.data);
   const {
     isOpen: paymentIsOpen,
     onOpen: paymentOnOpen,
@@ -92,7 +93,7 @@ function CheckoutCart({ deliveryFee, payMethod, isEmailValid }) {
         color="white"
         bg="blue.400"
         onClick={handleOrderClick}
-        isDisabled={!isEmailValid}
+        isDisabled={!isEmailValid && !sessionUser}
       >
         Click to order
       </Button>
