@@ -12,21 +12,33 @@ import {
   Input,
   Link,
   Stack,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../../../../store/reducers/userReducer';
 import { useForm } from 'react-hook-form';
 
 function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
   const dispatch = useDispatch();
 
-  const { handleSubmit, register, reset } = useForm();
+  const {
+    handleSubmit,
+    register,
+    setError,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const axiosErrors = useSelector((state) => state.user.errors);
 
   const onSubmit = (data) => {
     dispatch(add({ email: data.email, password: data.password }));
-    onClose();
-    reset();
+
+    setError('password', { type: 'custom', message: 'custom message' });
+    console.log(errors);
+    // onClose();
+    // reset();
   };
 
   const handleOpenSignup = () => {
@@ -53,6 +65,7 @@ function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
               placeholder="Password"
               {...register('password')}
             />
+            <Text>{errors.password?.message}</Text>
             <Button type="submit" colorScheme="blue">
               Log in
             </Button>

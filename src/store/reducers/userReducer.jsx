@@ -3,6 +3,7 @@ import auth from '../../services/AuthService';
 
 const initialState = {
   data: null,
+  errors: null,
 };
 
 export const add = createAsyncThunk(
@@ -10,10 +11,15 @@ export const add = createAsyncThunk(
   async ({ email, password } = {}) => {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
-      await auth.login(email, password);
+      try {
+        await auth.login(email, password);
+      } catch (e) {
+        return { data: null, errors: e };
+      }
     }
+
     const response = await auth.me();
-    return response;
+    return { data: response, errors: null };
   }
 );
 
@@ -29,10 +35,10 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(add.fulfilled, (state, action) => {
-        state.data = action.payload;
+        return action.payload;
       })
-      .addCase(remove.fulfilled, (state) => {
-        state.data = null;
+      .addCase(remove.fulfilled, () => {
+        return { data: null, errors: null };
       });
   },
 });
