@@ -11,6 +11,9 @@ export const restaurantsManagementSlice = createSlice({
     add: (state, action) => {
       state.list = [action.payload, ...state.list];
     },
+    addList: (state, action) => {
+      state.list = [...action.payload, ...state.list];
+    },
     update: (state, action) => {
       state.list = state.list.map((merchant) =>
         merchant.id === action.payload.merchant
@@ -63,7 +66,7 @@ export const restaurantsManagementSlice = createSlice({
   extraReducers: () => {},
 });
 
-export const { add, update, remove, addItem, updateItem, removeItem } =
+export const { add, addList, update, remove, addItem, updateItem, removeItem } =
   restaurantsManagementSlice.actions;
 
 export default restaurantsManagementSlice.reducer;
