@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import dishes from '../../features/admin/mocks/dishes';
 
 const initialState = {
@@ -10,7 +11,7 @@ export const dishesSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action) => {
-      state.list = [action.payload, ...state.list];
+      state.list = [...state.list, action.payload];
     },
     update: (state, action) => {
       state.list = state.list.map((dish) =>

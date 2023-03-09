@@ -17,7 +17,9 @@ import { useLocation, useNavigate } from 'react-router';
 
 function CustomerOrderStatus() {
   const location = useLocation();
-  const { orderTotal, payMethod } = location.state;
+  const { orderTotal, payMethod } = location?.state
+    ? location.state
+    : { orderTotal: 0, payMethod: undefined };
   const cartItems = useSelector((store) => store.cart.list);
   const customerInfo = useSelector((store) => store.customer);
   const primaryAddress = customerInfo.addressBook.filter(
@@ -29,7 +31,6 @@ function CustomerOrderStatus() {
   return (
     <Box position="relative" className="container order-status" mt="100px">
       <CustomerOrderSteps />
-
       <Box className="order-status__details order-details" mt="50px">
         <Box className="order-details__info">
           <Text className="order-details__title">Order details:</Text>
@@ -42,7 +43,8 @@ function CustomerOrderStatus() {
               <Box as="span">Delivery address:</Box> {deliveryAddress}
             </ListItem>
             <ListItem>
-              <Box as="span">Payment:</Box> {orderTotal} EUR by {payMethod}
+              <Box as="span">Payment:</Box> {`${orderTotal} EUR`}{' '}
+              {payMethod && `by ${payMethod}`}
             </ListItem>
           </UnorderedList>
         </Box>

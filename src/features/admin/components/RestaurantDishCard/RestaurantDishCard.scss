@@ -15,7 +15,7 @@
     transform: scale(1.02);
   }
 
-  &.is-draft {
+  &.is-disabled {
     &::before {
       content: 'draft';
       position: absolute;
