@@ -4,7 +4,6 @@ import { useMediaQuery } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 function RestaurantInspectForLanding({ item }) {
-  console.log(item)
   const [smallerScreen] = useMediaQuery('(max-width: 750px)');
   return (
     <Box
@@ -16,7 +15,7 @@ function RestaurantInspectForLanding({ item }) {
       rounded="md"
       _hover={{ transform: 'scale(1.01)' }}
       position="relative"
-      backgroundImage={item.thumbnail || noImage }
+      backgroundImage={item.thumbnail || noImage}
       backgroundSize="cover"
     >
       <Box
