@@ -8,6 +8,8 @@ const getCategoryList = async ({ queryKey }) => {
 
 const getMerchantList = async ({ pageParam, queryKey }) => {
   const [, queryParam] = queryKey;
+  const cursorParam = { cursor: pageParam };
+
   const response = await axios.get('/api/merchants', {
     params: cursorParam?.cursor ? cursorParam : queryParam,
   });
