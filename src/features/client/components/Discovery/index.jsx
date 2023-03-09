@@ -42,9 +42,7 @@ function Discovery() {
         >
           {restaurantItem.data.length > 0 && !isLoading ? (
             restaurantItem.data.map((item) => (
-              <>
                 <RestaurantInspectForLanding item={item} key={item.id} />
-              </>
             ))
           ) : (
             <Spinner></Spinner>
