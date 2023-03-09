@@ -25,6 +25,7 @@ function OrderParametersModal({
   }
 
   const handleClick = (e) => {
+    console.log(e.target.innerText);
     setStateFn(e.target.innerText);
     onClose();
   };

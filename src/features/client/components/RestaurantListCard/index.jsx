@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import bicycleUrl from '../../../../assets/bicycle-icon.svg';
+import placeholderRestaurantUrl from '../../../../assets/placeholder-restaurant.jpg';
 
 function RestaurantListCard({ restaurant }) {
   return (
@@ -31,11 +32,11 @@ function RestaurantListCard({ restaurant }) {
     >
       <Box height="150px" overflow="hidden" position="relative">
         <Image
-          src={restaurant.restaurantThumb}
+          src={restaurant.thumbnail || placeholderRestaurantUrl}
           boxSize="100%"
           objectFit="cover"
         />
-        {restaurant?.working && (
+        {restaurant.is_closed && (
           <Box
             position="absolute"
             top="0"
@@ -58,14 +59,21 @@ function RestaurantListCard({ restaurant }) {
         )}
       </Box>
       <Flex gap="15px" justifyContent="space-between" alignItems="center" p="3">
-        <Box>
+        <Box maxW="80%">
           <Heading fontSize="14px">
-            <LinkOverlay as="div">
-              {`${restaurant.restaurantName} (${restaurant.restaurantAddress})`}
-            </LinkOverlay>
+            <LinkOverlay as="div">{`${restaurant.full_name} `}</LinkOverlay>
           </Heading>
 
-          <Text>{restaurant.restaurantBio}</Text>
+          <Text
+            maxH="20px"
+            maxW="90%"
+            whiteSpace="nowrap"
+            display="inline-block"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          >
+            {restaurant.bio}
+          </Text>
         </Box>
         <Box>
           <Text
@@ -75,15 +83,13 @@ function RestaurantListCard({ restaurant }) {
             textAlign="center"
             lineHeight="20px"
           >
-            {restaurant.restaurantDeliveryTime}
-            <br />
-            min
+            {restaurant.delivery_text}
           </Text>
         </Box>
       </Flex>
       <Flex gap="2" p="2" borderTop="1px dashed lightgray">
         <Image src={bicycleUrl} width="20px" />
-        {`€${restaurant.restaurantDeliveryPrice} ☆${restaurant.restaurantRating}`}
+        {`€ ${restaurant.delivery_cost} ☆ ${restaurant.rating}`}
       </Flex>
     </LinkBox>
   );
