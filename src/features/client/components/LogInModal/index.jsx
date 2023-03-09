@@ -18,6 +18,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../../../../store/reducers/userReducer';
 import { useForm } from 'react-hook-form';
+import auth from '../../../../services/AuthService';
 
 function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
   const dispatch = useDispatch();
@@ -30,15 +31,28 @@ function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
     formState: { errors },
   } = useForm();
 
-  const axiosErrors = useSelector((state) => state.user.errors);
+  const onSubmit = async (data) => {
+    try {
+      await auth.login(data.email, data.password);
 
-  const onSubmit = (data) => {
-    dispatch(add({ email: data.email, password: data.password }));
+      dispatch(add({ email: data.email, password: data.password }));
+      onClose();
+    } catch (e) {
+      const errors = e.response?.data?.errors;
 
-    setError('password', { type: 'custom', message: 'custom message' });
-    console.log(errors);
-    // onClose();
-    // reset();
+      if (errors.email) {
+        setError('email', {
+          type: 'server',
+          message: errors.email[0],
+        });
+      }
+      if (errors.password) {
+        setError('password', {
+          type: 'server',
+          message: errors.password[0],
+        });
+      }
+    }
   };
 
   const handleOpenSignup = () => {
@@ -60,12 +74,19 @@ function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
             onSubmit={handleSubmit(onSubmit)}
           >
             <Input placeholder="Email" {...register('email')} />
+            <Text color="red" display={errors.email ? 'block' : 'none'}>
+              {errors.email && errors.email.message}
+            </Text>
+
             <Input
               type="password"
               placeholder="Password"
               {...register('password')}
             />
-            <Text>{errors.password?.message}</Text>
+            <Text color="red" display={errors.password ? 'block' : 'none'}>
+              {errors.password && errors.password.message}
+            </Text>
+
             <Button type="submit" colorScheme="blue">
               Log in
             </Button>
