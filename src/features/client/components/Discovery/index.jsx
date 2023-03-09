@@ -4,23 +4,14 @@ import ScrollButton from '../ScrollButton';
 import './index.scss';
 import { useQuery } from 'react-query';
 import discoveryService from '../../../../services/discoveryService';
-import { useEffect, useState } from 'react';
 import { Spinner } from '@chakra-ui/react';
 
 function Discovery() {
-  const [restaurantItem, setRestaurantItem] = useState({ data: [] });
-  const { isLoading } = useQuery(
+  const {data, isLoading } = useQuery(
     'restaurantItem',
     discoveryService.getRestaurantItem
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await discoveryService.getRestaurantItem();
-      setRestaurantItem(data);
-    };
-    fetchData();
-  }, []);
 
   return (
     <Box as="section" className="container">
@@ -40,13 +31,14 @@ function Discovery() {
           id="discovery-item-list"
           justifyContent={isLoading && 'center'}
         >
-          {restaurantItem.data.length > 0 && !isLoading ? (
-            restaurantItem.data.map((item) => (
-                <RestaurantInspectForLanding item={item} key={item.id} />
-            ))
+          { isLoading ? (
+            <Spinner />
           ) : (
-            <Spinner></Spinner>
+            data.data.map((item) => (
+              <RestaurantInspectForLanding item={item} key={item.id} />
+          ))
           )}
+      
         </Flex>
         <ScrollButton
           rightButton={true}
