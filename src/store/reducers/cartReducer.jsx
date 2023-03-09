@@ -69,6 +69,12 @@ export const cartSlice = createSlice({
           }),
       };
     },
+    clearBasket: (state) => {
+      return {
+        ...state,
+        list: [],
+      };
+    },
   },
 });
 
@@ -77,6 +83,7 @@ export const {
   increaseItemQuantity,
   decreaseItemQuantity,
   deleteItem,
+  clearBasket,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
