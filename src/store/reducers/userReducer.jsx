@@ -6,10 +6,17 @@ const initialState = {
   errors: null,
 };
 
-export const add = createAsyncThunk('user/add', async () => {
-  const response = await auth.me();
-  return { data: response, errors: null };
-});
+export const add = createAsyncThunk(
+  'user/add',
+  async ({ email, password } = {}) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      await auth.login(email, password);
+    }
+    const response = await auth.me();
+    return response;
+  }
+);
 
 export const remove = createAsyncThunk(
   'user/remove',
