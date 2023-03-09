@@ -9,11 +9,10 @@ import {
 } from '@chakra-ui/react';
 
 import { useSelector } from 'react-redux';
-
 import PaymentModal from '../../components/PaymentModal';
 import { mockFess } from '../../mocks/checkoutMock';
 
-function CheckoutCart({ deliveryFee, payMethod }) {
+function CheckoutCart({ deliveryFee, payMethod, isEmailValid }) {
   const {
     isOpen: paymentIsOpen,
     onOpen: paymentOnOpen,
@@ -93,6 +92,7 @@ function CheckoutCart({ deliveryFee, payMethod }) {
         color="white"
         bg="blue.400"
         onClick={handleOrderClick}
+        isDisabled={!isEmailValid}
       >
         Click to order
       </Button>
