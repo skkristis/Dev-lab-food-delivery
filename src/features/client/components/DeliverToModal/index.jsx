@@ -32,7 +32,7 @@ function DeliverToModal({ isOpen, onClose, isLoggedIn }) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Change order details</ModalHeader>
+        <ModalHeader>Change delivery address</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Stack>

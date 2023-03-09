@@ -67,9 +67,9 @@ function RestaurantList({ selectedCategory, currentMerchantType }) {
   return (
     <Box as="section" className="container">
       {selectedCategory ? (
-        <Heading>{selectedCategory.name} restaurants</Heading>
+        <Heading>{`${selectedCategory.name} ${currentMerchantType}s`}</Heading>
       ) : (
-        <Heading>All restaurants</Heading>
+        <Heading>{`All ${currentMerchantType}s`}</Heading>
       )}
       <Flex
         flexWrap="wrap"
