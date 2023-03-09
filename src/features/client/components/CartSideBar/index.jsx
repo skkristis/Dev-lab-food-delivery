@@ -47,11 +47,8 @@ function CartSideBar({ restaurantInfo, cartItems }) {
         <Flex direction="column">
           <Stack padding="0 20px" alignItems="left">
             <Text fontSize="20px" color="rgb(118, 118, 118)">
-              Your order from
+              Your order:
             </Text>
-            <Heading mt="0" fontSize="26px">
-              BFD.LT
-            </Heading>
           </Stack>
           <Box
             padding="0px 20px"

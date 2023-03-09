@@ -6,10 +6,12 @@ const getCategoryList = async ({ queryKey }) => {
   return response.data;
 };
 
-const getMerchantList = async ({ pageParam, queryKey }) => {
+const getMerchantList = async ({ pageParam: next_cursor, queryKey }) => {
   const [, queryParam] = queryKey;
+  const cursorParam = { cursor: next_cursor };
+
   const response = await axios.get('/api/merchants', {
-    params: pageParam || queryParam,
+    params: cursorParam?.cursor ? cursorParam : queryParam,
   });
 
   return response.data;
