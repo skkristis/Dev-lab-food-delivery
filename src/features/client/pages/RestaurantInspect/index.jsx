@@ -1,16 +1,31 @@
 import { Box, Heading, Image, Text, Flex, Button } from '@chakra-ui/react';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import clockUrl from '../../../../assets/clock-icon.svg';
 import CartSideBar from '../../components/CartSideBar';
 import RestaurantInspectSection from '../../components/RestaurantInspectSection';
+import placeholderRestaurantUrl from '../../../../assets/placeholder-restaurant.jpg';
 
 function RestaurantInspect() {
   const restaurantInfo = useLoaderData();
-  const cartItems = useSelector((store) => store.cart.list);
+  const [sections, setSections] = useState([]);
 
+  useEffect(() => {
+    const items = restaurantInfo.items;
+
+    while (items.length) {
+      const section = items.splice(0, 3);
+
+      setSections((prevState) => [
+        ...prevState,
+        { heading: `Section`, items: section },
+      ]);
+    }
+  }, [restaurantInfo]);
+
+  const cartItems = useSelector((store) => store.cart.list);
   const cartOpened = cartItems.length ? true : false;
 
   return (
@@ -24,11 +39,11 @@ function RestaurantInspect() {
       <Box p="0 10px" mt="50px">
         <Box position="relative" rounded="xl" overflow="hidden">
           <Image
-            src={restaurantInfo.restaurantThumb}
+            src={restaurantInfo.thumbnail || placeholderRestaurantUrl}
             position="absolute"
             left="0"
             right="0"
-            top={{ base: '0', lg: '-20vw' }}
+            // top={{ base: '0', lg: '-20vw' }}
             zIndex="-2"
             width="100vw"
             objectFit="cover"
@@ -51,8 +66,8 @@ function RestaurantInspect() {
             color="white"
             paddingInline="30px"
           >
-            <Heading>{`${restaurantInfo.restaurantName} (${restaurantInfo.restaurantAddress})`}</Heading>
-            <Text>{restaurantInfo.restaurantBio}</Text>
+            <Heading>{restaurantInfo.full_name}</Heading>
+            <Text>{restaurantInfo.bio}</Text>
           </Box>
         </Box>
         <Box bg="white" borderBottom="1px solid lightgray">
@@ -65,10 +80,10 @@ function RestaurantInspect() {
           >
             <Flex gap="10px">
               <Image src={clockUrl} width="15px" />
-              <Text>{restaurantInfo.restaurantWorkingHours}</Text>
+              <Text>{restaurantInfo.is_closed ? 'Closed' : 'Open'}</Text>
             </Flex>
             <Box gap="10px">
-              <Text>☆ {restaurantInfo.restaurantRating}</Text>
+              <Text>☆ {restaurantInfo.rating}</Text>
             </Box>
             <Button variant="ghost" color="blue.400" gap="10px">
               <Box
@@ -87,7 +102,7 @@ function RestaurantInspect() {
         </Box>
         <Flex padding={{ base: 0, sm: '0 10px' }} bg="white" gap="10px">
           <Box bg="white" paddingTop="20px" width="100%" flex="6">
-            {restaurantInfo.restaurantMenu.map((dealSection, i) => {
+            {sections.map((dealSection, i) => {
               return (
                 <RestaurantInspectSection
                   key={i}
@@ -106,7 +121,7 @@ function RestaurantInspect() {
         maxWidth="450px"
       >
         <Box maxWidth="450px" position="fixed" padding="20px 10px 0 10px">
-          <CartSideBar cartItems={cartItems} />
+          <CartSideBar restaurantInfo={restaurantInfo} cartItems={cartItems} />
         </Box>
       </Box>
     </Flex>

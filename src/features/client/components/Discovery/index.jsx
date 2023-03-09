@@ -1,10 +1,17 @@
 import { Box, Heading, Flex } from '@chakra-ui/react';
-import { restaurantInspectMock } from '../../mocks/restaurantInspectMock';
 import RestaurantInspectForLanding from '../RestaurantInspectForLanding';
 import ScrollButton from '../ScrollButton';
 import './index.scss';
+import { useQuery } from 'react-query';
+import itemService from '../../../../services/itemService';
+import { Spinner } from '@chakra-ui/react';
 
 function Discovery() {
+  const { data: items, isLoading } = useQuery(
+    'restaurantItem',
+    itemService.discover
+  );
+
   return (
     <Box as="section" className="container">
       <Heading>Discover</Heading>
@@ -21,14 +28,15 @@ function Discovery() {
           width="100%"
           overflowX="scroll"
           id="discovery-item-list"
+          justifyContent={isLoading && 'center'}
         >
-          {restaurantInspectMock.restaurantMenu.map((dealSection) => {
-            {
-              return dealSection.deals.map((item, i) => (
-                <RestaurantInspectForLanding item={item} key={i} />
-              ));
-            }
-          })}
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            items?.data.map((item) => (
+              <RestaurantInspectForLanding item={item} key={item.id} />
+            ))
+          )}
         </Flex>
         <ScrollButton
           rightButton={true}
