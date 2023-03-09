@@ -12,8 +12,7 @@ class Auth {
       last_name: user.lastName,
       email: user.email,
       password: user.password,
-      password_confirmation: user.password,
-      adult_agree: user.isAdult,
+      password_confirmation: user.confirmPassword,
       terms_agree: user.termsAgree,
     };
 

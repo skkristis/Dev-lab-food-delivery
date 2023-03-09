@@ -32,7 +32,10 @@ function LoggedInUserHeader() {
 
   const sessionUser = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
-  const handleLogout = () => dispatch(remove());
+  const handleLogout = () => {
+    dispatch(remove());
+    navigate('/');
+  };
 
   return (
     <HStack spacing={{ base: '0', md: '6' }}>
