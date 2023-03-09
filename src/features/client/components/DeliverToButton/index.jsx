@@ -39,7 +39,7 @@ function DeliverToButton({ isLoggedIn }) {
           Delivery to
           <br />
           <Box as="span" color="blue.400" fontWeight="semibold" fontSize="14px">
-            {isLoggedIn ? customerPrimaryAddressString : 'Somewhere..?'}
+            {isLoggedIn ? customerPrimaryAddressString : 'Vilnius'}
           </Box>
         </Text>
         <Image boxSize="20px" src={arrowDownUrl} />

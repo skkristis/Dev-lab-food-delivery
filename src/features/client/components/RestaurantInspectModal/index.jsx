@@ -49,7 +49,7 @@ function RestaurantInspectModal({ isOpen, onClose, deal }) {
           </Heading>
           <Flex alignItems="center">
             <Text margin="20px" fontSize="16px">
-              €{deal.recipePrice}
+              {deal.recipePrice} €
             </Text>
             {deal.popular && (
               <Text
