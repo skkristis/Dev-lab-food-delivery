@@ -5,7 +5,7 @@ import {
   Stack,
   Text,
   useDisclosure,
-  Input
+  Input,
 } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { useForm, useWatch } from 'react-hook-form';
@@ -23,13 +23,17 @@ import { useSelector } from 'react-redux';
 
 import RadioButtonsForPayment from '../RadioButtonsForPayment';
 
-function OrderDetailCustomization({ payMethod, setPayMethod, setIsEmailValid }) {
+function OrderDetailCustomization({
+  payMethod,
+  setPayMethod,
+  setIsEmailValid,
+}) {
   const {
     register,
     formState: { errors },
     control,
   } = useForm({
-    mode: 'onChange'
+    mode: 'onChange',
   });
 
   const email = useWatch({ control, name: 'email' });
@@ -77,7 +81,10 @@ function OrderDetailCustomization({ payMethod, setPayMethod, setIsEmailValid }) 
             <Input
               type="email"
               placeholder="Enter your email address"
-              {...register('email', { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i })}
+              {...register('email', {
+                required: true,
+                pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
+              })}
             />
             {errors.email && (
               <Text color="red.500">Please enter a valid email address</Text>

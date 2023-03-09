@@ -22,10 +22,17 @@ import './index.scss';
 function SignUpModal({ isOpen, onClose }) {
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, reset, watch, setError, formState: {errors} } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm();
 
   const password = useRef();
-  password.current = watch("password");
+  password.current = watch('password');
   password.confirm = watch('confirmPassword');
 
   const onSubmit = (data) => {
@@ -39,7 +46,7 @@ function SignUpModal({ isOpen, onClose }) {
     };
 
     const isPasswordMatch = validatePasswordMatch();
-    if(!isPasswordMatch) {
+    if (!isPasswordMatch) {
       return;
     }
     auth.register(userdata).then(() => {
@@ -55,9 +62,9 @@ function SignUpModal({ isOpen, onClose }) {
         type: 'manual',
         message: 'Passwords do not match',
       });
-      return false
+      return false;
     }
-    return true
+    return true;
   };
 
   return (

@@ -12,10 +12,9 @@ import {
   Input,
   Link,
   Stack,
-  FormErrorMessage,
 } from '@chakra-ui/react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { add } from '../../../../store/reducers/userReducer';
 import { useForm } from 'react-hook-form';
 import auth from '../../../../services/AuthService';
@@ -27,7 +26,6 @@ function LogInModal({ isOpen, onClose, onSignupModalOpen }) {
     handleSubmit,
     register,
     setError,
-    reset,
     formState: { errors },
   } = useForm();
 
