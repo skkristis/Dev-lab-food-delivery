@@ -22,7 +22,6 @@ function Discovery() {
     fetchData();
   }, []);
 
-  console.log(isLoading);
   return (
     <Box as="section" className="container">
       <Heading>Discover</Heading>
